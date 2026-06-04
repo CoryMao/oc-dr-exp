@@ -45,12 +45,15 @@ Fixed setup:
 
 ```text
 pdf skill = on
+citation_standard skill = on
 arxiv MCP = on
 mcp-refchecker = on
 model = Deepseek v4 Pro
 framework = OpenClaw + selected skills + MCP + memory setting
 case order = 1 -> 2 -> 3 -> 4 -> 5
 ```
+
+The `citation_standard` skill is fixed across all main-experiment conditions. It standardizes citation position syntax so that reports are easier to audit and can be checked by script. It is not treated as a main experimental variable, and CPS formatting failures are reported separately from citation-conclusion inconsistency errors.
 
 Main variables:
 
