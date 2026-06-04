@@ -1,0 +1,107 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+# ORIGINAL_REPORT
+
+## 第一部分：总体评估
+
+当前证据呈现出两面性。在受控基准测试上，前沿LLM Agent已展示接近初级工程师的表现：Trae Agent在SWE-Bench Verified上Pass@1达75.20% [A]。然而，更具生态效度的评估揭示出实质性差距：SWE-Bench Pro上最强模型仅43.6%（公开集），商业集更跌至17.8% [B]。更关键的是，一项严格的RCT发现，在真实开源项目中使用2025年初前沿AI工具的资深开发者反而慢了19% [C]，开发者与专家均系统性高估了AI的生产力收益 [C][F]。文献共识是：AI编码助手能加速简单、自包含任务，但在需要跨文件推理、上下文感知和高质量保证的复杂工程任务上仍存明显局限 [D][E]。核心gap在于基准测试与真实生产力之间的推断鸿沟，以及训练数据污染对评估效度的威胁 [B][C]。
+
+## 第二部分：逐条结论
+
+- 在受控基准SWE-Bench Verified上，前沿LLM Agent的Pass@1已达75.20%，但该基准中包含大量仅需1-2行修改的简单任务，未必能代表真实工程工作。
+  出处：[A] §4.1::¶1; §4.1::¶2 / [B] §1::¶2
+
+- 在更具挑战性且抗污染的SWE-Bench Pro上，最强模型Claude Sonnet 4.5仅解决43.6%的公开集任务，商业集上Opus 4.1仅17.8%，表明当前Agent距离处理复杂企业级工程任务仍有较大差距。
+  出处：[B] §5::T1; §5::T2; §6.1::¶3
+
+- 严格的随机对照试验发现，资深开源开发者在真实项目中使用Cursor Pro和Claude Sonnet等前沿AI工具时，任务完成时间反增19%，开发者事前预测加速24%、事后仍估计加速20%，表明主观感知与实际效果存在系统性偏差。
+  出处：[C] §1::¶3; §3.1::¶1; §3.1::¶2
+
+- AI工具显著改变了开发者的时间分配：使用AI时，主动编码和搜索/阅读信息的时间占比下降，而审阅AI输出、提示AI系统和等待AI生成的时间占比上升，形成了从"创建"到"验证"的工作重心转移。
+  出处：[C] §3.2::¶1; §3.2::F6 / [F] §4.2::¶2
+
+- 对AI编码助手的用户反馈分析表明，经验丰富的开发者比新手更倾向于批评AI输出质量，新手对AI的接受度和满意度更高，这意味着AI当前更适合辅助而非替代有经验的工程师。
+  出处：[E] §V-A::¶2; §V-A1::¶1
+
+- 系统文献综述指出，AI辅助编码在提升生产力的同时引入了验证开销和过度依赖风险，AI生成代码在正确性、可维护性和安全性方面均存在隐患，这对新手工程师的培养路径构成潜在威胁。
+  出处：[D] Abstract::¶2
+
+- 纵向追踪研究揭示了"生产力-体验悖论"：84%的工程师在两次调查中均报告生产感受提升，但匹配样本中报告至少一个维度开发体验恶化的比例从14%升至27%，其中心流状态和认知负荷是恶化最显著的维度。
+  出处：[F] §4.3::¶2; §4.3::¶3
+
+## 第三部分：引用论文清单
+
+- [A] Trae Research Team; Gao, Pengfei; Tian, Zhao et al. (2025). "Trae Agent: An LLM-based Agent for Software Engineering with Test-time Scaling." arXiv. arXiv:2507.23370. 检索词: {provided_pdf}
+
+- [B] Deng, Xiang; Da, Jeff; Pan, Edwin et al. (2025). "SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?" arXiv. arXiv:2509.16941. 检索词: {provided_pdf}
+
+- [C] Becker, Joel; Rush, Nate; Barnes, Beth; Rein, David (2025). "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity." arXiv. arXiv:2507.09089. 检索词: {provided_pdf}
+
+- [D] Sergeyuk, Agnia; Zakharov, Ilya; Koshchenko, Ekaterina; Izadi, Maliheh (2025). "Human-AI Experience in Integrated Development Environments: A Systematic Literature Review." arXiv. arXiv:2503.06195. 检索词: {arXiv search: "AI coding assistant" AND "integrated development environment" AND "productivity" AND "systematic review"; categories: cs.SE, cs.HC; date 2024-2025}
+
+- [E] Lyu, Yunbo; Yang, Zhou; Shi, Jieke; Chang, Jianming; Liu, Yue; Lo, David (2025). "My productivity is boosted, but... Demystifying Users' Perception on AI Coding Assistants." arXiv. arXiv:2508.12285. 检索词: {arXiv search: "AI coding assistant" AND "user perception" OR "user review" AND "productivity"; categories: cs.SE, cs.HC; date 2024-2025}
+
+- [F] Vella, Annie; Blincoe, Kelly (2026). "The Impact of AI Coding Assistants on Software Engineering: A Longitudinal Study." arXiv. arXiv:2605.23135. 检索词: {arXiv search: "AI coding assistant" AND "longitudinal study" AND "developer experience" AND "productivity"; categories: cs.SE; date 2024-2025}
+
+# REFCHECKER_REPAIR_LOG
+
+```jsonl
+{"case_id":"C5","run_id":"R2","item_id":"ref_A","item_type":"reference_metadata","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"作者列表中缺失首位作者 Trae Research Team；refchecker 检测到 14 位 cited vs 15 位 actual","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R2","item_id":"ref_B","item_type":"reference_metadata","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"refchecker 确认标题、年份、arXiv ID 匹配，作者列表不完整（仅列6位/实际22位）但核心身份无误","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R2","item_id":"ref_C","item_type":"reference_metadata","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"第三作者 Beth Barnes 实际为 Elizabeth Barnes，姓名不一致","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R2","item_id":"ref_D","item_type":"reference_metadata","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"refchecker 确认论文已发表于 Empirical Software Engineering 期刊，不应仅标注为 arXiv 预印本","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R2","item_id":"ref_E","item_type":"reference_metadata","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"refchecker 确认论文已发表于 ASE (International Conference on Automated Software Engineering)，不应仅标注为 arXiv 预印本","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R2","item_id":"ref_F","item_type":"reference_metadata","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"refchecker 确认标题、作者、年份、arXiv ID 全部匹配，无问题","repair_action":"none"}
+{"case_id":"C5","run_id":"R2","item_id":"claim_01","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"no","refchecker_verified":"uncertain","issue_type":"scope_error","issue_summary":"[A] §4.1::¶1-2 仅包含 SWE-bench Verified 作为评估基准的介绍，并未讨论该基准中简单任务的比例；该评估由 [B] §1::¶2 提供支持，位置分配可优化","repair_action":"weaken_claim"}
+{"case_id":"C5","run_id":"R2","item_id":"claim_02","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"no","refchecker_verified":"uncertain","issue_type":"none","issue_summary":"[B] §5::T1/T2 数据（43.6%/17.8%）与阅读内容一致；§6.1::¶3 讨论多文件性能退化，支持 claim","repair_action":"none"}
+{"case_id":"C5","run_id":"R2","item_id":"claim_03","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"no","refchecker_verified":"uncertain","issue_type":"none","issue_summary":"[C] §1::¶3 报告 19% 减速，§3.1::¶1 报告开发者预测 24% 加速、事后估计 20% 加速，与 claim 完全一致","repair_action":"none"}
+{"case_id":"C5","run_id":"R2","item_id":"claim_04","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"no","refchecker_verified":"uncertain","issue_type":"support_error","issue_summary":"[C] §3.2 活动标签分析支持时间分配变化；[F] 中 creation-to-verification 概念在 Abstract 与 §4.2 均有讨论，但 OR 中引用 [F] §4.2::¶2 的精确位置未在可获取片段中逐段验证","repair_action":"weaken_claim"}
+{"case_id":"C5","run_id":"R2","item_id":"claim_05","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"no","refchecker_verified":"uncertain","issue_type":"overclaim","issue_summary":"[E] 通过挖掘 VSCode Marketplace 用户评论构建分类法，但未按开发者经验水平分层分析；因此'经验丰富的开发者比新手更倾向于批评'无法从 [E] 的发现中直接推出","repair_action":"remove_claim"}
+{"case_id":"C5","run_id":"R2","item_id":"claim_06","item_type":"claim_citation_pair","citation_tag":"D","tool_called_refchecker":"no","refchecker_verified":"uncertain","issue_type":"none","issue_summary":"[D] Abstract 明确提及 productivity 提升、verification overhead、over-reliance，以及 correctness/maintainability/security 风险，与 claim 一致","repair_action":"none"}
+{"case_id":"C5","run_id":"R2","item_id":"claim_07","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"no","refchecker_verified":"uncertain","issue_type":"scope_error","issue_summary":"[F] Abstract 包含 84%/14%→27% 数据且明确提到 flow state 和 cognitive load 恶化，但 OR 引用 §4.3::¶2-3 在阅读片段中无法逐段确认编号，可能应为 Abstract 或其他子节","repair_action":"correct_metadata"}
+```
+
+# REPAIRED_REPORT
+
+## 第一部分：总体评估
+
+当前证据呈现出两面性。在受控基准测试上，前沿LLM Agent已展示接近初级工程师的表现：Trae Agent在SWE-Bench Verified上Pass@1达75.20% [A]。然而，更具生态效度的评估揭示出实质性差距：SWE-Bench Pro上最强模型仅43.6%（公开集），商业集更跌至17.8% [B]。更关键的是，一项严格的RCT发现，在真实开源项目中使用2025年初前沿AI工具的资深开发者反而慢了19% [C]，开发者与专家均系统性高估了AI的生产力收益 [C][F]。文献共识是：AI编码助手能加速简单、自包含任务，但在需要跨文件推理、上下文感知和高质量保证的复杂工程任务上仍存明显局限 [D]。核心gap在于基准测试与真实生产力之间的推断鸿沟，以及训练数据污染对评估效度的威胁 [B][C]。
+
+## 第二部分：逐条结论
+
+- 在受控基准SWE-Bench Verified上，前沿LLM Agent的Pass@1已达75.20%，但该基准中的部分任务仅需少量代码修改，其难度分布未必能代表真实工程工作。
+  出处：[A] §1::¶5 / [B] §1::¶2
+
+- 在更具挑战性且抗污染的SWE-Bench Pro上，最强模型Claude Sonnet 4.5仅解决43.6%的公开集任务，商业集上Opus 4.1仅17.8%，表明当前Agent距离处理复杂企业级工程任务仍有较大差距。
+  出处：[B] §5::T1; §5::T2 / [B] §6.1::¶3
+
+- 严格的随机对照试验发现，资深开源开发者在真实项目中使用Cursor Pro和Claude Sonnet等前沿AI工具时，任务完成时间增加19%，开发者事前预测加速24%、事后仍估计加速20%，表明主观感知与实际效果存在系统性偏差。
+  出处：[C] §1::¶3; §3.1::¶1; §3.1::¶2
+
+- AI工具显著改变了开发者的时间分配：使用AI时，主动编码和搜索信息的时间占比下降，而审阅AI输出、提示AI系统和等待AI生成的时间占比上升，部分研究将这种转变描述为从创建到验证的工作重心转移。
+  出处：[C] §3.2::¶1; §3.2::F6 / [F] Abstract::¶2
+
+- 系统文献综述指出，AI辅助编码在提升生产力的同时引入了验证开销和过度依赖风险，AI生成代码在正确性、可维护性和安全性方面均存在隐患，这对新手工程师的培养路径构成潜在威胁。
+  出处：[D] Abstract::¶2
+
+- 纵向追踪研究揭示了"生产力-体验悖论"：84%的工程师在两次调查中均报告生产力感受提升，但匹配样本中报告至少一个维度开发体验恶化的比例从14%升至27%，其中心流状态和认知负荷是恶化最显著的维度。
+  出处：[F] Abstract::¶2; §1::¶4
+
+## 第三部分：引用论文清单
+
+- [A] Trae Research Team; Gao, Pengfei; Tian, Zhao et al. (2025). "Trae Agent: An LLM-based Agent for Software Engineering with Test-time Scaling." arXiv. arXiv:2507.23370. 检索词: {provided_pdf}
+
+- [B] Deng, Xiang; Da, Jeff; Pan, Edwin et al. (2025). "SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?" arXiv. arXiv:2509.16941. 检索词: {provided_pdf}
+
+- [C] Becker, Joel; Rush, Nate; Barnes, Elizabeth; Rein, David (2025). "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity." arXiv. arXiv:2507.09089. 检索词: {provided_pdf}
+
+- [D] Sergeyuk, Agnia; Zakharov, Ilya; Koshchenko, Ekaterina; Izadi, Maliheh (2025). "Human-AI Experience in Integrated Development Environments: A Systematic Literature Review." Empirical Software Engineering / arXiv. arXiv:2503.06195. 检索词: {arXiv search: "AI coding assistant" AND "integrated development environment" AND "productivity" AND "systematic review"; categories: cs.SE, cs.HC; date 2024-2025}
+
+- [E] Lyu, Yunbo; Yang, Zhou; Shi, Jieke; Chang, Jianming; Liu, Yue; Lo, David (2025). "\"My productivity is boosted, but ...\" Demystifying Users' Perception on AI Coding Assistants." ASE (International Conference on Automated Software Engineering) / arXiv. arXiv:2508.12285. 检索词: {arXiv search: "AI coding assistant" AND "user perception" OR "user review" AND "productivity"; categories: cs.SE, cs.HC; date 2024-2025}
+
+- [F] Vella, Annie; Blincoe, Kelly (2026). "The Impact of AI Coding Assistants on Software Engineering: A Longitudinal Study." arXiv. arXiv:2605.23135. 检索词: {arXiv search: "AI coding assistant" AND "longitudinal study" AND "developer experience" AND "productivity"; categories: cs.SE; date 2024-2025}
+
+# RUN_SUMMARY
+
+```json
+{"case_id":"C5","run_id":"R2","tool_called_refchecker":"yes","num_references_checked":6,"num_claim_pairs_checked":7,"num_issues_found":8,"num_revisions_made":9}
+```

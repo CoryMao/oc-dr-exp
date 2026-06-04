@@ -1,0 +1,6 @@
+[tools] arxiv__get_abstract failed: MCP error -32001: Request timed out raw_params={"paper_id":"2502.11705"}
+[tools] arxiv__search_papers failed: MCP error -32001: Request timed out raw_params={"query":"LLM agent software engineering SWE-bench tool use automated programming 2024 2025","max_results":10,"categories":["cs.SE","cs.AI","cs.CL"],"sort_by":"relevance"}
+[tools] arxiv__search_papers failed: MCP error -32000: Connection closed raw_params={"query":"agent system outperforms LLM prompting software engineering coding benchmark","max_results":10,"categories":["cs.SE","cs.AI"],"date_from":"2024-01-01","sort_by":"relevance"}
+[tools] arxiv__download_paper failed: Not connected raw_params={"paper_id":"2408.08435"}
+[tools] arxiv__download_paper failed: Not connected raw_params={"paper_id":"2408.07060"}
+[tools] arxiv__download_paper failed: Not connected raw_params={"paper_id":"2407.01489"}

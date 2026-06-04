@@ -1,0 +1,100 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+# ORIGINAL_REPORT
+
+## 第一部分：总体评估
+
+现有证据表明，将 LLM 封装为具备工具调用能力的 agent 系统能够在复杂编程任务上显著超越纯 prompting 基线。然而，agent 是否总是必要的仍存在争议。六篇论文从不同维度切入：[A] 与 [D] 展示了自动优化 agent 架构的可行性；[B] 与 [F] 验证了精心设计的 agent–工具界面可大幅提升 SWE-bench 性能；[C] 进一步证明 agent 可自主创建工具以扩展能力边界。但 [E] 提出了关键反例：一个不含 agent 决策循环的简单流水线在 SWE-bench Lite 上超越了所有同期开源 agent 方案。当前共识是工具增强确实普遍有效，但 agent 复杂性带来的收益并非线性；测试时计算扩展、自主工具创建和架构自动搜索是三个活跃方向。主要局限包括：各研究评估基准不一致、计算成本高昂，且现有工作多集中于软件工程领域，向推理密集型任务的迁移效果有限。
+
+## 第二部分：逐条结论
+
+- Tool-augmented LLM agents 在 SWE-bench 等真实软件工程任务上大幅超越纯 RAG/非交互式 prompting 基线。
+  出处：[F] §5::T1 / [B] §1::¶1
+
+- 精心设计的 agent-computer interface 是将 LLM 转化为高效编码 agent 的关键，直接使用 vanilla shell 交互会导致性能大幅下降。
+  出处：[F] §5.1::¶1–2 / [A] §3.1::¶1–4
+
+- 通过元 agent 自动搜索和设计 agent 架构，发现的 agent 可一致性地超越人工设计的 baseline，并在跨领域和跨模型迁移中保持优势。
+  出处：[D] §4.1::¶1–9 / [D] §4.3::¶1
+
+- LLM agent 可基于公开论文和代码仓库自主创建可复用的工具，大幅降低对人工预置工具的依赖，TM-Bench 上实现约 80% 任务完成率。
+  出处：[C] §1::¶3 / [C] §4::¶1
+
+- 一个不含 agent 决策循环的简单三阶段流水线（localization–repair–validation）可在 SWE-bench Lite 上取得 32.00% 的解决率，优于所有同期开源 agent 方案，且成本仅 0.70 美元/任务。
+  出处：[E] §1::¶5–7 / [E] §3::¶1
+
+- 通过测试时计算扩展（含树搜索和 LLM 验证），agent 性能随计算投入持续提升，这表明 agent 性能上限可通过增加推理时计算进一步提高。
+  出处：[B] §1::¶3 / [B] §3.1::¶1
+
+- 自我改进型编码 agent 可通过编辑自身代码库实现性能增长，在随机子集的 SWE-Bench Verified 上从 17% 提升至 53%，但推理任务上改进有限。
+  出处：[A] §5::¶1 / [A] §4::¶1 / [A] §4.1::¶1
+
+## 第三部分：引用论文清单
+
+- [A] Robeyns, Szummer & Aitchison (2025). "A Self-Improving Coding Agent." arXiv 预印本. arXiv:2504.15228. 检索词: provided_pdf
+- [B] Gao, Tian et al. (2025). "Trae Agent: An LLM-based Agent for Software Engineering with Test-time Scaling." arXiv 预印本. arXiv:2507.23370. 检索词: provided_pdf
+- [C] Wölflein, Ferber, Truhn, Arandjelović & Kather (2025). "LLM Agents Making Agent Tools." arXiv 预印本. arXiv:2502.11705. 检索词: provided_pdf
+- [D] Hu, Lu & Clune (2024). "Automated Design of Agentic Systems." ICLR 2025. arXiv:2408.08435. 检索词: automated design agentic systems meta agent search
+- [E] Xia, Deng, Dunn & Zhang (2024). "Agentless: Demystifying LLM-based Software Engineering Agents." arXiv 预印本. arXiv:2407.01489. 检索词: agentless LLM software engineering benchmark comparison
+- [F] Yang, Jimenez, Wettig, Lieret, Yao, Narasimhan & Press (2024). "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering." NeurIPS 2024. arXiv:2405.15793. 检索词: SWE-agent agent-computer interface software engineering
+
+# REFCHECKER_REPAIR_LOG
+
+```jsonl
+{"case_id":"C1","run_id":"R2","item_id":"ref_A","item_type":"reference_metadata","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"所有元数据（title, authors, year, arxiv_id）均被 Semantic Scholar/OpenAlex 确认匹配","repair_action":"none"}
+{"case_id":"C1","run_id":"R2","item_id":"ref_B","item_type":"reference_metadata","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"作者列表缺少第一作者 'Trae Research Team'，引用列出 14 人但实际为 15 人","repair_action":"correct_metadata"}
+{"case_id":"C1","run_id":"R2","item_id":"ref_C","item_type":"reference_metadata","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"论文已发表于 Annual Meeting of the Association for Computational Linguistics (ACL 2025)，引用清单仅标注 arXiv 预印本，应修正发表刊物","repair_action":"correct_metadata"}
+{"case_id":"C1","run_id":"R2","item_id":"ref_D","item_type":"reference_metadata","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"论文已发表于 International Conference on Learning Representations (ICLR 2025)，引用清单未标注发表刊物信息","repair_action":"correct_metadata"}
+{"case_id":"C1","run_id":"R2","item_id":"ref_E","item_type":"reference_metadata","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"所有元数据匹配，arXiv 预印本标注正确","repair_action":"none"}
+{"case_id":"C1","run_id":"R2","item_id":"ref_F","item_type":"reference_metadata","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"论文已发表于 Neural Information Processing Systems (NeurIPS 2024)，引用清单标注为 arXiv 预印本，应修正发表刊物","repair_action":"correct_metadata"}
+{"case_id":"C1","run_id":"R2","item_id":"claim_01","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[F] Table 1 明确显示 SWE-agent (18.00%) 远超 RAG (2.67%) 和 Shell-only (11.00%) 基线；[B] §1 指出 GPT-4o 在仓库级 SWE-bench 仅 11.99% 而函数级 HumanEval 达 92.70%，支持 agent/tool 必要性","repair_action":"none"}
+{"case_id":"C1","run_id":"R2","item_id":"claim_02","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[F] §5.1 分析 ACI 设计：Shell-only 仅 11.00% vs SWE-agent 18.00%；Search/Edit 消融实验验证各接口组件关键作用；[A] §3.1 描述初始 agent 的工具与 overseer 设计，支持但非主要证据","repair_action":"none"}
+{"case_id":"C1","run_id":"R2","item_id":"claim_03","item_type":"claim_citation_pair","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[D] §4.1 展示 Meta Agent Search 在 ARC 上逐步发现超越手工设计的 agent（Fig.3a）；§4.3 验证跨领域迁移性（GSM8K 提升 25.9%, GSM-Hard 13.2%），完全支持","repair_action":"none"}
+{"case_id":"C1","run_id":"R2","item_id":"claim_04","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[C] §1 ¶3 明确声明 'correctly implements 80% of the tasks'；§4 描述 TM-Bench 的 15 个跨学科任务，完全支持","repair_action":"none"}
+{"case_id":"C1","run_id":"R2","item_id":"claim_05","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[E] §1 ¶5-7 精确列出 32.00% 解决率 (96/300)、$0.70 平均成本；§3 描述三阶段流水线，完全支持","repair_action":"none"}
+{"case_id":"C1","run_id":"R2","item_id":"claim_06","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"overclaim","issue_summary":"[B] 使用 ensemble reasoning (并行生成→剪枝→多数投票)，并非'树搜索'：§3.1 描述为 parallel generation + hierarchical pruning + majority voting；测试时计算扩展指 ensemble size 增加而非树结构探索","repair_action":"weaken_claim"}
+{"case_id":"C1","run_id":"R2","item_id":"claim_07","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[A] §5 ¶1 明确记录 'improvements from 17% to 53% on a random subset of SWE-Bench Verified'；§4.1 记录推理任务改进有限（Fig.4），完全支持","repair_action":"none"}
+```
+
+# REPAIRED_REPORT
+
+## 第一部分：总体评估
+
+现有证据表明，将 LLM 封装为具备工具调用能力的 agent 系统能够在复杂编程任务上显著超越纯 prompting 基线。然而，agent 是否总是必要的仍存在争议。六篇论文从不同维度切入：[A] 与 [D] 展示了自动优化 agent 架构的可行性；[B] 与 [F] 验证了精心设计的 agent–工具界面可大幅提升 SWE-bench 性能；[C] 进一步证明 agent 可自主创建工具以扩展能力边界。但 [E] 提出了关键反例：一个不含 agent 决策循环的简单流水线在 SWE-bench Lite 上超越了所有同期开源 agent 方案。当前共识是工具增强确实普遍有效，但 agent 复杂性带来的收益并非线性；测试时计算扩展、自主工具创建和架构自动搜索是三个活跃方向。主要局限包括：各研究评估基准不一致、计算成本高昂，且现有工作多集中于软件工程领域，向推理密集型任务的迁移效果有限。
+
+## 第二部分：逐条结论
+
+- Tool-augmented LLM agents 在 SWE-bench 等真实软件工程任务上大幅超越纯 RAG/非交互式 prompting 基线。
+  出处：[F] §5::T1 / [B] §1::¶1
+
+- 精心设计的 agent-computer interface 是将 LLM 转化为高效编码 agent 的关键，直接使用 vanilla shell 交互会导致性能大幅下降。
+  出处：[F] §5.1::¶1–2 / [A] §3.1::¶1–4
+
+- 通过元 agent 自动搜索和设计 agent 架构，发现的 agent 可一致性地超越人工设计的 baseline，并在跨领域和跨模型迁移中保持优势。
+  出处：[D] §4.1::¶1–9 / [D] §4.3::¶1
+
+- LLM agent 可基于公开论文和代码仓库自主创建可复用的工具，大幅降低对人工预置工具的依赖，TM-Bench 上实现约 80% 任务完成率。
+  出处：[C] §1::¶3 / [C] §4::¶1
+
+- 一个不含 agent 决策循环的简单三阶段流水线（localization–repair–validation）可在 SWE-bench Lite 上取得 32.00% 的解决率，优于所有同期开源 agent 方案，且成本仅 0.70 美元/任务。
+  出处：[E] §1::¶5–7 / [E] §3::¶1
+
+- 通过测试时集成推理扩展（并行候选补丁生成、层次化剪枝与多数投票选择），agent 性能随集成规模增大而持续提升，表明 agent 性能上限可通过增加推理时计算进一步提高。
+  出处：[B] §3.1::¶1 / [B] §2::¶3–6
+
+- 自我改进型编码 agent 可通过编辑自身代码库实现性能增长，在随机子集的 SWE-Bench Verified 上从 17% 提升至 53%，但推理任务上改进有限。
+  出处：[A] §5::¶1 / [A] §4::¶1 / [A] §4.1::¶1
+
+## 第三部分：引用论文清单
+
+- [A] Robeyns, Szummer & Aitchison (2025). "A Self-Improving Coding Agent." arXiv 预印本. arXiv:2504.15228. 检索词: provided_pdf
+- [B] Trae Research Team, Gao, Tian et al. (2025). "Trae Agent: An LLM-based Agent for Software Engineering with Test-time Scaling." arXiv 预印本. arXiv:2507.23370. 检索词: provided_pdf
+- [C] Wölflein, Ferber, Truhn, Arandjelović & Kather (2025). "LLM Agents Making Agent Tools." Annual Meeting of the Association for Computational Linguistics (ACL 2025). arXiv:2502.11705. 检索词: provided_pdf
+- [D] Hu, Lu & Clune (2024). "Automated Design of Agentic Systems." International Conference on Learning Representations (ICLR 2025). arXiv:2408.08435. 检索词: automated design agentic systems meta agent search
+- [E] Xia, Deng, Dunn & Zhang (2024). "Agentless: Demystifying LLM-based Software Engineering Agents." arXiv 预印本. arXiv:2407.01489. 检索词: agentless LLM software engineering benchmark comparison
+- [F] Yang, Jimenez, Wettig, Lieret, Yao, Narasimhan & Press (2024). "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering." Neural Information Processing Systems (NeurIPS 2024). arXiv:2405.15793. 检索词: SWE-agent agent-computer interface software engineering
+
+# RUN_SUMMARY
+
+```json
+{"case_id":"C1","run_id":"R2","tool_called_refchecker":"yes","num_references_checked":6,"num_claim_pairs_checked":7,"num_issues_found":5,"num_revisions_made":5}
+```

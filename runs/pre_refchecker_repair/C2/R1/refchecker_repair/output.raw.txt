@@ -1,0 +1,107 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+# ORIGINAL_REPORT
+
+## 第一部分：总体评估
+
+基于六篇论文的证据，当前学术界对"合成数据训练是否导致模型性能退化"已有较为一致的基本认知：纯合成数据在 replace 模式下必然导致 model collapse，但通过数据累积（accumulate）、混合真实数据、引入外部弱标注信号等方法，collapse 可被有效延缓甚至避免。然而，研究中存在显著分歧与空白。首先，collapse 的表征形式在不同模态间差异巨大：纯语言模型中表现为分布塌缩和输出重复，而 VLM 在图像描述中表现为方差反而上升（[C] §4.2）。其次，多数研究缺乏大规模、多世代验证（[A] 限于 1B 模型五科目，[C] 限于 1000 样本 MSCOCO 子集）。一个关键 gap 是缺乏对"真实 web 生态中数据的混合演化路径"的精确建模——accumulate 和 accumulate-subsample 工作流已尝试逼近现实（[D][F]），但未考虑合成数据质量迭代下降的累积效应与 web 内容分布的耦合关系。
+
+## 第二部分：逐条结论
+
+- 在纯合成数据替换式（replace）训练下，语言模型、扩散模型和 VAE 均必然出现 model collapse，测试损失随世代单调上升。
+  出处：[D] §2.1::¶3 / [E] §3::¶2 / [F] §2.1::¶5
+
+- 当合成数据与原始真实数据以累积方式（accumulate）混合时，即使真实数据占比趋于零，model collapse 仍可被避免，测试损失保持有界。
+  出处：[D] §2.1::¶3 / [D] §3::¶1
+
+- 仅在合成数据上递归训练的统计语言模型会发生"完全塌缩"（total collapse），学到的条件分布以概率 1 收敛至某个 Dirac 分布，彻底丧失语言多样性。
+  出处：[E] §2.2::Definition 1 / [E] §3::¶3
+
+- 基于事实类问答的 LLM 递归合成训练中，知识塌缩表现为三阶段：Stage A 知识保持期 → Stage B 准确度下降但表面流利度保持（"自信地犯错"） → Stage C 指令遵循能力崩塌。
+  出处：[A] §3::¶2-4
+
+- 模型塌缩在 VLM 图像描述任务中的表现与纯文本 LLM 截然不同：生成文本的词汇量和困惑度上升（方差增大），而非减少。
+  出处：[C] §4.2::¶3 / [C] §4.3::¶1
+
+- 增加解码预算（如扩散模型更多去噪步数、LLM 更多采样次数）可产生更鲁棒的合成数据，有效缓解 model collapse。
+  出处：[C] §4.5::¶1 / [B] §6::¶1
+
+- 通过 boosting 式框架——结合模型生成的合成数据与弱标注器（β>0 弱信号）的外部标签——可保证迭代训练收敛至最优 LLM。
+  出处：[B] §6::Theorem 5 / [B] §5::Algorithm 2
+
+- 在固定计算预算的 accumulate-subsample 工作流下，模型性能退化速度介于 replace（最快）和 accumulate（最慢）之间，不会爆炸式崩塌。
+  出处：[F] §3::¶1-2
+
+## 第三部分：引用论文清单
+
+- [A] Keisha, Wu, Wang, Koshiyama & Treleaven (2025). "Knowledge Collapse in LLMs: When Fluency Survives but Facts Fail under Recursive Synthetic Training." NeurIPS 2025 Workshop on Evaluating the Evolving LLM Lifecycle / arXiv:2509.04796. 检索词: provided_pdf
+- [B] Amin, Babakniya, Bie, Kong, Syed & Vassilvitskii (2025). "Escaping Collapse: The Strength of Weak Data for Large Language Model Training." NeurIPS 2025 / arXiv:2502.08924. 检索词: provided_pdf
+- [C] Hu, Rostami & Thomason (2025). "Multi-modal Synthetic Data Training and Model Collapse: Insights from VLMs and Diffusion Models." arXiv:2505.08803. 检索词: provided_pdf
+- [D] Gerstgrasser, Schaeffer, Dey, Rafailov, Sleight, Hughes, Korbak, Agrawal, Pai, Gromov, Roberts, Yang, Donoho & Koyejo (2024). "Is Model Collapse Inevitable? Breaking the Curse of Recursion by Accumulating Real and Synthetic Data." NeurIPS 2024 / arXiv:2404.01413. 检索词: {arXiv: ti:"model collapse" AND ("accumulate" OR "replace") synthetic data, cs.LG, 2024}
+- [E] Seddik, Chen, Hayou, Youssef & Debbah (2024). "How Bad is Training on Synthetic Data? A Statistical Analysis of Language Model Collapse." arXiv:2404.05090. 检索词: {arXiv: (model collapse) AND (statistical analysis) AND (language model), cs.LG, 2024}
+- [F] Kazdan, Schaeffer, Dey, Gerstgrasser, Rafailov, Donoho & Koyejo (2024). "Collapse or Thrive? Perils and Promises of Synthetic Data in a Self-Generating World." arXiv:2410.16713. 检索词: {arXiv: "model collapse" artificial data self-generating world, 2024}
+
+# REFCHECKER_REPAIR_LOG
+
+```jsonl
+{"case_id":"C2","run_id":"R1","item_id":"ref_A","item_type":"reference_metadata","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"第一作者不匹配：引用中写为 Huang，实际第一作者为 Figarri Keisha","repair_action":"correct_metadata"}
+{"case_id":"C2","run_id":"R1","item_id":"ref_B","item_type":"reference_metadata","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"引用元数据完全匹配","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"ref_C","item_type":"reference_metadata","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"引用元数据完全匹配","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"ref_D","item_type":"reference_metadata","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"引用元数据完全匹配","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"ref_E","item_type":"reference_metadata","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"引用元数据完全匹配","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"ref_F","item_type":"reference_metadata","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"引用元数据完全匹配","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"claim_01","item_type":"claim_citation_pair","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 与 [D] §2.1¶3 中 replace 模式下 cross-entropy loss 随世代递增的实验发现一致","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"claim_02","item_type":"claim_citation_pair","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 与 [D] §2.1¶3 中 accumulate 避免 collapse 的实证发现及 §3 的理论上界证明一致","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"claim_03","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 与 [E] Definition 1 及 §3 关于 Fully Synthetic 下总塌缩的证明一致","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"claim_04","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 与 [A] §3¶2-4 中三阶段描述及 Figure 2 完全一致","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"claim_05","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 与 [C] §4.2¶3（VLM 困惑度爆炸和词汇量增长）及 §4.3¶1（方差上升机制）一致","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"claim_06","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 与 [C] §4.5¶1 Figure 9 中更多去噪步数降低 Gen10 FID 的发现一致","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"claim_07","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 与 [B] Theorem 5 的收敛性结论及 Algorithm 2 的 boosting 框架一致","repair_action":"none"}
+{"case_id":"C2","run_id":"R1","item_id":"claim_08","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 与 [F] §3¶1-2 和 Figure 4 中 accumulate-subsample 退化速度介于两者之间的发现一致","repair_action":"none"}
+```
+
+# REPAIRED_REPORT
+
+## 第一部分：总体评估
+
+基于六篇论文的证据，当前学术界对"合成数据训练是否导致模型性能退化"已有较为一致的基本认知：纯合成数据在 replace 模式下必然导致 model collapse，但通过数据累积（accumulate）、混合真实数据、引入外部弱标注信号等方法，collapse 可被有效延缓甚至避免。然而，研究中存在显著分歧与空白。首先，collapse 的表征形式在不同模态间差异巨大：纯语言模型中表现为分布塌缩和输出重复，而 VLM 在图像描述中表现为方差反而上升（[C] §4.2）。其次，多数研究缺乏大规模、多世代验证（[A] 限于 1B 模型五科目，[C] 限于 1000 样本 MSCOCO 子集）。一个关键 gap 是缺乏对"真实 web 生态中数据的混合演化路径"的精确建模——accumulate 和 accumulate-subsample 工作流已尝试逼近现实（[D][F]），但未考虑合成数据质量迭代下降的累积效应与 web 内容分布的耦合关系。
+
+## 第二部分：逐条结论
+
+- 在纯合成数据替换式（replace）训练下，语言模型、扩散模型和 VAE 均必然出现 model collapse，测试损失随世代单调上升。
+  出处：[D] §2.1::¶3 / [E] §3::¶2 / [F] §2.1::¶5
+
+- 当合成数据与原始真实数据以累积方式（accumulate）混合时，即使真实数据占比趋于零，model collapse 仍可被避免，测试损失保持有界。
+  出处：[D] §2.1::¶3 / [D] §3::¶1
+
+- 仅在合成数据上递归训练的统计语言模型会发生"完全塌缩"（total collapse），学到的条件分布以概率 1 收敛至某个 Dirac 分布，彻底丧失语言多样性。
+  出处：[E] §2.2::Definition 1 / [E] §3::¶3
+
+- 基于事实类问答的 LLM 递归合成训练中，知识塌缩表现为三阶段：Stage A 知识保持期 → Stage B 准确度下降但表面流利度保持（"自信地犯错"） → Stage C 指令遵循能力崩塌。
+  出处：[A] §3::¶2-4
+
+- 模型塌缩在 VLM 图像描述任务中的表现与纯文本 LLM 存在差异：生成文本的词汇量和困惑度在递归训练中上升（方差增大），与纯 LLM 中观察到的方差下降趋势不同。
+  出处：[C] §4.2::¶3 / [C] §4.3::¶1
+
+- 增加解码预算（如扩散模型更多去噪步数、LLM 更多采样次数）可产生更鲁棒的合成数据，在一定程度上缓解 model collapse。
+  出处：[C] §4.5::¶1 / [B] §6::¶1
+
+- 通过 boosting 式框架——结合模型生成的合成数据与弱标注器（β>0 弱信号）的外部标签——可保证迭代训练收敛至最优 LLM。
+  出处：[B] §6::Theorem 5 / [B] §5::Algorithm 2
+
+- 在固定计算预算的 accumulate-subsample 工作流下，模型性能退化速度介于 replace（最快）和 accumulate（最慢）之间，未出现爆炸式崩塌。
+  出处：[F] §3::¶1-2
+
+## 第三部分：引用论文清单
+
+- [A] Keisha, Wu, Wang, Koshiyama & Treleaven (2025). "Knowledge Collapse in LLMs: When Fluency Survives but Facts Fail under Recursive Synthetic Training." NeurIPS 2025 Workshop on Evaluating the Evolving LLM Lifecycle / arXiv:2509.04796. 检索词: provided_pdf
+- [B] Amin, Babakniya, Bie, Kong, Syed & Vassilvitskii (2025). "Escaping Collapse: The Strength of Weak Data for Large Language Model Training." NeurIPS 2025 / arXiv:2502.08924. 检索词: provided_pdf
+- [C] Hu, Rostami & Thomason (2025). "Multi-modal Synthetic Data Training and Model Collapse: Insights from VLMs and Diffusion Models." arXiv:2505.08803. 检索词: provided_pdf
+- [D] Gerstgrasser, Schaeffer, Dey, Rafailov, Sleight, Hughes, Korbak, Agrawal, Pai, Gromov, Roberts, Yang, Donoho & Koyejo (2024). "Is Model Collapse Inevitable? Breaking the Curse of Recursion by Accumulating Real and Synthetic Data." NeurIPS 2024 / arXiv:2404.01413. 检索词: {arXiv: ti:"model collapse" AND ("accumulate" OR "replace") synthetic data, cs.LG, 2024}
+- [E] Seddik, Chen, Hayou, Youssef & Debbah (2024). "How Bad is Training on Synthetic Data? A Statistical Analysis of Language Model Collapse." arXiv:2404.05090. 检索词: {arXiv: (model collapse) AND (statistical analysis) AND (language model), cs.LG, 2024}
+- [F] Kazdan, Schaeffer, Dey, Gerstgrasser, Rafailov, Donoho & Koyejo (2024). "Collapse or Thrive? Perils and Promises of Synthetic Data in a Self-Generating World." arXiv:2410.16713. 检索词: {arXiv: "model collapse" artificial data self-generating world, 2024}
+
+# RUN_SUMMARY
+
+```json
+{"case_id":"C2","run_id":"R1","tool_called_refchecker":"yes","num_references_checked":6,"num_claim_pairs_checked":8,"num_issues_found":1,"num_revisions_made":3}
+```

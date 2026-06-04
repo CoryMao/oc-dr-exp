@@ -1,0 +1,107 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+# ORIGINAL_REPORT
+
+## 第一部分：总体评估
+
+当前六篇论文共同描绘了一幅复杂图景：AI coding agents 在标准化基准上进展迅速（Trae Agent 在 SWE-Bench Verified 达 Pass@1 75.20%，[A]），但在更贴近真实工业场景的评测中表现大幅回落（SWE-Bench Pro 最佳模型 <45%，[B]；SWE-Lancer 最高仅获 40.3% 总收益，[D]）。更关键的是，一项针对经验丰富开源开发者的随机对照试验发现，使用 AI 工具（Cursor）后开发者实际完成任务的速度平均下降约 32%（[C]），与生产率提升的流行叙事形成张力。开发者调查数据表明，经验丰富的程序员倾向于将 AI 视为"初级同事"或"内容生成器"，而非可靠替代品（[E]）；系统性文献综述亦指出，AI 辅助编码在提升生产率的同时引入验证负担和过度依赖风险（[F]）。当前共识是 AI 在辅助性角色中有明确价值，但证据远不支持 AI coding agent 可以替代初级软件工程师的结论。关键 gap 在于缺乏对 AI agent 在长期、多文件、跨模块任务中独立完成能力与初级工程师的严谨对照实验。
+
+## 第二部分：逐条结论
+
+- 结论 1：AI coding agent 在标准化 SWE 基准上已接近饱和，但在复杂长周期任务上表现显著不足。SWE-Bench Pro 中最佳模型 Pass@1 低于 45%，且多数任务需跨多文件修改上百行代码。
+  出处：[B] §1::¶3 / [B] §Abstract::¶1
+
+- 结论 2：通过 ensemble reasoning 和 test-time scaling，LLM agent 可将 SWE-Bench Verified Pass@1 提升至 75.20%，但这一成绩高度依赖大量并行采样和专门设计的剪枝-选择架构。
+  出处：[A] §Abstract::¶1 / [A] §1::¶7
+
+- 结论 3：在实际自由职业软件工程任务（SWE-Lancer）中，前沿模型仅能完成约 26% 的个人贡献任务和 45% 的管理任务，最高收益仅 $403,000/$1,000,000，表明离替代人类工程师仍有巨大距离。
+  出处：[D] §3.2::Table 1 / [D] §3.2::¶2
+
+- 结论 4：针对经验丰富开源开发者的 RCT 发现，使用 AI 工具后任务完成时间反而延长约 32%，开发者需花费约 9% 时间审查和清理 AI 生成代码。
+  出处：[C] §Abstract::¶1 / [C] §C.1.4::¶4
+
+- 结论 5：开发者编码经验不预测 AI 工具采纳率，但显著影响其对 AI 角色的心理模型。有经验开发者倾向于将 AI 视为"初级同事"或拒绝赋予任何角色，缺乏经验者则视 AI 为"教师"。
+  出处：[E] §4::Table 2 / [E] §5::¶2
+
+- 结论 6：系统性文献综述表明，当前 in-IDE AI 工具研究集中于专业环境下的代码实现阶段，对需求分析、测试和部署等 SDLC 其他阶段覆盖极不充分。
+  出处：[F] §1::¶12 / [F] §3.1::¶1
+
+- 结论 7：AI agent 在大规模、成熟代码仓库中的表现显著下降，缺乏隐性仓库知识是核心限制因素之一，这与经验丰富的开发者形成强烈对比。
+  出处：[C] §C.1.3::¶1 / [C] §C.1.5::¶1
+
+- 结论 8：综合六篇论文，AI coding agent 目前是"有能力的辅助工具"而非"合格的独立工程师"，其在可替代初级工程师之前需跨越的鸿沟包括长周期任务可靠性、代码仓库全局理解、以及减少而非增加人类验证负担。
+  出处：[A] §1::¶3 / [B] §6::¶1 / [C] §C.1.4::¶3 / [F] §1::¶13
+
+## 第三部分：引用论文清单
+
+- [A] Gao, Tian et al. (2025). "Trae Agent: An LLM-based Agent for Software Engineering with Test-time Scaling." arXiv:2507.23370. 检索词: provided_pdf
+- [B] Deng et al. (2025). "SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?" arXiv:2509.16941. 检索词: provided_pdf
+- [C] Becker, Rush, Barnes & Rein (2025). "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity." arXiv:2507.09089. 检索词: provided_pdf
+- [D] Miserendino, Wang, Patwardhan & Heidecke (2025). "SWE-Lancer: Can Frontier LLMs Earn $1 Million from Real-World Freelance Software Engineering?" arXiv:2502.12115. 检索词: {arXiv: cs.SE cs.LG, "real-world freelance software engineering" + benchmark, 2025}
+- [E] Zakharov, Koshchenko & Sergeyuk (2025). "From Teacher to Colleague: How Coding Experience Shapes Developer Perceptions of AI Tools." arXiv:2504.13903. 检索词: {arXiv: cs.HC cs.SE, "coding experience" + "AI tools" + "perception" + "developer", 2025}
+- [F] Sergeyuk, Zakharov, Koshchenko & Izadi (2025). "Human-AI Experience in Integrated Development Environments: A Systematic Literature Review." arXiv:2503.06195. 检索词: {arXiv: cs.HC cs.SE, "Human-AI Experience" + "IDE" + "systematic review", 2025}
+
+# REFCHECKER_REPAIR_LOG
+
+```jsonl
+{"case_id":"C5","run_id":"R3","item_id":"ref_A","item_type":"reference_metadata","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"作者有误：引用为'Gao, Tian et al.'，实际作者为'Trae Research Team'共15人，第一作者为'Pengfei Gao'，作者'Zhao Tian'排第二","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R3","item_id":"ref_B","item_type":"reference_metadata","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"作者不完整：仅列2位作者(Deng, Da)，实际论文有22位作者，应使用'Deng et al.'或列出全部22人","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R3","item_id":"ref_C","item_type":"reference_metadata","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"元数据验证通过，作者、标题、年份、arXiv ID均匹配","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"ref_D","item_type":"reference_metadata","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"发表刊物有误：引用为arXiv，实际已发表在ICML 2025","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R3","item_id":"ref_E","item_type":"reference_metadata","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"元数据验证通过，作者、标题、年份、arXiv ID均匹配","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"ref_F","item_type":"reference_metadata","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"发表刊物有误：引用为arXiv，实际已发表在Empirical Software Engineering期刊","repair_action":"correct_metadata"}
+{"case_id":"C5","run_id":"R3","item_id":"claim_01","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim陈述与B论文Abstract和§1内容一致：SWE-Bench Pro最佳模型Pass@1<45%，且任务需求跨多文件修改","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"claim_02","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim陈述与A论文内容一致：Trae Agent在SWE-Bench Verified Pass@1达75.20%，采用ensemble+pruning+selection架构","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"claim_03","item_type":"claim_citation_pair","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim与D论文Table 1和§3.2一致：Claude 3.5 Sonnet IC SWE 26.2%，SWE Manager 44.9%，总收益$403K/$1M","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"claim_04","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim与C论文Abstract和C.1.4一致：RCT发现约32%时间延长，开发者花9%时间审查AI生成代码","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"claim_05","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim与E论文Table 2和§5一致：经验不预测采纳，但影响角色认知（junior colleague vs teacher等）","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"claim_06","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim与F论文§1和§3.1一致：研究集中在代码实现阶段，其他SDLC阶段覆盖不足","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"claim_07","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim与C论文C.1.3和C.1.5一致：大型代码仓库和隐性知识是AI性能下降的重要因素","repair_action":"none"}
+{"case_id":"C5","run_id":"R3","item_id":"claim_08","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"scope_error","issue_summary":"Claim综合涉及四篇论文但A引用的§1::¶3仅讨论SWE-bench gap而非'辅助工具'结论，C.1.4讨论AI可靠性但未直接论及'辅助工具vs独立工程师'的定性判断","repair_action":"weaken_claim"}
+```
+
+# REPAIRED_REPORT
+
+## 第一部分：总体评估
+
+当前六篇论文共同描绘了一幅复杂图景：AI coding agents 在标准化基准上进展迅速（Trae Agent 在 SWE-Bench Verified 达 Pass@1 75.20%，[A]），但在更贴近真实工业场景的评测中表现大幅回落（SWE-Bench Pro 最佳模型 <45%，[B]；SWE-Lancer 最高仅获 40.3% 总收益，[D]）。更关键的是，一项针对经验丰富开源开发者的随机对照试验发现，使用 AI 工具（Cursor）后开发者实际完成任务的速度平均下降约 32%（[C]），与生产率提升的流行叙事形成张力。开发者调查数据表明，经验丰富的程序员倾向于将 AI 视为"初级同事"或"内容生成器"，而非可靠替代品（[E]）；系统性文献综述亦指出，AI 辅助编码在提升生产率的同时引入验证负担和过度依赖风险（[F]）。当前共识是 AI 在辅助性角色中有明确价值，但证据远不支持 AI coding agent 可以替代初级软件工程师的结论。关键 gap 在于缺乏对 AI agent 在长期、多文件、跨模块任务中独立完成能力与初级工程师的严谨对照实验。
+
+## 第二部分：逐条结论
+
+- 结论 1：AI coding agent 在标准化 SWE 基准上已接近饱和，但在复杂长周期任务上表现显著不足。SWE-Bench Pro 中最佳模型 Pass@1 低于 45%，且多数任务需跨多文件修改上百行代码。
+  出处：[B] §1::¶3 / [B] §Abstract::¶1
+
+- 结论 2：通过 ensemble reasoning 和 test-time scaling，LLM agent 可将 SWE-Bench Verified Pass@1 提升至 75.20%，但这一成绩高度依赖大量并行采样和专门设计的剪枝-选择架构。
+  出处：[A] §Abstract::¶1 / [A] §1::¶7
+
+- 结论 3：在实际自由职业软件工程任务（SWE-Lancer）中，前沿模型仅能完成约 26% 的个人贡献任务和 45% 的管理任务，最高收益仅 $403,000/$1,000,000，表明离替代人类工程师仍有巨大距离。
+  出处：[D] §3.2::Table 1 / [D] §3.2::¶2
+
+- 结论 4：针对经验丰富开源开发者的 RCT 发现，使用 AI 工具后任务完成时间反而延长约 32%，开发者需花费约 9% 时间审查和清理 AI 生成代码。
+  出处：[C] §Abstract::¶1 / [C] §C.1.4::¶4
+
+- 结论 5：开发者编码经验不预测 AI 工具采纳率，但显著影响其对 AI 角色的心理模型。有经验开发者倾向于将 AI 视为"初级同事"或拒绝赋予任何角色，缺乏经验者则视 AI 为"教师"。
+  出处：[E] §4::Table 2 / [E] §5::¶2
+
+- 结论 6：系统性文献综述表明，当前 in-IDE AI 工具研究集中于专业环境下的代码实现阶段，对需求分析、测试和部署等 SDLC 其他阶段覆盖极不充分。
+  出处：[F] §1::¶12 / [F] §3.1::¶1
+
+- 结论 7：AI agent 在大规模、成熟代码仓库中的表现显著下降，缺乏隐性仓库知识是核心限制因素之一，这与经验丰富的开发者形成强烈对比。
+  出处：[C] §C.1.3::¶1 / [C] §C.1.5::¶1
+
+- 结论 8（弱化后）：综合六篇论文证据，现有基准评测表明 AI coding agent 在长周期、多文件任务中可靠性和成功率仍远低于专业工程师水平，同时实证研究发现其当前对高经验开发者造成净减速——这些证据倾向于支持 AI agent 尚不足以独立承担初级工程师职责的判断，但该综合评估缺乏直接对照实验支持，需进一步研究验证。
+  出处：[A] §1::¶3 / [B] §Abstract::¶1 / [C] §C.1.4::¶3 / [F] §1::¶13
+
+## 第三部分：引用论文清单
+
+- [A] Trae Research Team (2025). "Trae Agent: An LLM-based Agent for Software Engineering with Test-time Scaling." arXiv:2507.23370. 检索词: provided_pdf
+- [B] Deng, Xiang, Jeff Da et al. (2025). "SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?" arXiv:2509.16941. 检索词: provided_pdf
+- [C] Becker, Joel, Nate Rush, Elizabeth Barnes & David Rein (2025). "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity." arXiv:2507.09089. 检索词: provided_pdf
+- [D] Miserendino, Samuel, Michele Wang, Tejal Patwardhan & Johannes Heidecke (2025). "SWE-Lancer: Can Frontier LLMs Earn $1 Million from Real-World Freelance Software Engineering?" Proceedings of the 42nd International Conference on Machine Learning (ICML). arXiv:2502.12115. 检索词: {arXiv: cs.SE cs.LG, "real-world freelance software engineering" + benchmark, 2025}
+- [E] Zakharov, Ilya, Ekaterina Koshchenko & Agnia Sergeyuk (2025). "From Teacher to Colleague: How Coding Experience Shapes Developer Perceptions of AI Tools." arXiv:2504.13903. 检索词: {arXiv: cs.HC cs.SE, "coding experience" + "AI tools" + "perception" + "developer", 2025}
+- [F] Sergeyuk, Agnia, Ilya Zakharov, Ekaterina Koshchenko & Maliheh Izadi (2025). "Human-AI Experience in Integrated Development Environments: A Systematic Literature Review." Empirical Software Engineering. arXiv:2503.06195. 检索词: {arXiv: cs.HC cs.SE, "Human-AI Experience" + "IDE" + "systematic review", 2025}
+
+# RUN_SUMMARY
+
+```json
+{"case_id":"C5","run_id":"R3","tool_called_refchecker":"yes","num_references_checked":6,"num_claim_pairs_checked":8,"num_issues_found":5,"num_revisions_made":4}
+```

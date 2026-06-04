@@ -1,0 +1,1 @@
+case_id,run_id,report_phase,report_path,tool_called_refchecker,num_references_checked,num_claim_pairs_checked,num_issues_found,num_revisions_made,human_error_count,human_note

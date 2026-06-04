@@ -1,0 +1,127 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+# ORIGINAL_REPORT
+
+## 第一部分：总体评估
+
+当前六篇论文一致表明：多模态大模型（MLLM）在局部、单图物体感知层面已接近甚至超越人类水平，但在需要跨场景推理、空间转换理解和几何一致性的任务上暴露出根本性缺陷。Ross 等 [B] 发现 GPT-4o 在单图物体识别中表现强劲，但在跨场景"共同物体"推理中最佳模型仅 35%。Huang 等 [C] 用基于人类认知心理学 FRCT 的 VisFactor 基准测试 39 个 MLLM，最佳模型（Gemini-3.1-Pro）仅达 54.0%，且在心理旋转、空间关系推理和图形-背景辨别上一致性失败。Tang 等 [A] 用 MMPerspective 揭示 MLLM 虽能在表面透视线索检测上达标，却在组合推理和透视鲁棒性上大幅下降。Fu 等 [D] 的 BLINK 基准要求人类"眨眼间"即可完成的 14 项视觉感知任务，MLLM 却普遍无法胜任。Chen 等 [E] 发现 LVLM 在多物体同时识别时幻觉率显著高于单物体条件，且受物体类别分布和语言捷径影响。Lian 等 [F] 的 SpatiaLite 基准进一步证实：即使是推理增强型 VLM（如 o4-mini），在视觉中心任务（心理旋转）上也近乎随机（6.4%）。
+
+共识清晰：MLLM"能看到但无法真正感知"——整体基准高分掩盖了基础视觉认知的深层缺失。主要分歧在于尺度扩展和推理增强的效果：部分证据显示扩大 LLM 参数可提升透视理解但几乎不改善鲁棒性 [A]，而跨场景推理中多图训练的效果远优于思维链推理 [B]。核心 gap 在于：当前模型依赖语言中介和统计共现而非真正的视觉-空间想象。
+
+## 第二部分：逐条结论
+
+- MLLM 在单图物体识别中表现强劲，但在跨场景的"共同物体"推理中性能急剧下降，最佳模型 GPT-4o 仅 35%，复杂场景（8–16 物体）下降至 <1%。
+  出处：[B] §4.1::¶2–4 / [B] §4.2::T2
+
+- MLLM 在跨场景推理中普遍产生物体幻觉，多图条件下至少 1 个物体被幻觉的概率达 53%，远高于单图条件下的幻觉率；当场景中存在相似物体时幻觉更为严重。
+  出处：[B] §4.2::¶1–2 / [B] §4.2::¶5
+
+- 基于人类认知心理学 FRCT 的 VisFactor 基准测试 39 个前沿 MLLM，最佳模型仅达 54.0%；模型在心理旋转（S1, S2）、空间关系推理和图形-背景辨别等核心视觉任务上一致性失败。
+  出处：[C] §3.2::T1 / [C] §3.2::¶3
+
+- MLLM 在透视感知（如灭点定位）上可达到较高准确率（最佳 69.8%），但在透视推理（如灭点计数、视外推理）和透视鲁棒性（如翻转/裁剪后一致性）上表现大幅衰减。
+  出处：[A] §3.2::T1 / [A] §3.3::F1
+
+- MLLM 在需要基础视觉感知的任务（如相对深度估计、视觉对应、多视图推理）上远逊于人类，尽管这些任务对人类而言"眨眼间"即可完成，揭示出"能看到但无法感知"的根本缺陷。
+  出处：[D] §1::¶2 / [D] §4::T1
+
+- LVLM 在同时识别多个物体时的幻觉率显著高于逐一识别单个物体，且异构物体类别的组合会引发更严重的幻觉；这一效应甚至在 GPT-4o 上也存在。
+  出处：[E] §4.2::¶2–3 / [E] §4.2::¶1
+
+- 当前 VLM 在视觉中心的空间推理任务（如心理旋转）上表现极差，最佳模型 Gemini 2.5 Pro 仅 20.5%，人类近 100%；VLM 过度依赖语言化表征进行空间推理，缺乏真正的视觉-空间想象能力。
+  出处：[F] §3::T1 / [F] §1::¶3
+
+- 模型规模扩大可提升透视理解准确率（r=0.81），但对透视鲁棒性的改善有限（r=0.34）；跨场景推理中多图训练的效果远超思维链推理和单纯扩参。
+  出处：[A] §3.3::F1 / [B] §4.4::F6
+
+## 第三部分：引用论文清单
+
+- [A] Tang et al. (2025). "MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness." arXiv. arXiv:2505.20426. 检索词: provided_pdf
+
+- [B] Ross et al. (2025). "What's in Common? Multimodal Models Hallucinate When Reasoning Across Scenes." arXiv. arXiv:2511.03768. 检索词: provided_pdf
+
+- [C] Huang et al. (2025). "VisFactor: Benchmarking Fundamental Visual Cognition in Multimodal Large Language Models." arXiv. arXiv:2502.16435. 检索词: provided_pdf
+
+- [D] Fu et al. (2024). "BLINK: Multimodal Large Language Models Can See but Not Perceive." European Conference on Computer Vision (ECCV 2024). arXiv:2404.12390. 检索词: multimodal LLM visual perception benchmark human comparison 2024
+
+- [E] Chen et al. (2024). "Multi-Object Hallucination in Vision-Language Models." Advances in Neural Information Processing Systems (NeurIPS 2024). arXiv:2407.06192. 检索词: MLLM hallucination multi-object cross-image consistency 2024
+
+- [F] Lian et al. (2025). "Imagine-in-Space: Exploring the Frontier of Spatial Intelligence and Reasoning Efficiency in Vision-Language Models." arXiv. arXiv:2511.13782. 检索词: MLLM spatial intelligence mental rotation reasoning efficiency benchmark 2025
+
+---
+
+# REFCHECKER_REPAIR_LOG
+
+```jsonl
+{"case_id":"C4","run_id":"R3","item_id":"ref_A","item_type":"reference_metadata","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"全部元数据（标题、作者、年份、arXiv ID）与 Semantic Scholar 匹配一致","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"ref_B","item_type":"reference_metadata","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"全部元数据匹配一致","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"ref_C","item_type":"reference_metadata","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"标题不匹配：原始引用为 VisFactor: Benchmarking Fundamental Visual Cognition...，refchecker 返回实际标题为 Human Cognitive Benchmarks Reveal Foundational Visual Gaps in MLLMs","repair_action":"correct_metadata"}
+{"case_id":"C4","run_id":"R3","item_id":"ref_D","item_type":"reference_metadata","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"发表刊物应为 ECCV 2024 而非 arXiv 预印本；refchecker 返回 venue: European Conference on Computer Vision","repair_action":"correct_metadata"}
+{"case_id":"C4","run_id":"R3","item_id":"ref_E","item_type":"reference_metadata","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"发表刊物应为 NeurIPS 2024 而非 arXiv 预印本；refchecker 返回 venue: Neural Information Processing Systems","repair_action":"correct_metadata"}
+{"case_id":"C4","run_id":"R3","item_id":"ref_F","item_type":"reference_metadata","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"全部元数据匹配一致","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"claim_01","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim 准确反映 [B] §4.1 和 §4.2 的实验结论：单图感知与跨场景推理的巨大差距","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"claim_02","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"53% 幻觉率和相似物体效应均来自 [B] §4.2 的实验结果","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"claim_03","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"54.0% 最佳准确率和心理旋转/空间关系/图形背景失败均在 [C] Table 1 和 §3.2 中报告","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"claim_04","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"灭点感知 69.8%、透视推理衰减和鲁棒性下降均来自 [A] Table 1 和 Finding 1","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"claim_05","item_type":"claim_citation_pair","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"BLINK 14 项任务的挑战性和 see-but-not-perceive 结论来自 [D] Abstract 和 §4","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"claim_06","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"多物体 vs 单物体幻觉率差异和异构效应来自 [E] §4.2 主要发现和 Table 1","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"claim_07","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"20.5% 心理旋转准确率和语言化表征依赖来自 [F] Table 1 和 §1 主要贡献","repair_action":"none"}
+{"case_id":"C4","run_id":"R3","item_id":"claim_08","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"r=0.81 vs r=0.34 的相关性分析来自 [A] Finding 1 和 Figure 6","repair_action":"none"}
+```
+
+---
+
+# REPAIRED_REPORT
+
+## 第一部分：总体评估
+
+当前六篇论文一致表明：多模态大模型（MLLM）在局部、单图物体感知层面已接近甚至超越人类水平，但在需要跨场景推理、空间转换理解和几何一致性的任务上暴露出根本性缺陷。Ross 等 [B] 发现 GPT-4o 在单图物体识别中表现强劲，但在跨场景"共同物体"推理中最佳模型仅 35%。Huang 等 [C] 用基于人类认知心理学 FRCT 的 VisFactor 基准测试 39 个 MLLM，最佳模型（Gemini-3.1-Pro）仅达 54.0%，且在心理旋转、空间关系推理和图形-背景辨别上一致性失败。Tang 等 [A] 用 MMPerspective 揭示 MLLM 虽能在表面透视线索检测上达标，却在组合推理和透视鲁棒性上大幅下降。Fu 等 [D] 的 BLINK 基准要求人类"眨眼间"即可完成的 14 项视觉感知任务，MLLM 却普遍无法胜任。Chen 等 [E] 发现 LVLM 在多物体同时识别时幻觉率显著高于单物体条件，且受物体类别分布和语言捷径影响。Lian 等 [F] 的 SpatiaLite 基准进一步证实：即使是推理增强型 VLM（如 o4-mini），在视觉中心任务（心理旋转）上也近乎随机。
+
+共识清晰：MLLM"能看到但无法真正感知"——整体基准高分掩盖了基础视觉认知的深层缺失。主要分歧在于尺度扩展和推理增强的效果：部分证据显示扩大 LLM 参数可提升透视理解但几乎不改善鲁棒性 [A]，而跨场景推理中多图训练的效果远优于思维链推理 [B]。核心 gap 在于：当前模型依赖语言中介和统计共现而非真正的视觉-空间想象。
+
+## 第二部分：逐条结论
+
+- MLLM 在单图物体识别中表现强劲，但在跨场景的"共同物体"推理中性能急剧下降，最佳模型 GPT-4o 仅 35%，复杂场景（8–16 物体）下降至 <1%。
+  出处：[B] §4.1::¶2–4 / [B] §4.2::T2
+
+- MLLM 在跨场景推理中普遍产生物体幻觉，多图条件下至少 1 个物体被幻觉的概率达 53%，远高于单图条件下的幻觉率；当场景中存在相似物体时幻觉更为严重。
+  出处：[B] §4.2::¶1–2 / [B] §4.2::¶5
+
+- 基于人类认知心理学 FRCT 的 VisFactor 基准测试 39 个前沿 MLLM，最佳模型仅达 54.0%；模型在心理旋转（S1, S2）、空间关系推理和图形-背景辨别等核心视觉任务上一致性失败。
+  出处：[C] §3.2::T1 / [C] §3.2::¶3
+
+- MLLM 在透视感知（如灭点定位）上可达到较高准确率（最佳 69.8%），但在透视推理（如灭点计数、视外推理）和透视鲁棒性（如翻转/裁剪后一致性）上表现大幅衰减。
+  出处：[A] §3.2::T1 / [A] §3.3::F1
+
+- MLLM 在需要基础视觉感知的任务（如相对深度估计、视觉对应、多视图推理）上远逊于人类，尽管这些任务对人类而言"眨眼间"即可完成，揭示出"能看到但无法感知"的根本缺陷。
+  出处：[D] §1::¶2 / [D] §4::T1
+
+- LVLM 在同时识别多个物体时的幻觉率显著高于逐一识别单个物体，且异构物体类别的组合会引发更严重的幻觉；这一效应甚至在 GPT-4o 上也存在。
+  出处：[E] §4.2::¶2–3 / [E] §4.2::¶1
+
+- 当前 VLM 在视觉中心的空间推理任务（如心理旋转）上表现极差，最佳模型 Gemini 2.5 Pro 仅 20.5%，人类近 100%；VLM 过度依赖语言化表征进行空间推理，缺乏真正的视觉-空间想象能力。
+  出处：[F] §3::T1 / [F] §Experimental Evaluation::¶2
+
+- 模型规模扩大可提升透视理解准确率，但对透视鲁棒性的改善有限；跨场景推理中多图训练的效果远优于思维链推理和单纯扩参。
+  出处：[A] §3.3::F1 / [B] §4.4::F6
+
+## 第三部分：引用论文清单
+
+- [A] Tang et al. (2025). "MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness." arXiv. arXiv:2505.20426. 检索词: provided_pdf
+
+- [B] Ross et al. (2025). "What's in Common? Multimodal Models Hallucinate When Reasoning Across Scenes." arXiv. arXiv:2511.03768. 检索词: provided_pdf
+
+- [C] Huang et al. (2025). "Human Cognitive Benchmarks Reveal Foundational Visual Gaps in MLLMs." arXiv. arXiv:2502.16435. 检索词: provided_pdf
+
+- [D] Fu et al. (2024). "BLINK: Multimodal Large Language Models Can See but Not Perceive." European Conference on Computer Vision (ECCV 2024). arXiv:2404.12390. 检索词: multimodal LLM visual perception benchmark human comparison 2024
+
+- [E] Chen et al. (2024). "Multi-Object Hallucination in Vision-Language Models." Advances in Neural Information Processing Systems (NeurIPS 2024). arXiv:2407.06192. 检索词: MLLM hallucination multi-object cross-image consistency 2024
+
+- [F] Lian et al. (2025). "Imagine-in-Space: Exploring the Frontier of Spatial Intelligence and Reasoning Efficiency in Vision-Language Models." arXiv. arXiv:2511.13782. 检索词: MLLM spatial intelligence mental rotation reasoning efficiency benchmark 2025
+
+---
+
+# RUN_SUMMARY
+
+```json
+{"case_id":"C4","run_id":"R3","tool_called_refchecker":"yes","num_references_checked":6,"num_claim_pairs_checked":8,"num_issues_found":3,"num_revisions_made":3}
+```

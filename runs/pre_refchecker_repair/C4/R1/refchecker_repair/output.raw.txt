@@ -1,0 +1,109 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+Now I have all refchecker results. Let me compile the full three-phase report.
+
+# ORIGINAL_REPORT
+
+## 第一部分：总体评估
+
+多模态大模型（MLLM）在多项视觉-语言基准上取得了瞩目成绩，但它们是否具备类似人类的视觉理解能力仍是开放问题。六篇论文的证据一致表明：当前最强 MLLM 在基本视觉感知任务上远逊于人类。Tang et al. [A] 发现 MLLM 在透视感知、推理与鲁棒性上存在系统性缺陷。Ross et al. [B] 揭示 MLLM 在跨场景推理中频繁产生幻觉。Huang et al. [C] 从认知科学角度出发，证明 MLLM 在视知觉搜索、心理旋转等基础认知任务上显著落后。Rahmanzadehgervi et al. [D] 的 BlindTest 显示四款顶级 VLM 在七项极简几何任务上的平均准确率仅 58.07%。Fu et al. [E] 的 BLINK 基准进一步证实 GPT-4V 准确率 51.26%、Gemini 仅 45.72%，均远低于人类 95.70%。Hao et al. [F] 的 EMMA 揭示视觉推理而非文本推理才是核心瓶颈，最佳模型 o1 准确率仅 45.75%，比人类专家低 32 个百分点。学界共识是：MLLM 能"看见"但尚未真正"感知"。关键 gap 在于视觉信息的精确空间解码，而非高层语义推理。
+
+## 第二部分：逐条结论
+
+- 当前顶级 MLLM（GPT-4V、Gemini）在基础视觉感知任务上的表现远逊于人类，平均准确率低至 50% 左右，远低于人类 95% 以上的水平。
+  出处：[E] Abstract::¶1; §4.2::T1 / [D] §4::T1
+
+- MLLM 在判断两条线是否相交、两个圆是否重叠等极简几何任务中频繁出错，尤其当图形间距缩小时性能急剧下降。
+  出处：[D] §4.1::¶2; §4.2::¶2
+
+- 视觉编码器本身包含解决低层视觉任务的充分信息，瓶颈在于语言模型无法将这些视觉特征解码为正确回答。
+  出处：[D] §6::¶1; §3::¶3
+
+- MLLM 在透视感知和推理任务中存在系统性缺陷，二维图像中的三维空间关系理解与人类差距显著。
+  出处：[A] §1::¶1
+
+- MLLM 在跨场景推理（如识别多张图像间共有特征）时产生严重幻觉，倾向于捏造不存在的共性对象。
+  出处：[B] Abstract::¶1
+
+- 从认知科学视角评估，MLLM 在视觉搜索、心理旋转等基础视觉认知任务上系统性落后于人类基准。
+  出处：[C] §1::¶1
+
+- 视觉推理（而非文本推理）是 MLLM 的核心瓶颈：在 EMMA 基准上，52.83% 的错误源于视觉推理失败，包括三维空间模拟和多跳视觉推理。
+  出处：[F] §5.1::¶1; §5.1::¶2
+
+- 测试时计算扩展（如多数投票、Best-of-N）和链式思维提示均无法实质性弥合 MLLM 与人类在视觉推理上的差距，最佳仅提升约 7 个百分点。
+  出处：[F] §4.3::¶1; §4.3::T3
+
+## 第三部分：引用论文清单
+
+- [A] Tang et al. (2025). "MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness." arXiv preprint. arXiv:2505.20426. 检索词: `provided_pdf`
+- [B] Ross et al. (2025). "What's in Common? Multimodal Models Hallucinate When Reasoning Across Scenes." arXiv preprint. arXiv:2511.03768. 检索词: `provided_pdf`
+- [C] Huang et al. (2025). "VisFactor: Benchmarking Fundamental Visual Cognition in Multimodal Large Language Models." arXiv preprint. arXiv:2502.16435. 检索词: `provided_pdf`
+- [D] Rahmanzadehgervi et al. (2024). "Vision Language Models are Blind: Failing to Translate Detailed Visual Features into Words." arXiv preprint. arXiv:2407.06581. 检索词: `"VLMs are blind" visual perception geometric primitives evaluation 2024`
+- [E] Fu et al. (2024). "BLINK: Multimodal Large Language Models Can See but Not Perceive." arXiv preprint. arXiv:2404.12390. 检索词: `BLINK multimodal large language models can see but not perceive Fu 2024`
+- [F] Hao et al. (2025). "Can MLLMs Reason in Multimodality? EMMA: An Enhanced MultiModal ReAsoning Benchmark." arXiv preprint. arXiv:2501.05444. 检索词: `multimodal reasoning benchmark MLLM EMMA 2025`
+
+# REFCHECKER_REPAIR_LOG
+
+```jsonl
+{"case_id":"C4","run_id":"R1","item_id":"ref_A","item_type":"reference_metadata","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"元数据匹配正确：标题、作者（Yolo Y. Tang et al.）、年份2025、arXiv:2505.20426均确认","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"ref_B","item_type":"reference_metadata","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"元数据匹配正确：标题、作者（Candace Ross et al.）、年份2025、arXiv:2511.03768均确认","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"ref_C","item_type":"reference_metadata","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"标题错误：引用标题为'VisFactor: Benchmarking Fundamental Visual Cognition in Multimodal Large Language Models'，实际标题为'Human Cognitive Benchmarks Reveal Foundational Visual Gaps in MLLMs'","repair_action":"correct_metadata"}
+{"case_id":"C4","run_id":"R1","item_id":"ref_D","item_type":"reference_metadata","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"发表信息错误：论文已发表于ACCV 2024（Asian Conference on Computer Vision），并非仅arXiv预印本","repair_action":"correct_metadata"}
+{"case_id":"C4","run_id":"R1","item_id":"ref_E","item_type":"reference_metadata","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"发表信息错误：论文已发表于ECCV 2024（European Conference on Computer Vision），并非仅arXiv预印本","repair_action":"correct_metadata"}
+{"case_id":"C4","run_id":"R1","item_id":"ref_F","item_type":"reference_metadata","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"发表信息错误：论文已发表于ICML 2025（International Conference on Machine Learning），并非仅arXiv预印本","repair_action":"correct_metadata"}
+{"case_id":"C4","run_id":"R1","item_id":"claim_01","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[E] Abstract::¶1明确报告GPT-4V 51.26%、Gemini 45.72%、人类95.70%，§4.2::T1提供完整准确率表；[D] §4::T1报告四款VLM平均58.07%——claim与引用位置完全支持","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"claim_02","item_type":"claim_citation_pair","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[D] §4.1::¶2报告线交点计数准确率41-76%且随间距缩小下降，§4.2::¶2报告两圆重叠检测准确率75-93%——claim与引用位置完全支持","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"claim_03","item_type":"claim_citation_pair","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[D] §6::¶1报告vision encoder线性探测可达到≥99.47%准确率证明视觉信息充分；§3::¶3说明late-fusion机制导致解码失败——claim与引用位置完全支持","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"claim_04","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[A] §1::¶1引言论述MLLM在透视感知、推理与鲁棒性方面的系统性缺陷——claim与引用位置支持","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"claim_05","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[B] Abstract::¶1表明MLLM在跨场景共有特征推理中频繁幻觉并捏造不存在的对象——claim与引用位置完全支持","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"claim_06","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[C] 论文实际标题为'Human Cognitive Benchmarks Reveal Foundational Visual Gaps in MLLMs'，内容涉及视觉搜索、心理旋转等认知任务评估——元数据错误已标记于ref_C，但claim语义与论文内容一致","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"claim_07","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[F] §5.1::¶1和§5.1::¶2明确报告52.83%错误源于视觉推理，包括3D空间模拟和多跳视觉推理——claim与引用位置完全支持","repair_action":"none"}
+{"case_id":"C4","run_id":"R1","item_id":"claim_08","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"[F] §4.3::¶1明确声明测试时计算扩展'fails to close the gap to human expert performance'，§4.3::T3显示最佳提升约7.25%（Gemini Flash Thinking N=16）——claim与引用位置完全支持","repair_action":"none"}
+```
+
+# REPAIRED_REPORT
+
+## 第一部分：总体评估
+
+多模态大模型（MLLM）在多项视觉-语言基准上取得了瞩目成绩，但它们是否具备类似人类的视觉理解能力仍是开放问题。六篇论文的证据一致表明：当前最强 MLLM 在基本视觉感知任务上远逊于人类。Tang et al. [A] 发现 MLLM 在透视感知、推理与鲁棒性上存在系统性缺陷。Ross et al. [B] 揭示 MLLM 在跨场景推理中频繁产生幻觉。Huang et al. [C] 从认知科学角度出发，证明 MLLM 在视知觉搜索、心理旋转等基础认知任务上显著落后于人类基准。Rahmanzadehgervi et al. [D] 的 BlindTest 显示四款顶级 VLM 在七项极简几何任务上的平均准确率仅 58.07%。Fu et al. [E] 的 BLINK 基准进一步证实 GPT-4V 准确率 51.26%、Gemini 仅 45.72%，均远低于人类 95.70%。Hao et al. [F] 的 EMMA 揭示视觉推理而非文本推理才是核心瓶颈，最佳模型 o1 准确率仅 45.75%，比人类专家低 32 个百分点。学界共识是：MLLM 能"看见"但尚未真正"感知"。关键 gap 在于视觉信息的精确空间解码，而非高层语义推理。
+
+## 第二部分：逐条结论
+
+- 当前顶级 MLLM（GPT-4V、Gemini）在基础视觉感知任务上的表现远逊于人类，平均准确率低至 50% 左右，远低于人类 95% 以上的水平。
+  出处：[E] Abstract::¶1; §4.2::T1 / [D] §4::T1
+
+- MLLM 在判断两条线是否相交、两个圆是否重叠等极简几何任务中频繁出错，尤其当图形间距缩小时性能急剧下降。
+  出处：[D] §4.1::¶2; §4.2::¶2
+
+- 视觉编码器本身包含解决低层视觉任务的充分信息，瓶颈在于语言模型无法将这些视觉特征解码为正确回答。
+  出处：[D] §6::¶1; §3::¶3
+
+- MLLM 在透视感知和推理任务中存在系统性缺陷，二维图像中的三维空间关系理解与人类差距显著。
+  出处：[A] §1::¶1
+
+- MLLM 在跨场景推理（如识别多张图像间共有特征）时产生严重幻觉，倾向于捏造不存在的共性对象。
+  出处：[B] Abstract::¶1
+
+- 从认知科学视角评估，MLLM 在视觉搜索、心理旋转等基础视觉认知任务上系统性落后于人类基准。
+  出处：[C] §1::¶1
+
+- 视觉推理（而非文本推理）是 MLLM 的核心瓶颈：在 EMMA 基准上，52.83% 的错误源于视觉推理失败，包括三维空间模拟和多跳视觉推理。
+  出处：[F] §5.1::¶1; §5.1::¶2
+
+- 测试时计算扩展（如多数投票、Best-of-N）和链式思维提示均无法实质性弥合 MLLM 与人类在视觉推理上的差距，最佳仅提升约 7 个百分点。
+  出处：[F] §4.3::¶1; §4.3::T3
+
+## 第三部分：引用论文清单
+
+- [A] Tang et al. (2025). "MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness." arXiv preprint. arXiv:2505.20426. 检索词: `provided_pdf`
+- [B] Ross et al. (2025). "What's in Common? Multimodal Models Hallucinate When Reasoning Across Scenes." arXiv preprint. arXiv:2511.03768. 检索词: `provided_pdf`
+- [C] Huang et al. (2025). "Human Cognitive Benchmarks Reveal Foundational Visual Gaps in MLLMs." arXiv preprint. arXiv:2502.16435. 检索词: `provided_pdf`
+- [D] Rahmanzadehgervi et al. (2024). "Vision Language Models are Blind: Failing to Translate Detailed Visual Features into Words." ACCV 2024. arXiv:2407.06581. 检索词: `"VLMs are blind" visual perception geometric primitives evaluation 2024`
+- [E] Fu et al. (2024). "BLINK: Multimodal Large Language Models Can See but Not Perceive." ECCV 2024. arXiv:2404.12390. 检索词: `BLINK multimodal large language models can see but not perceive Fu 2024`
+- [F] Hao et al. (2025). "Can MLLMs Reason in Multimodality? EMMA: An Enhanced MultiModal ReAsoning Benchmark." ICML 2025. arXiv:2501.05444. 检索词: `multimodal reasoning benchmark MLLM EMMA 2025`
+
+# RUN_SUMMARY
+
+```json
+{"case_id":"C4","run_id":"R1","tool_called_refchecker":"yes","num_references_checked":6,"num_claim_pairs_checked":8,"num_issues_found":4,"num_revisions_made":4}
+```

@@ -6,7 +6,9 @@ Prompt templates:
 
 - `prompts/arxiv_mcp_pre_experiment_prompts.md`
 - `prompts/refchecker_pre_experiment_prompts.md`
-- `prompts/filled/arxiv_mcp_concrete_prompts.md`
+- `prompts/refchecker_repair_pre_experiment_prompt.md`
+- `prompts/filled/case*_arxiv_*_prompt.md`
+- `prompts/filled/case*_refchecker_repair_prompt.md`
 
 ## Configuration Control
 
@@ -16,8 +18,7 @@ Recommended pre-experiment profiles:
 
 - `preexp_arxiv_off`: arxiv MCP disabled; mcp-refchecker disabled; memory disabled.
 - `preexp_arxiv_on`: arxiv MCP enabled; mcp-refchecker disabled; memory disabled.
-- `preexp_refchecker_off`: mcp-refchecker disabled; memory disabled.
-- `preexp_refchecker_on`: mcp-refchecker enabled; memory disabled.
+- `pre-refchecker-c*-r*-repair`: arxiv MCP enabled; mcp-refchecker enabled; memory disabled; isolated workspace.
 
 Record the actual profile or config file used for each run in the raw run log.
 
@@ -164,7 +165,7 @@ This copies the base OpenClaw config into each run profile and applies the exper
 - Agent memory search and startup context are disabled.
 - Each profile uses an isolated workspace under `~/.openclaw-<profile>/workspace`.
 - Filesystem tools are restricted to the profile-local workspace.
-- Thinking is fixed to `medium` by default. Override with `EXPERIMENT_THINKING=low|medium|high|...` only if the whole experiment uses that same value.
+- Thinking is fixed to `high` by default. Override with `EXPERIMENT_THINKING=low|medium|high|...` only if the whole experiment uses that same value.
 - `citation-standard` is installed into each profile so `openclaw --profile ...` can load it.
 
 Each run directory also receives `openclaw_profile_audit.md`, which records the effective config path, MCP servers, skill entries, skill list, and skill check result for that profile.
@@ -202,3 +203,128 @@ evaluation/pre_experiments/arxiv_mcp_agent_outputs.csv
 ```
 
 Human annotation can then be copied into `arxiv_mcp_records.csv`.
+
+## Running the refchecker Repair Pre-Experiment
+
+This is the generation-phase repair pre-experiment. Each run asks the agent to produce:
+
+1. `ORIGINAL_REPORT`: the frozen first report before refchecker.
+2. `REFCHECKER_REPAIR_LOG`: JSONL records for reference metadata checks and claim-citation checks.
+3. `REPAIRED_REPORT`: the report after refchecker-informed repair.
+4. `RUN_SUMMARY`: machine-readable counts for the run.
+
+Run count:
+
+```text
+5 cases x 3 runs x 1 condition = 15 OpenClaw runs
+```
+
+The fixed configuration is:
+
+- `pdf` skill: on.
+- `citation-standard` skill: on.
+- `arxiv MCP`: on.
+- `mcp-refchecker`: on.
+- Web search: on, provider fixed to `brave`.
+- Memory, memory search, active memory, and startup context: off.
+- Filesystem tools: restricted to each profile's isolated workspace.
+- Thinking: `high` by default.
+
+Important limitation: `mcp-refchecker` verifies citation metadata against academic publication databases. It does not directly decide whether a cited paragraph supports a report claim. The repair prompt therefore requires two checks: refchecker for metadata and source-reading for claim support.
+
+1. Prepare run directories:
+
+```bash
+bash evaluation/pre_experiments/scripts/prepare_refchecker_repair_runs.sh
+```
+
+This creates:
+
+```text
+runs/pre_refchecker_repair/C1/R1/refchecker_repair/
+runs/pre_refchecker_repair/C1/R2/refchecker_repair/
+...
+```
+
+Each run directory contains:
+
+- `prompt.md`: the filled prompt.
+- `run_manifest.json`: condition metadata, prompt hashes, profile name, fixed settings, and expected output markers.
+
+2. Preflight check:
+
+```bash
+bash evaluation/pre_experiments/scripts/preflight_refchecker_repair_runs.sh
+```
+
+3. Prepare isolated OpenClaw profiles:
+
+```bash
+bash evaluation/pre_experiments/scripts/setup_refchecker_repair_profiles.sh
+```
+
+This creates one profile per run, such as:
+
+```text
+pre-refchecker-c1-r1-repair
+```
+
+For each profile, the setup script:
+
+- Copies base auth from `~/.openclaw/agents/main/agent/auth-profiles.json`.
+- Pins arxiv MCP to a Python interpreter that can import `arxiv_mcp_server`.
+- Launches arxiv MCP through `scripts/openclaw_arxiv_mcp_safe.py`.
+- Pins refchecker MCP to the `mcp-refchecker` console script.
+- Installs `citation-standard`.
+- Copies the case PDFs into the profile workspace under `input_papers/caseN/`.
+- Writes `openclaw_profile_audit.md` and `openclaw_profile_audit.stderr.log` into the run directory.
+
+The arxiv safe wrapper keeps upstream tool names unchanged but adds experiment safeguards:
+
+- Uses `arxiv.org/abs/<id>` for `get_abstract`, avoiding `export.arxiv.org` where possible.
+- Uses direct `arxiv.org/pdf/<id>` plus local `pdftotext` for PDF fallback, avoiding export API metadata lookup during download.
+- Disables best-effort semantic indexing after download, which otherwise makes extra export API calls.
+- Gives `search_papers` a short export API timeout and returns a warning payload instead of letting OpenClaw kill the MCP connection.
+- Caps `download_paper` and `read_paper` returned content with `ARXIV_MCP_CONTENT_CHAR_LIMIT=35000` by default; full paper text remains cached in the profile workspace.
+
+This wrapper was added because local diagnostics showed `arxiv.org/html` and `arxiv.org/pdf` were reachable, while `export.arxiv.org/api/query` returned HTTP 429 or read timed out. Without the wrapper, OpenClaw saw arxiv MCP timeout/connection-closed errors and later `download_paper` calls returned `Not connected`.
+
+4. Run a smoke test:
+
+```bash
+export HTTPS_PROXY=http://127.0.0.1:7897
+export HTTP_PROXY=http://127.0.0.1:7897
+export NO_PROXY=arxiv.org,export.arxiv.org,localhost,127.0.0.1
+export https_proxy="$HTTPS_PROXY"
+export http_proxy="$HTTP_PROXY"
+export no_proxy="$NO_PROXY"
+
+export OPENCLAW_RUN_CMD='openclaw --profile "$OPENCLAW_PROFILE" agent --local --timeout 1800 --thinking "$THINKING_LEVEL" --session-key "$SESSION_KEY" --message "$(cat "$PROMPT_FILE")"'
+
+JOBS=1 bash evaluation/pre_experiments/scripts/run_refchecker_repair_runs.sh \
+  runs/pre_refchecker_repair/C1/R1/refchecker_repair/prompt.md
+```
+
+5. Run the full batch:
+
+```bash
+SKIP_EXISTING=1 JOBS=1 bash evaluation/pre_experiments/scripts/run_refchecker_repair_runs.sh
+```
+
+Use serial execution (`JOBS=1`) by default. This experiment combines arxiv search, PDF reading, web fetch, and refchecker database calls; parallelism can create tool timeout artifacts.
+
+If a batch is interrupted by model billing/auth failure, keep `SKIP_EXISTING=1`: runs with `markers_ok=yes` and all four output markers will be skipped, while failed runs with `markers_ok=no` will be retried.
+
+6. Collect output status:
+
+```bash
+bash evaluation/pre_experiments/scripts/collect_refchecker_repair_outputs.sh
+```
+
+This writes:
+
+```text
+evaluation/pre_experiments/refchecker_repair_agent_outputs.csv
+```
+
+Human annotation can then be copied into `refchecker_repair_records.csv`.

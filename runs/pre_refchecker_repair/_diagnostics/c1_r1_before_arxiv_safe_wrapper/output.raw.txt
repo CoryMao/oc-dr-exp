@@ -1,0 +1,7 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+[33m[agent/embedded][39m [33m[trace:embedded-run] prep stages: runId=9c2188ab-bc1c-405c-bf45-928ceb7010fe sessionId=f9ecb795-4d40-4f37-bdef-2a44d118401e phase=stream-ready totalMs=7024 stages=workspace-sandbox:2ms@2ms,skills:0ms@2ms,core-plugin-tools:88ms@90ms,bootstrap-context:4ms@94ms,bundle-tools:6695ms@6789ms,system-prompt:145ms@6934ms,session-resource-loader:33ms@6967ms,agent-session:6ms@6973ms,stream-setup:51ms@7024ms[39m
+[tools] arxiv__search_papers failed: MCP error -32001: Request timed out raw_params={"query":"ti:\"tool\" AND ti:\"agent\" AND \"software engineering\" AND \"benchmark\"","categories":["cs.SE","cs.AI","cs.CL"],"max_results":15,"date_from":"2024-01-01","sort_by":"relevance"}
+[tools] arxiv__search_papers failed: MCP error -32001: Request timed out raw_params={"query":"\"LLM agent\" \"coding\" ANDNOT \"survey\" AND benchmark comparison \"pass@1\" OR \"resolve rate\"","categories":["cs.SE","cs.AI"],"max_results":15,"date_from":"2024-01-01","sort_by":"relevance"}
+[33m[agent/embedded][39m [33membedded run failover decision: runId=9c2188ab-bc1c-405c-bf45-928ceb7010fe stage=assistant decision=surface_error reason=timeout from=deepseek/deepseek-v4-pro profile=sha256:9eec02c17471 rawError=Request was aborted[39m
+Request was aborted
+Request timed out before a response was generated. Please try again, or increase `agents.defaults.timeoutSeconds` in your config.

@@ -1,0 +1,7 @@
+=== START 2026-06-04T18:30:51Z ===
+case_id=C3 run_id=R3 condition=refchecker_repair
+openclaw_profile=pre-refchecker-c3-r3-repair session_key=refchecker-repair-pre-C3-R3-safe-wrapper-rerun1
+thinking=high
+command_status=0
+markers_ok=yes
+=== END 2026-06-04T18:42:26Z ===

@@ -1,0 +1,40 @@
+{
+  "experiment": "refchecker_repair_pre_experiment",
+  "case_id": "C4",
+  "run_id": "R1",
+  "condition": "refchecker_repair",
+  "prompt_template": "/Users/kaichengmao/Desktop/Project2/evaluation/pre_experiments/prompts/filled/case4_refchecker_repair_prompt.md",
+  "prompt_file": "/Users/kaichengmao/Desktop/Project2/runs/pre_refchecker_repair/C4/R1/refchecker_repair/prompt.md",
+  "prompt_sha256": "e378faee4cca4083fe1a085e0dca8ca6c6e3fb39f49594afba1a86e245fab959",
+  "template_sha256": "c76790242f28eaf51c55b1fb8c5bac0c66f580bd1c5efd3acbcfef8472aa12a7",
+  "openclaw_profile": "pre-refchecker-c4-r1-repair",
+  "openclaw_state_dir": "/Users/kaichengmao/.openclaw-pre-refchecker-c4-r1-repair",
+  "openclaw_workspace_dir": "/Users/kaichengmao/.openclaw-pre-refchecker-c4-r1-repair/workspace",
+  "expected_workspace_inputs": "input_papers/case4",
+  "fixed_settings": {
+    "memory": "off",
+    "memory_search": "off",
+    "startup_context": "off",
+    "plan": "default_minimal",
+    "thinking": "high",
+    "pdf_skill": "on",
+    "citation-standard": "on",
+    "web_search": "on:brave",
+    "fs_workspace_only": true,
+    "arxiv_mcp": "on",
+    "refchecker": "on"
+  },
+  "variable": {
+    "refchecker_repair": "on"
+  },
+  "output_contract": {
+    "top_level_markers": [
+      "# ORIGINAL_REPORT",
+      "# REFCHECKER_REPAIR_LOG",
+      "# REPAIRED_REPORT",
+      "# RUN_SUMMARY"
+    ],
+    "repair_log_format": "jsonl",
+    "run_summary_format": "json"
+  }
+}

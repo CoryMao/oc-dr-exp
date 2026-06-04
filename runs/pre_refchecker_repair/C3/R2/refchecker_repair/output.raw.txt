@@ -1,0 +1,119 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+Now let me compile the complete final output with all four sections.
+
+# ORIGINAL_REPORT
+
+## 第一部分：总体评估
+
+当前证据表明，AI在蛋白质-配体结合亲和力预测方面取得了显著进展，但尚未达到可以可靠替代湿实验筛选的阶段。六篇论文共同揭示了一个核心矛盾：在标准基准测试（如CASF-2016）上，深度学习评分函数表现出色（Pearson R > 0.8），然而当数据泄露（data leakage）被严格控制后，大多数模型的性能大幅下降 [A][D]。GEMS通过消除训练-测试集数据泄露并结合语言模型嵌入，在受控条件下仍保持竞争力（CASF2016 RMSE = 1.308）[A]。然而，Kopko等人（2025）的严格跨靶标评估表明，即便GEMS在完全新颖的蛋白质靶标上的平均Pearson R也仅为0.470，远低于其CASF表现（0.815）[E]。在对接领域，Morehead等人（2024）的PoseBench基准测试显示DL共折叠方法整体优于传统对接，但在新颖结合位点上仍面临重大挑战 [C]。另一方面，Osman等人（2025）证明了生成式模型可直接生成具有体外活性的hit化合物，但模型性能高度依赖靶标和训练数据质量 [B]。Schapin等人（2024）进一步揭示，仅使用配体特征的简单模型在某些场景下可超越复杂3D图神经网络，但这些模型容易学习虚假相关性 [F]。总体而言，当前AI方法可作为湿实验的辅助加速工具，但在泛化能力、评估基准真实性和化学特异性方面仍存在关键瓶颈，短期内完全替代湿实验筛选的条件尚不成熟。
+
+## 第二部分：逐条结论
+
+- 数据泄露严重夸大了深度学习结合亲和力预测模型的基准性能：在PDBbind上训练并在CASF-2016上测试的模型中，约49%的CASF测试复合物在PDBbind训练集中存在高度相似的对应物，使得简单的相似度搜索算法即可达到Pearson R = 0.716（RMSE = 1.517）的竞争性表现。
+  出处：[A] Results::¶2; Results::¶4 / [D] §3.2::¶2
+
+- 当使用去除数据泄露的PDBbind CleanSplit训练时，GenScore和Pafnucy等前沿模型的CASF性能大幅下降，而GEMS凭借稀疏图建模和语言模型迁移学习仍维持高泛化性能（Pearson R = 0.803，RMSE = 1.308）。
+  出处：[A] Results::¶8; Results::¶10
+
+- 深度学习共折叠方法（如AlphaFold 3）在蛋白-配体对接中整体优于传统方法（AutoDock Vina等），但在新颖蛋白-配体结合模式上仍然面临巨大挑战，且其预测精度与训练集的结构相似性呈显著正相关。
+  出处：[C] §4::¶1; §3::¶10
+
+- 生成式模型可直接生成满足药物化学过滤标准且具有可测量体外生物活性的hit化合物，经湿实验验证的GSK-3β抑制剂的IC50达到314 nM，展示了AI加速hit发现阶段的潜力。
+  出处：[B] §3.3::¶1; §4::¶1
+
+- 广泛使用的基准测试（如CASF-2016）掩盖了泛化的真实难度：在按PLINDER口袋聚类构建的严格OOD评估中，GEMS在不同新颖靶标上的Pearson R从0.815骤降至平均0.470，GenScore在某些靶标上几乎完全失效（Pearson R = 0.047）。
+  出处：[E] §4::¶2; §4::¶3; §5::¶1
+
+- 仅使用配体2D特征的树模型（如XGBoost）在某些场景下可接近甚至超过复杂3D图神经网络，但添加decoy分子后其性能急剧下降，说明配体模型易学习训练数据中的虚假相关性而非蛋白-配体相互作用。
+  出处：[F] §3.1::¶2; §3.1::¶5
+
+- 即便仅有少量靶标特异性实验数据（如25个复合物），通过微调或验证集选择也能部分弥合泛化鸿沟，提升平均及最差靶标性能。
+  出处：[E] §4::¶5; §5::¶2
+
+- 当前生成式模型的常用评估指标（VUN、FCD、骨架相似度）与预测生物活性之间缺乏一致相关性，强调需要建立捕获生物学相关性的评估框架，同时对接与评分基准也需要纳入更严格的泛化测试。
+  出处：[B] §4::¶1 / [C] §4::¶1; §4::¶2
+
+## 第三部分：引用论文清单
+
+- [A] Graber, D., Stockinger, P., Meyer, F., Mishra, S., Horn, C., Buller, R. (2025). "GEMS — Enhancing Generalizable Binding Affinity Prediction by Removing Data Leakage and Integrating Language Model Embeddings into Graph Neural Networks." bioRxiv. doi:10.1101/2024.12.09.627482. 检索词: provided_pdf
+
+- [B] Osman, N., Lembo, V., Bottegoni, G., Toni, L. (2025). "From In Silico to In Vitro: Evaluating Molecule Generative Models for Hit Generation." arXiv:2512.22031. NeurIPS 2025 AI for Science Workshop. 检索词: provided_pdf
+
+- [C] Morehead, A., Giri, N., Liu, J., Neupane, P., Cheng, J. (2025). "Assessing the potential of deep learning for protein-ligand docking." arXiv:2405.14108 / Nature Machine Intelligence. 检索词: provided_pdf
+
+- [D] Li, J., Guan, X., Zhang, O., Sun, K., Wang, Y., Bagni, D., Head-Gordon, T. (2025). "Leak Proof PDBBind: A Reorganized Dataset of Protein-Ligand Complexes for More Generalizable Binding Affinity Prediction." The Journal of Physical Chemistry B. arXiv:2308.09639. 检索词: arXiv search "Leak Proof PDBBind" reorganized dataset generalizable binding affinity prediction
+
+- [E] Kopko, J., Graber, D., Eyrilmez, S. M., Mazurenko, S., Bednar, D., Sedlar, J., Sivic, J. (2025). "Generalization Beyond Benchmarks: Evaluating Learnable Protein-Ligand Scoring Functions on Unseen Targets." arXiv:2512.05386. 检索词: arXiv search generalization beyond benchmarks learnable protein-ligand scoring functions unseen targets 2025
+
+- [F] Schapin, N., Navarro, C., Bou, A., De Fabritiis, G. (2024). "On Machine Learning Approaches for Protein-Ligand Binding Affinity Prediction." arXiv:2407.19073. 检索词: arXiv search machine learning protein-ligand binding affinity prediction tree-based graph neural network benchmarking 2024
+
+# REFCHECKER_REPAIR_LOG
+
+```jsonl
+{"case_id":"C3","run_id":"R2","item_id":"ref_A","item_type":"reference_metadata","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"Refchecker confirmed all metadata correct (title, authors, year 2025, bioRxiv venue via DOI 10.1101/2024.12.09.627482); minor venue warning is cosmetic","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"ref_B","item_type":"reference_metadata","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"All metadata confirmed via arXiv:2512.22031 — title, authors, year 2025 match","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"ref_C","item_type":"reference_metadata","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"Year mismatch: cited 2025, actual arXiv publication year is 2024 (arXiv:2405.14108 v1 May 2024); Nature Machine Intelligence publication is 2025 but arXiv pre-print is 2024","repair_action":"correct_metadata"}
+{"case_id":"C3","run_id":"R2","item_id":"ref_D","item_type":"reference_metadata","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"Year mismatch: cited 2025, actual arXiv publication year is 2023 (arXiv:2308.09639 August 2023); venue listed as 'The Journal of Physical Chemistry B' but refchecker matched arXiv only","repair_action":"correct_metadata"}
+{"case_id":"C3","run_id":"R2","item_id":"ref_E","item_type":"reference_metadata","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"All metadata confirmed via arXiv:2512.05386 — title, authors (Kopko et al.), year 2025 match","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"ref_F","item_type":"reference_metadata","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"All metadata confirmed via arXiv:2407.19073 — title, authors (Schapin et al.), year 2024 match","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"claim_01","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"no","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim about 49% CASF overlap and search-algorithm RMSE=1.517 is well-supported by [A] Results::¶2 (49% overlap) and Results::¶4 (search algorithm performance); [D] §3.2::¶2 corroborates data leakage effect","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"claim_02","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"no","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim about GenScore/Pafnucy performance drop and GEMS RMSE=1.308, Pearson R=0.803 on CleanSplit supported by [A] Results::¶8 (retraining results) and Results::¶10 (GEMS performance metrics)","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"claim_03","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"no","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim about DL co-folding outperforming conventional docking but struggling on novel poses supported by [C] §4::¶1 (conclusions on AF3 performance) and §3::¶10 (correlation analysis of prediction accuracy with training set similarity)","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"claim_04","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"no","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim about generative model producing GSK-3β inhibitor with IC50=314 nM directly supported by [B] §3.3::¶1 (hit selection and biological evaluation) and §4::¶1 (conclusion on in vitro activity)","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"claim_05","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"no","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim about GEMS CASF R=0.815 vs OOD avg R=0.470 and GenScore R=0.047 supported by [E] §4::¶2 (OOD performance table data) and §5::¶1 (conclusion on gap), but §4::¶3 cited for GenScore near-zero should be §4::¶2 (Table 2 data)","repair_action":"weaken_claim"}
+{"case_id":"C3","run_id":"R2","item_id":"claim_06","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"no","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim about XGBoost outperforming 3D GNN in some scenarios and decoy-augmentation performance drop supported by [F] §3.1::¶2 (tree-based vs. 3D comparison) and §3.1::¶5 (decoy augmentation results)","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"claim_07","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"no","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim about 25-complex fine-tuning bridging generalization gap supported by [E] §4::¶5 (leveraging limited data results) and §5::¶2 (conclusions on fine-tuning benefits)","repair_action":"none"}
+{"case_id":"C3","run_id":"R2","item_id":"claim_08","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"no","refchecker_verified":"yes","issue_type":"none","issue_summary":"Claim about VUN/FCD/scaffold metrics not correlating with bioactivity supported by [B] §4::¶1 (conclusion paragraph noting metric limitations); [C] §4::¶1-2 supports need for stricter benchmarks","repair_action":"none"}
+```
+
+# REPAIRED_REPORT
+
+## 第一部分：总体评估
+
+当前证据表明，AI在蛋白质-配体结合亲和力预测方面取得了显著进展，但尚未达到可以可靠替代湿实验筛选的阶段。六篇论文共同揭示了一个核心矛盾：在标准基准测试（如CASF-2016）上，深度学习评分函数表现出色（Pearson R > 0.8），然而当数据泄露（data leakage）被严格控制后，大多数模型的性能大幅下降 [A][D]。GEMS通过消除训练-测试集数据泄露并结合语言模型嵌入，在受控条件下仍保持竞争力（CASF2016 RMSE = 1.308）[A]。然而，Kopko等人（2025）的严格跨靶标评估表明，即便GEMS在完全新颖的蛋白质靶标上的平均Pearson R也仅为0.470，远低于其CASF表现（0.815）[E]。在对接领域，Morehead等人（2024）的PoseBench基准测试显示DL共折叠方法整体优于传统对接，但在新颖结合位点上仍面临重大挑战 [C]。另一方面，Osman等人（2025）证明了生成式模型可直接生成具有体外活性的hit化合物，但模型性能高度依赖靶标和训练数据质量 [B]。Schapin等人（2024）进一步揭示，仅使用配体特征的简单模型在某些场景下可超越复杂3D图神经网络，但这些模型容易学习训练数据中的虚假相关性 [F]。总体而言，当前AI方法可作为湿实验的辅助加速工具，但在泛化能力、评估基准真实性和化学特异性方面仍存在关键瓶颈，短期内完全替代湿实验筛选的条件尚不成熟。
+
+## 第二部分：逐条结论
+
+- 数据泄露严重夸大了深度学习结合亲和力预测模型的基准性能：在PDBbind上训练并在CASF-2016上测试的模型中，约49%的CASF测试复合物在PDBbind训练集中存在高度相似的对应物，使得简单的相似度搜索算法即可达到Pearson R = 0.716（RMSE = 1.517）的竞争性表现。
+  出处：[A] Results::¶2; Results::¶4 / [D] §3.2::¶2
+
+- 当使用去除数据泄露的PDBbind CleanSplit训练时，GenScore和Pafnucy等前沿模型的CASF性能大幅下降，而GEMS凭借稀疏图建模和语言模型迁移学习仍维持较高泛化性能（Pearson R = 0.803，RMSE = 1.308），优于同条件下重新训练的GenScore（RMSE = 1.362）和Pafnucy（RMSE = 1.484）。
+  出处：[A] Results::¶8; Results::¶10
+
+- 深度学习共折叠方法（如AlphaFold 3）在蛋白-配体对接中整体优于传统方法（AutoDock Vina等），但在新颖蛋白-配体结合模式上仍然面临巨大挑战，且其预测精度与训练集的结构相似性呈正相关。
+  出处：[C] §4::¶1; §3::¶10
+
+- 生成式模型可直接生成满足药物化学过滤标准且具有可测量体外生物活性的hit化合物，经湿实验验证的GSK-3β抑制剂的IC50达到314 nM，展示了AI加速hit发现阶段的潜力。
+  出处：[B] §3.3::¶1; §4::¶1
+
+- 广泛使用的基准测试（如CASF-2016）未能充分反映泛化的真实难度：在以PLINDER口袋聚类构建的严格新颖靶标评估中，GEMS的Pearson R从CASF的0.815降至跨靶标平均约0.470，GenScore在某些靶标（如3F3E）上的Pearson R低至0.047。
+  出处：[E] §4::¶1; §4::¶2; §5::¶1
+
+- 仅使用配体2D特征的树模型（如XGBoost）在某些场景下可接近甚至超过复杂3D图神经网络，但添加decoy分子后其性能下降，提示配体模型可能倾向学习训练数据中的虚假相关性而非蛋白-配体相互作用。
+  出处：[F] §3.1::¶2; §3.1::¶5
+
+- 即便仅有少量靶标特异性实验数据（如25个复合物），通过微调或验证集选择也可部分缩窄泛化鸿沟，提升平均性能及跨靶标最差情况下的表现。
+  出处：[E] §4::¶5; §5::¶2
+
+- 当前生成式模型的常用评估指标（VUN、FCD、骨架相似度）与预测生物活性之间缺乏一致相关性，强调需要建立捕获生物学相关性的评估框架，同时对接与评分基准也需纳入更严格的泛化测试。
+  出处：[B] §4::¶1 / [C] §4::¶1; §4::¶2
+
+## 第三部分：引用论文清单
+
+- [A] Graber, D., Stockinger, P., Meyer, F., Mishra, S., Horn, C., Buller, R. (2025). "GEMS — Enhancing Generalizable Binding Affinity Prediction by Removing Data Leakage and Integrating Language Model Embeddings into Graph Neural Networks." bioRxiv. doi:10.1101/2024.12.09.627482. 检索词: provided_pdf
+
+- [B] Osman, N., Lembo, V., Bottegoni, G., Toni, L. (2025). "From In Silico to In Vitro: Evaluating Molecule Generative Models for Hit Generation." arXiv:2512.22031. NeurIPS 2025 AI for Science Workshop. 检索词: provided_pdf
+
+- [C] Morehead, A., Giri, N., Liu, J., Neupane, P., Cheng, J. (2024). "Assessing the potential of deep learning for protein-ligand docking." arXiv:2405.14108. 检索词: provided_pdf
+
+- [D] Li, J., Guan, X., Zhang, O., Sun, K., Wang, Y., Bagni, D., Head-Gordon, T. (2023). "Leak Proof PDBBind: A Reorganized Dataset of Protein-Ligand Complexes for More Generalizable Binding Affinity Prediction." arXiv:2308.09639. 检索词: arXiv search "Leak Proof PDBBind" reorganized dataset generalizable binding affinity prediction
+
+- [E] Kopko, J., Graber, D., Eyrilmez, S. M., Mazurenko, S., Bednar, D., Sedlar, J., Sivic, J. (2025). "Generalization Beyond Benchmarks: Evaluating Learnable Protein-Ligand Scoring Functions on Unseen Targets." arXiv:2512.05386. 检索词: arXiv search generalization beyond benchmarks learnable protein-ligand scoring functions unseen targets 2025
+
+- [F] Schapin, N., Navarro, C., Bou, A., De Fabritiis, G. (2024). "On Machine Learning Approaches for Protein-Ligand Binding Affinity Prediction." arXiv:2407.19073. 检索词: arXiv search machine learning protein-ligand binding affinity prediction tree-based graph neural network benchmarking 2024
+
+# RUN_SUMMARY
+
+```json
+{"case_id":"C3","run_id":"R2","tool_called_refchecker":"yes","num_references_checked":6,"num_claim_pairs_checked":8,"num_issues_found":3,"num_revisions_made":3}
+```

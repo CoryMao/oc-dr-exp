@@ -2,7 +2,8 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-RUN_ROOT="$ROOT_DIR/runs/pre_arxiv"
+RUN_ROOT="$ROOT_DIR/runs/pre_refchecker_repair"
+CASE_PAPER_DIR="$ROOT_DIR/case paper"
 BASE_CONFIG="${BASE_OPENCLAW_CONFIG:-$HOME/.openclaw/openclaw.json}"
 BASE_AUTH="${BASE_OPENCLAW_AUTH:-$HOME/.openclaw/agents/main/agent/auth-profiles.json}"
 SKILL_DIR="$ROOT_DIR/citation-standard"
@@ -10,6 +11,7 @@ ARXIV_MCP_WRAPPER="$ROOT_DIR/evaluation/pre_experiments/scripts/openclaw_arxiv_m
 THINKING_LEVEL="${EXPERIMENT_THINKING:-high}"
 BASE_BRAVE_PLUGIN_DIR="$(find "$HOME/.openclaw/npm/projects" -maxdepth 1 -type d -name 'openclaw-brave-plugin-*' | sort | head -n 1 || true)"
 ARXIV_MCP_PYTHON="${ARXIV_MCP_PYTHON:-}"
+REFCHECKER_MCP_COMMAND="${REFCHECKER_MCP_COMMAND:-}"
 
 if [[ -z "$ARXIV_MCP_PYTHON" ]]; then
   for candidate in \
@@ -29,14 +31,37 @@ if [[ -z "$ARXIV_MCP_PYTHON" ]]; then
   exit 1
 fi
 
+if [[ -z "$REFCHECKER_MCP_COMMAND" ]]; then
+  for candidate in \
+    /Library/Frameworks/Python.framework/Versions/3.13/bin/mcp-refchecker \
+    /usr/local/bin/mcp-refchecker \
+    mcp-refchecker; do
+    if command -v "$candidate" >/dev/null 2>&1; then
+      REFCHECKER_MCP_COMMAND="$candidate"
+      break
+    fi
+  done
+fi
+
+if [[ -z "$REFCHECKER_MCP_COMMAND" ]]; then
+  echo "Could not find the mcp-refchecker console script." >&2
+  echo "Set REFCHECKER_MCP_COMMAND=/path/to/mcp-refchecker and rerun this script." >&2
+  exit 1
+fi
+
 if [[ ! -d "$RUN_ROOT" ]]; then
   echo "Run directory does not exist: $RUN_ROOT" >&2
-  echo "Run prepare_arxiv_runs.sh first." >&2
+  echo "Run prepare_refchecker_repair_runs.sh first." >&2
   exit 1
 fi
 
 if [[ ! -f "$BASE_CONFIG" ]]; then
   echo "Base OpenClaw config not found: $BASE_CONFIG" >&2
+  exit 1
+fi
+
+if [[ ! -d "$CASE_PAPER_DIR" ]]; then
+  echo "Case paper directory not found: $CASE_PAPER_DIR" >&2
   exit 1
 fi
 
@@ -54,7 +79,7 @@ profile_requested() {
   local candidate="$1"
   local requested_profile
 
-  if [[ "$#" -eq 1 && "$REQUESTED_PROFILE_COUNT" -eq 0 ]]; then
+  if [[ "$REQUESTED_PROFILE_COUNT" -eq 0 ]]; then
     return 0
   fi
 
@@ -76,15 +101,17 @@ while IFS= read -r manifest; do
     continue
   fi
 
-  condition="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["condition"])' "$manifest")"
+  case_id="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["case_id"])' "$manifest")"
+  case_num="${case_id#C}"
   state_dir="$HOME/.openclaw-$profile"
   config_file="$state_dir/openclaw.json"
   workspace_dir="$state_dir/workspace"
   arxiv_storage_dir="$workspace_dir/arxiv_mcp_papers"
   auth_dir="$state_dir/agents/main/agent"
   auth_file="$auth_dir/auth-profiles.json"
+  input_dir="$workspace_dir/input_papers/case${case_num}"
   profile_has_qqbot="false"
-  if find "$state_dir/npm/projects" -maxdepth 1 -type d -name 'openclaw-qqbot-*' | grep -q .; then
+  if [[ -d "$state_dir/npm/projects" ]] && find "$state_dir/npm/projects" -maxdepth 1 -type d -name 'openclaw-qqbot-*' | grep -q .; then
     profile_has_qqbot="true"
   fi
 
@@ -93,41 +120,50 @@ while IFS= read -r manifest; do
   mkdir -p "$arxiv_storage_dir"
   mkdir -p "$auth_dir"
   mkdir -p "$state_dir/npm/projects"
+  mkdir -p "$input_dir"
 
-  python3 - "$BASE_CONFIG" "$config_file" "$condition" "$workspace_dir" "$arxiv_storage_dir" "$THINKING_LEVEL" "$ARXIV_MCP_PYTHON" "$ARXIV_MCP_WRAPPER" "$profile_has_qqbot" <<'PY'
+  python3 - "$BASE_CONFIG" "$config_file" "$workspace_dir" "$arxiv_storage_dir" "$THINKING_LEVEL" "$ARXIV_MCP_PYTHON" "$ARXIV_MCP_WRAPPER" "$REFCHECKER_MCP_COMMAND" "$profile_has_qqbot" <<'PY'
 import json
 import sys
 from pathlib import Path
 
-src, dst, condition, workspace_dir, arxiv_storage_dir, thinking_level, arxiv_mcp_python, arxiv_mcp_wrapper, profile_has_qqbot = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9] == "true"
+src, dst, workspace_dir, arxiv_storage_dir, thinking_level, arxiv_mcp_python, arxiv_mcp_wrapper, refchecker_mcp_command, profile_has_qqbot = sys.argv[1:10]
+profile_has_qqbot = profile_has_qqbot == "true"
 config = json.loads(Path(src).read_text())
 
 base_servers = (config.get("mcp") or {}).get("servers") or {}
-if condition == "arxiv_on":
-    arxiv = dict(base_servers.get("arxiv") or {})
-    if not arxiv:
-        raise SystemExit("Base config does not define mcp.servers.arxiv")
-    arxiv["command"] = arxiv_mcp_python
-    arxiv["args"] = [
-        arxiv_mcp_wrapper,
-        "--storage-path",
-        arxiv_storage_dir,
-    ]
-    arxiv_env = dict(arxiv.get("env") or {})
-    arxiv_env["PYTHONUNBUFFERED"] = "1"
-    arxiv_env.setdefault("NO_PROXY", "arxiv.org,export.arxiv.org,localhost,127.0.0.1")
-    arxiv_env.setdefault("ARXIV_MCP_EXPORT_TIMEOUT", "10")
-    arxiv_env.setdefault("ARXIV_MCP_ABS_TIMEOUT", "15")
-    arxiv_env.setdefault("ARXIV_MCP_PDF_TIMEOUT", "60")
-    arxiv_env.setdefault("ARXIV_MCP_DELAY_SECONDS", "6")
-    arxiv_env.setdefault("ARXIV_MCP_NUM_RETRIES", "0")
-    arxiv_env.setdefault("ARXIV_MCP_CONTENT_CHAR_LIMIT", "35000")
-    arxiv["env"] = arxiv_env
-    config.setdefault("mcp", {})["servers"] = {"arxiv": arxiv}
-elif condition == "arxiv_off":
-    config.setdefault("mcp", {})["servers"] = {}
-else:
-    raise SystemExit(f"Unknown condition: {condition}")
+arxiv = dict(base_servers.get("arxiv") or {})
+if not arxiv:
+    raise SystemExit("Base config does not define mcp.servers.arxiv")
+arxiv["command"] = arxiv_mcp_python
+arxiv["args"] = [
+    arxiv_mcp_wrapper,
+    "--storage-path",
+    arxiv_storage_dir,
+]
+arxiv_env = dict(arxiv.get("env") or {})
+arxiv_env["PYTHONUNBUFFERED"] = "1"
+arxiv_env.setdefault("NO_PROXY", "arxiv.org,export.arxiv.org,localhost,127.0.0.1")
+arxiv_env.setdefault("ARXIV_MCP_EXPORT_TIMEOUT", "10")
+arxiv_env.setdefault("ARXIV_MCP_ABS_TIMEOUT", "15")
+arxiv_env.setdefault("ARXIV_MCP_PDF_TIMEOUT", "60")
+arxiv_env.setdefault("ARXIV_MCP_DELAY_SECONDS", "6")
+arxiv_env.setdefault("ARXIV_MCP_NUM_RETRIES", "0")
+arxiv_env.setdefault("ARXIV_MCP_CONTENT_CHAR_LIMIT", "35000")
+arxiv["env"] = arxiv_env
+
+refchecker = dict(base_servers.get("refchecker") or {})
+refchecker["command"] = refchecker_mcp_command
+refchecker["args"] = []
+refchecker_env = dict(refchecker.get("env") or {})
+refchecker_env["PYTHONUNBUFFERED"] = "1"
+refchecker_env.setdefault("NO_PROXY", "arxiv.org,export.arxiv.org,localhost,127.0.0.1")
+refchecker["env"] = refchecker_env
+
+config.setdefault("mcp", {})["servers"] = {
+    "arxiv": arxiv,
+    "refchecker": refchecker,
+}
 
 skills = config.setdefault("skills", {})
 entries = skills.setdefault("entries", {})
@@ -185,13 +221,14 @@ PY
     echo "WARNING: base Brave plugin install not found under ~/.openclaw/npm/projects" >&2
   fi
 
-  # Install the local skill into this profile so `openclaw --profile ...` can see it.
+  cp "$CASE_PAPER_DIR/case${case_num}"/*.pdf "$input_dir/"
+
   openclaw --profile "$profile" skills install "$SKILL_DIR" --as citation-standard --global --force >/dev/null
 
   audit_dir="$(dirname "$manifest")"
   AUDIT_OUT_DIR="$audit_dir" bash "$ROOT_DIR/evaluation/pre_experiments/scripts/audit_openclaw_profile.sh" "$profile" >/dev/null
 
-  echo "Prepared profile: $profile ($condition)"
+  echo "Prepared profile: $profile (case${case_num})"
 done < <(find "$RUN_ROOT" -name run_manifest.json | sort)
 
-echo "Prepared OpenClaw profiles for arxiv MCP pre-experiment."
+echo "Prepared OpenClaw profiles for refchecker repair pre-experiment."

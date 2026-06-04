@@ -1,0 +1,3 @@
+[34m[model-fallback/decision][39m [33mmodel fallback decision: decision=probe_cooldown_candidate requested=deepseek/deepseek-v4-pro candidate=deepseek/deepseek-v4-pro reason=billing next=none[39m
+[33m[agent/embedded][39m [33mprobing cooldowned auth profile for deepseek/deepseek-v4-pro due to billing unavailability[39m
+[34m[model-fallback/decision][39m [33mmodel fallback decision: decision=candidate_succeeded requested=deepseek/deepseek-v4-pro candidate=deepseek/deepseek-v4-pro reason=unknown next=none[39m
