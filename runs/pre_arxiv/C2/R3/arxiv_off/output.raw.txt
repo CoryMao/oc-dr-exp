@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C2,R3,arxiv_off,D,"Shumailov, Shumaylov, Zhao, Papernot, Anderson & Gal (2024). AI models collapse when trained on recursively generated data. Nature 631, 755–759.",https://doi.org/10.1038/s41586-024-07566-y,2024,unknown,,,,
+C2,R3,arxiv_off,E,"Dohmatob, Feng, Subramonian & Kempe (2024). Strong Model Collapse.",arXiv:2410.04840,2024,unknown,,,,
+C2,R3,arxiv_off,F,"Seddik, Chen, Hayou, Youssef & Debbah (2024). How Bad is Training on Synthetic Data? A Statistical Analysis of Language Model Collapse.",arXiv:2404.05090,2024,unknown,,,,

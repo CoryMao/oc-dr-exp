@@ -1,0 +1,2 @@
+report_id,case_id,run_id,claim_id,checker_condition,human_error_exists,human_error_type,checker_flagged,checker_error_type,checker_explanation,human_judgment_note
+,,,,,,,,,,

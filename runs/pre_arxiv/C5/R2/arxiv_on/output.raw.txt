@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C5,R2,arxiv_on,D,"The SWE-Bench Illusion: When State-of-the-Art LLMs Remember Instead of Reason","arXiv:2506.12286",2025,yes,,,,
+C5,R2,arxiv_on,E,"Beyond Code: The Multidimensional Impacts of Large Language Models in Software Development","arXiv:2506.22704",2025,yes,,,,
+C5,R2,arxiv_on,F,"SWE-bench Goes Live!","arXiv:2505.23419",2025,yes,,,,

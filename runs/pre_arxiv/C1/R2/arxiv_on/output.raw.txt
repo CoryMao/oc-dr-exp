@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C1,R2,arxiv_on,D,"SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",arXiv:2310.06770,2023,yes,,,,
+C1,R2,arxiv_on,E,"Executable Code Actions Elicit Better LLM Agents",arXiv:2402.01030,2024,yes,,,,
+C1,R2,arxiv_on,F,"Diversity Empowers Intelligence: Integrating Expertise of Software Engineering Agents",arXiv:2408.07060,2024,yes,,,,

@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C4,R3,arxiv_off,D,"Vision language models are blind: Failing to translate detailed visual features into words",arXiv:2407.06581,2024,yes,,,,,
+C4,R3,arxiv_off,E,"Beyond the Visible: Benchmarking Occlusion Perception in Multimodal Large Language Models",arXiv:2508.04059,2025,yes,,,,,
+C4,R3,arxiv_off,F,"IllusionBench+: A Large-scale and Comprehensive Benchmark for Visual Illusion Understanding in Vision-Language Models",arXiv:2501.00848,2025,yes,,,,,

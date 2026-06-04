@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C5,R2,arxiv_off,D,"Measuring AI Ability to Complete Long Software Tasks",arXiv:2503.14499,2025,unknown,,,,
+C5,R2,arxiv_off,E,"Agentic Software Engineering: Foundational Pillars and a Research Roadmap",arXiv:2509.06216,2025,unknown,,,,
+C5,R2,arxiv_off,F,"Professional Software Developers Don't Vibe, They Control: AI Agent Use for Coding in 2025",arXiv:2512.14012,2025,unknown,,,,

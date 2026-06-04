@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C4,R1,arxiv_on,D,"Seeing Is Believing? A Benchmark for Multimodal Large Language Models on Visual Illusions and Anomalies",arXiv:2602.01816,2026,yes,,,,,
+C4,R1,arxiv_on,E,"VisuLogic: A Benchmark for Evaluating Visual Reasoning in Multi-modal Large Language Models",arXiv:2504.15279,2025,yes,,,,,
+C4,R1,arxiv_on,F,"Do You See Me: A Multidimensional Benchmark for Evaluating Visual Perception in Multimodal LLMs",arXiv:2506.02022,2025,yes,,,,,

@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C5,R1,arxiv_off,D,"SWE-Lancer: Can Frontier LLMs Earn $1 Million from Real-World Freelance Software Engineering?",arXiv:2502.12115,2025,yes,,,,
+C5,R1,arxiv_off,E,"SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",arXiv:2310.06770,2024,yes,,,,
+C5,R1,arxiv_off,F,"Agentless: Demystifying LLM-based Software Engineering Agents",arXiv:2407.01489,2024,yes,,,,

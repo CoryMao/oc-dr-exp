@@ -1,0 +1,6 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C5,R3,arxiv_on,D,"Will AI replace Software Engineers? Do not hold your breath",arXiv:2502.20429,2025,yes,,,,
+
+C5,R3,arxiv_on,E,"Code with Me or for Me? How Increasing AI Automation Transforms Developer Workflows",arXiv:2507.08149,2025,yes,,,,
+
+C5,R3,arxiv_on,F,"Speed at the Cost of Quality: How Cursor AI Increases Short-Term Velocity and Long-Term Complexity in Open-Source Projects",arXiv:2511.04427,2025,yes,,,,

@@ -13,6 +13,7 @@ The purpose of Layer 1 is to show that `arxiv MCP` and `mcp-refchecker` affect r
 Goal: test whether the agent can autonomously select appropriate [D], [E], and [F] papers.
 
 - Comparison: without `arxiv MCP` vs with `arxiv MCP`
+- Tool control: enable or disable arxiv MCP through the OpenClaw/workspace configuration, not through prompt-only instructions
 - Input: the topic and provided papers [A], [B], and [C] for each of the five cases
 - Output: the three autonomously selected papers [D], [E], and [F]
 - Evaluation criteria:
@@ -23,11 +24,31 @@ Goal: test whether the agent can autonomously select appropriate [D], [E], and [
   - Preference for 2024-2025 papers where appropriate
   - Ability to provide evidence for the target topic
 
+Record table: `evaluation/pre_experiments/arxiv_mcp_records.csv`
+
+Prompt templates: `evaluation/pre_experiments/prompts/arxiv_mcp_pre_experiment_prompts.md`
+
+Run count:
+
+```text
+5 cases x 2 conditions x 3 runs x 3 selected papers = 90 rows
+```
+
+Minimum statistics:
+
+```text
+valid_paper_rate_per_run = valid selected papers / total selected papers
+case_success_rate_per_run = cases with three valid selected papers / total cases
+final_valid_paper_rate = mean(valid_paper_rate_per_run across R1-R3)
+final_case_success_rate = mean(case_success_rate_per_run across R1-R3)
+```
+
 #### mcp-refchecker Pre-Experiment
 
 Goal: test whether `mcp-refchecker` helps detect claim-citation problems.
 
 - Comparison: self-checking without `mcp-refchecker` vs self-checking with `mcp-refchecker`
+- Tool control: enable or disable mcp-refchecker through the OpenClaw/workspace configuration, not through prompt-only instructions
 - Input: the same agent reports and source PDFs
 - Output: claim-level verification results
 - Evaluation criteria:
@@ -37,6 +58,21 @@ Goal: test whether `mcp-refchecker` helps detect claim-citation problems.
   - Ability to identify contradictions
   - Detection rate relative to human annotation
 
+Record table: `evaluation/pre_experiments/refchecker_records.csv`
+
+Prompt templates: `evaluation/pre_experiments/prompts/refchecker_pre_experiment_prompts.md`
+
+Run count: three independent report batches, `R1`, `R2`, and `R3`.
+
+Minimum statistics:
+
+```text
+error_detection_rate_per_run = true human errors flagged by checker / total human-confirmed errors
+false_alarm_rate_per_run = checker flags rejected by human / total checker flags
+final_error_detection_rate = mean(error_detection_rate_per_run across R1-R3)
+final_false_alarm_rate = mean(false_alarm_rate_per_run across R1-R3)
+```
+
 ### 1.2 Layer 2: Main Experiment
 
 The main experiment fixes the tool stack and varies only planning and memory.
@@ -45,7 +81,7 @@ Fixed setup:
 
 ```text
 pdf skill = on
-citation_standard skill = on
+citation-standard skill = on
 arxiv MCP = on
 mcp-refchecker = on
 model = Deepseek v4 Pro
@@ -53,7 +89,7 @@ framework = OpenClaw + selected skills + MCP + memory setting
 case order = 1 -> 2 -> 3 -> 4 -> 5
 ```
 
-The `citation_standard` skill is fixed across all main-experiment conditions. It standardizes citation position syntax so that reports are easier to audit and can be checked by script. It is not treated as a main experimental variable, and CPS formatting failures are reported separately from citation-conclusion inconsistency errors.
+The `citation-standard` skill is fixed across all main-experiment conditions. It standardizes citation position syntax so that reports are easier to audit and can be checked by script. It is not treated as a main experimental variable, and CPS formatting failures are reported separately from citation-conclusion inconsistency errors.
 
 Main variables:
 

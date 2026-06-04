@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C3,R3,arxiv_on,D,"On Machine Learning Approaches for Protein-Ligand Binding Affinity Prediction",arXiv:2407.19073,2024,yes,,,,,
+C3,R3,arxiv_on,E,"On the Reliability of AI Methods in Drug Discovery: Evaluation of Boltz-2 for Structure and Binding Affinity Prediction",arXiv:2603.05532,2026,yes,,,,,
+C3,R3,arxiv_on,F,"Can AI-predicted complexes teach machine learning to compute drug binding affinity?",arXiv:2507.07882,2025,yes,,,,,

@@ -1,0 +1,30 @@
+{
+  "experiment": "arxiv_mcp_pre_experiment",
+  "case_id": "C2",
+  "run_id": "R1",
+  "condition": "arxiv_off",
+  "prompt_template": "/Users/kaichengmao/Desktop/Project2/evaluation/pre_experiments/prompts/filled/case2_arxiv_off_prompt.md",
+  "prompt_file": "/Users/kaichengmao/Desktop/Project2/runs/pre_arxiv/C2/R1/arxiv_off/prompt.md",
+  "prompt_sha256": "4e2e3884a57f4e3ba532c732a046d7d39f0ef503f499cc93be4b04f22b7715b7",
+  "template_sha256": "575df0ea00936a4f81b88d71cf2e055ab874a5c66538c159c11a4ceb43f742cb",
+  "config_path": "",
+  "config_sha256": "",
+  "openclaw_profile": "pre-arxiv-c2-r1-off",
+  "openclaw_state_dir": "/Users/kaichengmao/.openclaw-pre-arxiv-c2-r1-off",
+  "openclaw_workspace_dir": "/Users/kaichengmao/.openclaw-pre-arxiv-c2-r1-off/workspace",
+  "fixed_settings": {
+    "memory": "off",
+    "memory_search": "off",
+    "startup_context": "off",
+    "plan": "default_minimal",
+    "thinking": "high",
+    "pdf_skill": "on",
+    "citation-standard": "on",
+    "web_search": "on:brave",
+    "fs_workspace_only": true,
+    "refchecker": "off"
+  },
+  "variable": {
+    "arxiv_mcp": "arxiv_off"
+  }
+}

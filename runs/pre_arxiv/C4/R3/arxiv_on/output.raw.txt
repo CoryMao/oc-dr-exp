@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C4,R3,arxiv_on,D,Spatial457: A Diagnostic Benchmark for 6D Spatial Reasoning of Large Multimodal Models,arXiv:2502.08636,2025,yes,,,,,
+C4,R3,arxiv_on,E,CODIS: Benchmarking Context-Dependent Visual Comprehension for Multimodal Large Language Models,arXiv:2402.13607,2024,yes,,,,,
+C4,R3,arxiv_on,F,From Pixels to Feelings: Aligning MLLMs with Human Cognitive Perception of Images,arXiv:2511.22805,2025,yes,,,,,

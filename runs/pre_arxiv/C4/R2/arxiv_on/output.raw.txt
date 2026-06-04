@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C4,R2,arxiv_on,D,"The Instinctive Bias: Spurious Images lead to Illusion in MLLMs",arXiv:2402.03757,2024,yes,,,,
+C4,R2,arxiv_on,E,"KiVA: Kid-inspired Visual Analogies for Testing Large Multimodal Models",arXiv:2407.17773,2024,yes,,,,
+C4,R2,arxiv_on,F,"Understanding the Limits of Vision Language Models Through the Lens of the Binding Problem",arXiv:2411.00238,2024,yes,,,,

@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C2,R3,arxiv_on,D,"A Note on Shumailov et al. (2024): 'AI Models Collapse When Trained on Recursively Generated Data'",arXiv:2410.12954,2024,yes,,,,
+C2,R3,arxiv_on,E,"A Closer Look at Model Collapse: From a Generalization-to-Memorization Perspective",arXiv:2509.16499,2025,yes,,,,
+C2,R3,arxiv_on,F,"Demystifying Synthetic Data in LLM Pre-training: A Systematic Study of Scaling Laws, Benefits, and Pitfalls",arXiv:2510.01631,2025,yes,,,,

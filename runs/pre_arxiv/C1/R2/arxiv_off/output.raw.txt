@@ -1,0 +1,6 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+```
+C1,R2,arxiv_off,D,"Agentless: Demystifying LLM-based Software Engineering Agents",arXiv:2407.01489,2024,unknown,,,,,
+C1,R2,arxiv_off,E,"Thinking Longer, Not Larger: Enhancing Software Engineering Agents via Scaling Test-Time Compute",arXiv:2503.23803,2025,unknown,,,,,
+C1,R2,arxiv_off,F,"One Tool Is Enough: Reinforcement Learning for Repository-Level LLM Agents",arXiv:2512.20957,2025,unknown,,,,,
+```

@@ -1,0 +1,4 @@
+[36m[agents/tool-policy][39m [36mtool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts[39m
+C2,R1,arxiv_on,D,Strong Model Collapse,arXiv:2410.04840,2024,yes,,,,,
+C2,R1,arxiv_on,E,Beyond Model Collapse: Scaling Up with Synthesized Data Requires Verification,arXiv:2406.07515,2024,yes,,,,,
+C2,R1,arxiv_on,F,Is Model Collapse Inevitable? Breaking the Curse of Recursion by Accumulating Real and Synthetic Data,arXiv:2404.01413,2024,yes,,,,,
