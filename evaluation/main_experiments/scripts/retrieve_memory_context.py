@@ -111,6 +111,7 @@ def render_context(selected: list[dict[str, Any]], *, top_k: int, max_chars: int
         "# REPAIRED_REPORT",
         "# RUN_SUMMARY",
         "Do not omit # ORIGINAL_REPORT. Do not output any prelude or explanation before the required report sections.",
+        "If you need scratch files, write them under `.openclaw/tmp/` inside the workspace; never use `/tmp` or paths outside the workspace.",
         "",
         "## MEMORY_CONTEXT",
         "",

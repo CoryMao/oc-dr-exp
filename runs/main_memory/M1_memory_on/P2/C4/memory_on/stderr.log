@@ -1,0 +1,5 @@
+[tools] read failed: ENOENT: no such file or directory, access '/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/input_papers/case4/MMPerspective.pdf' raw_params={"path":"input_papers/case4/MMPerspective.pdf"}
+[tools] read failed: ENOENT: no such file or directory, access '/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/input_papers/case4/MMPerspective.pdf' raw_params={"path":"input_papers/case4/MMPerspective.pdf","offset":1,"limit":50}
+[tools] refchecker__verify_citation failed: MCP error -32001: Request timed out raw_params={"title":"Vision Language Models Are Blind: Failing to Translate Detailed Visual Features into Words","authors":["Pooyan Rahmanzadehgervi","Logan Bolton","Mohammad Reza Taesiri","Anh Totti Nguyen"],"year":2025,"arxiv_id":"2407.06581"}
+WARNING: output contains hard failure pattern
+WARNING: skipped memory writeback because markers_ok=no

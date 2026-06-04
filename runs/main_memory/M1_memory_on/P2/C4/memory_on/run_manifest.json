@@ -1,0 +1,48 @@
+{
+  "experiment": "main_memory_mvp",
+  "case_id": "C4",
+  "run_id": "P2_C4",
+  "pass_id": "P2",
+  "condition": "memory_on",
+  "topic": "human cognitive benchmarks, multimodal reasoning, and cross-scene hallucination",
+  "prompt_template": "/Users/kaichengmao/Desktop/Project2/evaluation/pre_experiments/prompts/filled/case4_refchecker_repair_prompt.md",
+  "prompt_base_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/P2/C4/memory_on/prompt.base.md",
+  "prompt_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/P2/C4/memory_on/prompt.md",
+  "prompt_sha256": "73a1ae970ccd8dde75c8767685d0260b47426cba8ed96e5a5f6617e918dc78b1",
+  "template_sha256": "c76790242f28eaf51c55b1fb8c5bac0c66f580bd1c5efd3acbcfef8472aa12a7",
+  "openclaw_profile": "main-m1-memory-on",
+  "openclaw_state_dir": "/Users/kaichengmao/.openclaw-main-m1-memory-on",
+  "openclaw_workspace_dir": "/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace",
+  "expected_workspace_inputs": "input_papers/case4",
+  "memory": {
+    "enabled": true,
+    "mode": "active_retrieval_plus_prompt_injection",
+    "memory_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/_memory/active_memory.jsonl",
+    "retrieve_log_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/_memory/retrieve_log.jsonl",
+    "top_k": 6,
+    "source": "normalized_REF_CHECKER_REPAIR_LOG_rows_only"
+  },
+  "fixed_settings": {
+    "memory": "on",
+    "memory_search": "explicit_jsonl_retrieval",
+    "startup_context": "off",
+    "plan": "openclaw_default",
+    "thinking": "high",
+    "pdf_skill": "on",
+    "citation-standard": "on",
+    "web_search": "on:brave",
+    "fs_workspace_only": true,
+    "arxiv_mcp": "on:safe_wrapper",
+    "refchecker": "on"
+  },
+  "output_contract": {
+    "top_level_markers": [
+      "# ORIGINAL_REPORT",
+      "# REFCHECKER_REPAIR_LOG",
+      "# REPAIRED_REPORT",
+      "# RUN_SUMMARY"
+    ],
+    "repair_log_format": "jsonl",
+    "run_summary_format": "json"
+  }
+}

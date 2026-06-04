@@ -71,6 +71,14 @@ JOBS=1 SKIP_EXISTING=1 bash evaluation/main_experiments/scripts/run_main_memory_
 
 `JOBS` is forced to `1` by the runner because `M1_memory_on` is sequential and shares one memory file.
 
+Resume from a specific sequential run without touching earlier runs:
+
+```bash
+MAIN_MEMORY_START_AT=P2_C3 JOBS=1 SKIP_EXISTING=1 bash evaluation/main_experiments/scripts/run_main_memory_runs.sh
+```
+
+`MAIN_MEMORY_START_AT` accepts either `P2_C3`, `P2/C3`, or the manifest `run_id` form.
+
 Collect a lightweight output inventory:
 
 ```bash

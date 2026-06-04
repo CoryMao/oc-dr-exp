@@ -1,0 +1,12 @@
+=== START 2026-06-04T20:49:17Z ===
+condition=memory_on case_id=C1 run_id=P2_C1 pass_id=P2
+openclaw_profile=main-m1-memory-on session_key=main-memory-P2-C1
+thinking=high
+memory_file=/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/_memory/active_memory.jsonl
+memory_records_before=55
+memory_context_file=/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/P2/C1/memory_on/memory_context.md
+command_status=0
+{"manifest_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/P2/C1/memory_on/run_manifest.json", "memory_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/_memory/active_memory.jsonl", "new_records": 14, "output_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/P2/C1/memory_on/output.raw.txt", "parsed_rows": 14, "skipped_duplicates": 0}
+memory_records_after=69
+markers_ok=yes
+=== END 2026-06-04T20:56:09Z ===

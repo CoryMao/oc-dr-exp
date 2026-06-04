@@ -1,0 +1,48 @@
+{
+  "experiment": "main_memory_mvp",
+  "case_id": "C2",
+  "run_id": "P1_C2",
+  "pass_id": "P1",
+  "condition": "memory_on",
+  "topic": "recursive synthetic data, weak data, multimodal synthetic training, and model collapse",
+  "prompt_template": "/Users/kaichengmao/Desktop/Project2/evaluation/pre_experiments/prompts/filled/case2_refchecker_repair_prompt.md",
+  "prompt_base_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/P1/C2/memory_on/prompt.base.md",
+  "prompt_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/P1/C2/memory_on/prompt.md",
+  "prompt_sha256": "3d164ac1df02794ae2e278393708c40c266e75d3dd605b1ccfd6e5f74cde46d4",
+  "template_sha256": "9c1301ff2bdd2ccf3a92d17a5bda143ec2fe16327e4cef8bf7cc3f42f0bee8d8",
+  "openclaw_profile": "main-m1-memory-on",
+  "openclaw_state_dir": "/Users/kaichengmao/.openclaw-main-m1-memory-on",
+  "openclaw_workspace_dir": "/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace",
+  "expected_workspace_inputs": "input_papers/case2",
+  "memory": {
+    "enabled": true,
+    "mode": "active_retrieval_plus_prompt_injection",
+    "memory_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/_memory/active_memory.jsonl",
+    "retrieve_log_file": "/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/_memory/retrieve_log.jsonl",
+    "top_k": 6,
+    "source": "normalized_REF_CHECKER_REPAIR_LOG_rows_only"
+  },
+  "fixed_settings": {
+    "memory": "on",
+    "memory_search": "explicit_jsonl_retrieval",
+    "startup_context": "off",
+    "plan": "openclaw_default",
+    "thinking": "high",
+    "pdf_skill": "on",
+    "citation-standard": "on",
+    "web_search": "on:brave",
+    "fs_workspace_only": true,
+    "arxiv_mcp": "on:safe_wrapper",
+    "refchecker": "on"
+  },
+  "output_contract": {
+    "top_level_markers": [
+      "# ORIGINAL_REPORT",
+      "# REFCHECKER_REPAIR_LOG",
+      "# REPAIRED_REPORT",
+      "# RUN_SUMMARY"
+    ],
+    "repair_log_format": "jsonl",
+    "run_summary_format": "json"
+  }
+}

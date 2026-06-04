@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 RUN_ROOT="${MAIN_MEMORY_RUN_ROOT:-$ROOT_DIR/runs/main_memory}"
 TARGET_CONDITION="${MAIN_MEMORY_CONDITION:-memory_on}"
+START_AT="${MAIN_MEMORY_START_AT:-}"
 THINKING_LEVEL="${EXPERIMENT_THINKING:-high}"
 SKIP_EXISTING="${SKIP_EXISTING:-0}"
 SESSION_KEY_SUFFIX="${SESSION_KEY_SUFFIX:-}"
@@ -60,6 +61,37 @@ resolve_manifest() {
   else
     printf '%s\n' "$item"
   fi
+}
+
+manifest_start_key() {
+  local manifest_file="$1"
+  python3 - "$manifest_file" <<'PY'
+import json
+import sys
+
+data = json.load(open(sys.argv[1], encoding="utf-8"))
+pass_id = str(data.get("pass_id") or "")
+case_id = str(data.get("case_id") or "")
+run_id = str(data.get("run_id") or "")
+print(f"{pass_id}/{case_id} {pass_id}_{case_id} {run_id}")
+PY
+}
+
+start_key_matches() {
+  local manifest_file="$1"
+  local requested="$2"
+  local key
+  [[ -z "$requested" ]] && return 0
+  requested="$(printf '%s' "$requested" | tr '[:lower:]' '[:upper:]')"
+  while IFS= read -r key; do
+    for token in $key; do
+      token="$(printf '%s' "$token" | tr '[:lower:]' '[:upper:]')"
+      if [[ "$token" == "$requested" ]]; then
+        return 0
+      fi
+    done
+  done < <(manifest_start_key "$manifest_file")
+  return 1
 }
 
 line_count() {
@@ -241,9 +273,22 @@ else
   else
     manifest_root="$RUN_ROOT"
   fi
+  started="0"
+  [[ -z "$START_AT" ]] && started="1"
   while IFS= read -r manifest; do
+    if [[ "$started" == "0" ]]; then
+      if start_key_matches "$manifest" "$START_AT"; then
+        started="1"
+      else
+        continue
+      fi
+    fi
     run_one_manifest "$manifest"
   done < <(find "$manifest_root" -name run_manifest.json | sort)
+  if [[ "$started" == "0" ]]; then
+    echo "No manifest matched MAIN_MEMORY_START_AT=$START_AT" >&2
+    exit 1
+  fi
 fi
 
 echo "Completed main memory experiment runs under: $RUN_ROOT"

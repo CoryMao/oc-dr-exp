@@ -1,0 +1,3 @@
+[tools] web_search failed: fetch failed raw_params={"query":"tool-augmented LLM coding agent vs prompting comparison 2024 arxiv","count":10}
+[tools] web_search failed: fetch failed raw_params={"query":"LLM agent software engineering benchmark SWE-bench 2024 2025 arxiv","count":10}
+[tools] web_search failed: fetch failed raw_params={"query":"automated design agentic systems ADAS coding agent 2024 2025 arxiv","count":10}

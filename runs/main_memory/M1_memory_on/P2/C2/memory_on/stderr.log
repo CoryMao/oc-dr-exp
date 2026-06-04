@@ -1,0 +1,3 @@
+[tools] refchecker__verify_citation failed: MCP error -32001: Request timed out raw_params={"title":"Beyond Model Collapse: Scaling Up with Synthesized Data Requires Verification","authors":["Yunzhen Feng","Elvis Dohmatob","Pu Yang","Francois Charton","Julia Kempe"],"year":2024,"arxiv_id":"2406.07515"}
+WARNING: output contains hard failure pattern
+WARNING: skipped memory writeback because markers_ok=no

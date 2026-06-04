@@ -1,0 +1,5 @@
+[tools] read failed: ENOENT: no such file or directory, access '/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/input_papers/case4/MMPerspective.pdf' raw_params={"path":"input_papers/case4/MMPerspective.pdf"}
+[tools] refchecker__verify_citation failed: MCP error -32001: Request timed out raw_params={"title":"VisFactor: Benchmarking Fundamental Visual Cognition in Multimodal Large Language Models","authors":["Jen-tse Huang","Dasen Dai","Jen-yuan Huang","Youliang Yuan","Xiaoyuan Liu","Wenxuan Wang","Wenxiang Jiao","Pinjia He","Zhaopeng Tu","Haodong Duan"],"year":2025,"arxiv_id":"2502.16435"}
+[tools] refchecker__verify_citation failed: MCP error -32001: Request timed out raw_params={"arxiv_id":"2502.16435","title":"VisFactor: Benchmarking Fundamental Visual Cognition in Multimodal Large Language Models","authors":["Jen-tse Huang","Dasen Dai","Jen-yuan Huang","Youliang Yuan","Xiaoyuan Liu","Wenxuan Wang","Wenxiang Jiao","Pinjia He","Zhaopeng Tu","Haodong Duan"],"year":2025}
+WARNING: output contains hard failure pattern
+WARNING: skipped memory writeback because markers_ok=no

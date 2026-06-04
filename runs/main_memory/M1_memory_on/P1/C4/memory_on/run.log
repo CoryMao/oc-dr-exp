@@ -1,0 +1,11 @@
+=== START 2026-06-04T20:27:12Z ===
+condition=memory_on case_id=C4 run_id=P1_C4 pass_id=P1
+openclaw_profile=main-m1-memory-on session_key=main-memory-P1-C4
+thinking=high
+memory_file=/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/_memory/active_memory.jsonl
+memory_records_before=42
+memory_context_file=/Users/kaichengmao/Desktop/Project2/runs/main_memory/M1_memory_on/P1/C4/memory_on/memory_context.md
+command_status=0
+memory_records_after=42
+markers_ok=no
+=== END 2026-06-04T20:35:10Z ===
