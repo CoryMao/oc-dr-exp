@@ -4,3 +4,4 @@ runs/pre_arxiv/_aborted_*/
 # Large files
 case paper/
 case paper.zip
+presentation/main_memory/
