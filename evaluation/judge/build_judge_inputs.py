@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Build citation-fidelity judge inputs from presentation/main_memory outputs.
+"""Build citation-fidelity judge inputs from the local evidence cache.
+
+The default input root is presentation/main_memory, which is intentionally
+ignored because it contains large pass-specific PDF/markdown evidence files.
+Regenerate that cache with sync_presentation_papers.py before rebuilding inputs.
 
 This MVP does not call an LLM. It creates:
   - claim_citation_pairs.jsonl: structured units to judge

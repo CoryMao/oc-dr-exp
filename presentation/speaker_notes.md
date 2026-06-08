@@ -116,7 +116,7 @@ workspace 和 memory 污染会破坏变量隔离，所以每个 run 要有明确
 
 ## 20. refchecker repair 效果
 
-这里进入结果。我们用 citation_check 流水线做 LLM-as-judge 评测：抽取 claim-citation pair，构造 batch，然后用 DeepSeek 批量判定。
+这里进入结果。我们用 `evaluation/judge` 流水线做 LLM-as-judge 评测：抽取 claim-citation pair，构造 batch，然后用 DeepSeek 批量判定。
 结果是 refchecker repair 前后总错误数 40 到 40，没有减少。只有 C1 有改善，C2 和 C4 甚至增加，C3 和 C5 持平。
 这说明 refchecker repair 不是自动提高报告可信度的充分条件。
 

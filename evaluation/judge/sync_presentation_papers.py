@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sync pass-specific evidence files into presentation/main_memory/*/papers.
+"""Sync pass-specific evidence files into the ignored local paper cache.
 
 P1 and P2 can cite different papers under the same tag, e.g. [D]. This script
 creates pass-specific files such as:

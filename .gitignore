@@ -31,10 +31,9 @@ presentation/main_memory/
 # Non-final or local-only run snapshots
 runs/pre_arxiv/_aborted_*/
 runs/main_memory/M0_no_memory/
-demo/outputs/
-demo/neurips_2025_hivemind-1-23.pdf
+demo/
 
 # Reproducible caches and incomplete judge outputs
-citation_check/.cache/
+citation_check/
 evaluation/judge/cache/
 evaluation/judge/outputs/**/deepseek_judge/

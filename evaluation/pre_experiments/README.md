@@ -175,6 +175,8 @@ Each run directory also receives `openclaw_profile_audit.md`, which records the 
 Set `OPENCLAW_RUN_CMD` to the actual command that reads `$PROMPT_FILE` and writes the agent output to stdout. The runner saves raw output and extracts CSV rows into `output.csv`.
 
 ```bash
+# Optional OpenClaw command template for a single arXiv pre-experiment run.
+# The runner provides OPENCLAW_PROFILE, THINKING_LEVEL, SESSION_KEY, and PROMPT_FILE.
 export OPENCLAW_RUN_CMD='openclaw --profile "$OPENCLAW_PROFILE" agent --local --thinking "$THINKING_LEVEL" --session-key "$SESSION_KEY" --message "$(cat "$PROMPT_FILE")"'
 JOBS=1 bash evaluation/pre_experiments/scripts/run_arxiv_runs.sh
 ```
@@ -292,13 +294,21 @@ This wrapper was added because local diagnostics showed `arxiv.org/html` and `ar
 4. Run a smoke test:
 
 ```bash
-export HTTPS_PROXY=http://127.0.0.1:7897
-export HTTP_PROXY=http://127.0.0.1:7897
-export NO_PROXY=arxiv.org,export.arxiv.org,localhost,127.0.0.1
+# Local proxy settings used on the author's machine during the completed runs.
+# 127.0.0.1:7897 was the local Clash HTTP/HTTPS proxy endpoint.
+export HTTPS_PROXY="http://127.0.0.1:7897"
+export HTTP_PROXY="http://127.0.0.1:7897"
+
+# Keep arXiv and local OpenClaw/MCP traffic out of the proxy.
+# Add api.deepseek.com locally only if your proxy causes DeepSeek CONNECT timeouts.
+export NO_PROXY="arxiv.org,export.arxiv.org,localhost,127.0.0.1"
+
+# Lowercase variants cover Python/Node libraries that do not read uppercase proxy vars.
 export https_proxy="$HTTPS_PROXY"
 export http_proxy="$HTTP_PROXY"
 export no_proxy="$NO_PROXY"
 
+# The runner provides OPENCLAW_PROFILE, THINKING_LEVEL, SESSION_KEY, and PROMPT_FILE.
 export OPENCLAW_RUN_CMD='openclaw --profile "$OPENCLAW_PROFILE" agent --local --timeout 1800 --thinking "$THINKING_LEVEL" --session-key "$SESSION_KEY" --message "$(cat "$PROMPT_FILE")"'
 
 JOBS=1 bash evaluation/pre_experiments/scripts/run_refchecker_repair_runs.sh \

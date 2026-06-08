@@ -234,7 +234,7 @@ A: 主要包括 unsupported claim、overclaim、mis-citation、contradiction 和
 
 ### Q42. 评测是人工还是 LLM？
 
-A: 当前结果使用 citation_check 流水线：人工定义错误分类和 few-shot prompt，然后用 DeepSeek 作为 judge 批量判断。严格来说这不是最终人工金标，应该在答辩中承认它是可扩展的自动评测版本，后续可以用人工抽样复核。
+A: 当前结果使用 `evaluation/judge` 流水线：人工定义错误分类和 few-shot prompt，然后用 DeepSeek 作为 judge 批量判断。严格来说这不是最终人工金标，应该在答辩中承认它是可扩展的自动评测版本，后续可以用人工抽样复核。
 
 ### Q43. LLM-as-judge 会不会有偏差？
 
@@ -276,7 +276,7 @@ A: 第一，memory 不包含原文材料和完整报告，只包含 repair log �
 
 ### Q52. 为什么 presentation/main_memory 不上传？
 
-A: 它包含大量中间输出和论文 PDF，体积很大，也不是理解 PPT 的必要材料。最终仓库保留 PPT、图表和源码即可；大文件可以本地保留或放外部存储。
+A: 它包含大量中间输出和论文 PDF，体积很大，也不是理解 PPT 的必要材料。最终仓库保留 PPT、图表、脚本和已生成的结构化 judge 输入；如需重建证据包，可以本地运行 `evaluation/judge/sync_presentation_papers.py`。
 
 ## 十、威胁有效性与改进方向
 

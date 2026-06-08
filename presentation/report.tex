@@ -633,11 +633,11 @@ C5 arxiv\_on 更容易选到的论文类别：需求工程、安全风险、开�
     \addlinespace
     refchecker 不等于 claim verification &
     refchecker 可以校对论文元数据，但不能判断"这篇论文是否真的支撑这个结论"。Repair 后常出现错误类型漂移，而不是错误消除。 &
-    将 refchecker 定位为生成期辅助工具，而不是最终 evaluator；最终错误率另建 \texttt{citation\_check} 流水线，由 claim--citation pair + 论文局部证据片段交给 judge 独立判定。 \\
+    将 refchecker 定位为生成期辅助工具，而不是最终 evaluator；最终错误率另建 \texttt{evaluation/judge} 流水线，由 claim--citation pair + 论文局部证据片段交给 judge 独立判定。 \\
     \addlinespace
     P1/P2 文献包不完全重合 &
     同一个 case 中 P1 和 P2 可能把 \texttt{[D]}、\texttt{[E]} 指向不同论文；如果只在 \texttt{papers/} 中保存一份 \texttt{[D].pdf}，后续 judge 会读错证据。 &
-    将展示与评测材料整理到 \texttt{presentation/main\_memory/}；每个 pass 使用 pass-specific 文件名，例如 \texttt{P1\_[D]\_2405.17739.pdf} 与 \texttt{P2\_[D]\_2410.12944.md}，脚本按 \texttt{case + pass + tag} 精确匹配。 \\
+    将展示与评测材料整理为可重建的 pass-specific 证据包；每个 pass 使用 pass-specific 文件名，例如 \texttt{P1\_[D]\_2405.17739.pdf} 与 \texttt{P2\_[D]\_2410.12944.md}。大文件证据包保留为本地缓存，仓库中保留 \texttt{evaluation/judge} 脚本、结构化输入和 source map。 \\
     \addlinespace
     LLM judge 成本和速度 &
     如果每条 claim 都让模型完整阅读 PDF，API 慢且成本高，长上下文也会降低判定稳定性。 &
@@ -650,29 +650,7 @@ C5 arxiv\_on 更容易选到的论文类别：需求工程、安全风险、开�
 
 这些工程问题直接影响评测可信度。首先，工具预实验必须和主实验解耦，否则 arxiv MCP 的连接问题会被误解释为 Agent 能力差异。其次，memory 实验必须按顺序执行，否则后续 case 的经验会提前污染前序 case。第三，最终 evaluator 不能依赖 Agent 自己的 refchecker repair log，因为这只是自我修复过程的一部分，而不是独立标注。最后，文献包必须按 pass 精确绑定，否则"引用与结论不一致"的错误率会混入材料组织错误。
 
-因此，最终可复现材料不只包括报告输出，还包括 profile audit、run manifest、stderr、memory snapshot、pass-specific papers、claim--citation pair JSONL 和 judge batch prompt。这些文件共同构成了本实验的复现边界。
-
-% ===================================================================
-\section{现场展示工具包}
-% ===================================================================
-
-为现场展示准备的 demo 工具包位于 \texttt{demo/} 目录：
-
-\begin{verbatim}
-demo/
-  README.md     -- 使用说明
-  setup.sh      -- 一键配置环境
-  run.sh        -- 运行入口（接受 --pdf 和 --topic）
-  outputs/      -- 输出目录
-\end{verbatim}
-
-使用方式：
-\begin{verbatim}
-bash demo/setup.sh                          # 首次配置
-bash demo/run.sh --pdf paper.pdf --topic "..."  # 运行
-\end{verbatim}
-
-Agent 自动完成：读 PDF → 检索补充论文 → 生成 CPS 格式报告 → refchecker 核查 → 修复后报告。
+因此，最终可复现材料不只包括报告输出，还包括 profile audit、run manifest、stderr、memory snapshot、claim--citation pair JSONL、judge batch prompt 和可重建的 paper source map。这些文件共同构成了本实验的复现边界。
 
 \vspace{1em}
 \begin{center}

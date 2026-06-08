@@ -39,7 +39,9 @@ python3 evaluation/judge/aggregate_judgments.py --help
 Set credentials with:
 
 ```bash
-export DEEPSEEK_API_KEY=...
+# DeepSeek credential for the optional LLM-as-judge pass.
+# Keep the real key in your shell or local profile; never commit it.
+export DEEPSEEK_API_KEY="<your-deepseek-api-key>"
 ```
 
 No API keys or partial empty judge outputs are committed.
@@ -52,3 +54,4 @@ No API keys or partial empty judge outputs are committed.
 - `outputs/**/batches/*.txt`: reproducible prompts sent to the judge model.
 
 The `cache/` directory is ignored because it can be regenerated from source PDFs and reports.
+The large local paper bundle under `presentation/main_memory/` is also ignored; regenerate it locally with `sync_presentation_papers.py` if you need to rebuild evidence snippets from PDFs.

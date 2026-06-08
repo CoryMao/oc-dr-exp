@@ -16,12 +16,10 @@ The project does not modify OpenClaw internals. It controls the experiment throu
 | `runs/pre_arxiv/` | Completed arXiv MCP pre-experiment run artifacts. |
 | `runs/pre_refchecker_repair/` | Completed refchecker repair pre-experiment artifacts; used as the practical no-memory baseline. |
 | `runs/main_memory/M1_memory_on/` | Final memory-on main experiment artifacts for P1/P2, including per-run logs and shared memory JSONL. |
-| `citation_check/` | Earlier standalone claim-citation checking utilities and smoke output. |
 | `scripts/` | Side-experiment action-memory tools using BM25/summary_bm25 retrieval. |
 | `side_exp_md/` | Action-memory side-experiment report. |
 | `presentation/` | Final Beamer slides, figures, speaker notes, and defense QA pairs. |
 | `docs/` | Design notes and experiment rationale. |
-| `demo/` | Minimal OpenClaw live-demo wrapper scripts. |
 
 ## Environment
 
@@ -37,15 +35,24 @@ Required local tools:
 Recommended environment variables:
 
 ```bash
-export DEEPSEEK_API_KEY=...
-export HTTPS_PROXY=http://127.0.0.1:7897
-export HTTP_PROXY=http://127.0.0.1:7897
-export NO_PROXY=arxiv.org,export.arxiv.org,localhost,127.0.0.1
+# DeepSeek credential for OpenClaw runs and the optional LLM judge.
+# Keep the real key in your shell or local profile; never commit it.
+export DEEPSEEK_API_KEY="<your-deepseek-api-key>"
+
+# Local proxy used during these experiments on the author's machine.
+# 127.0.0.1:7897 was the local Clash HTTP/HTTPS proxy endpoint.
+export HTTPS_PROXY="http://127.0.0.1:7897"
+export HTTP_PROXY="http://127.0.0.1:7897"
+
+# Keep arXiv and local OpenClaw/MCP traffic out of the proxy.
+# If your proxy breaks DeepSeek CONNECT requests, add api.deepseek.com here locally.
+export NO_PROXY="arxiv.org,export.arxiv.org,localhost,127.0.0.1"
 ```
 
 For OpenClaw runs, the scripts expect an `OPENCLAW_RUN_CMD` that reads `$PROMPT_FILE` and writes the agent output to stdout:
 
 ```bash
+# The runners set OPENCLAW_PROFILE, SESSION_KEY, THINKING_LEVEL, and PROMPT_FILE.
 export OPENCLAW_RUN_CMD='openclaw --profile "$OPENCLAW_PROFILE" agent --local --timeout 2400 --thinking "$THINKING_LEVEL" --session-key "$SESSION_KEY" --message "$(cat "$PROMPT_FILE")"'
 ```
 
@@ -123,6 +130,7 @@ python3 evaluation/judge/aggregate_judgments.py --help
 ```
 
 The repository includes generated figures and claim-citation input batches, but not API keys or incomplete/empty judge output files.
+The large pass-specific evidence cache under `presentation/main_memory/` is intentionally not tracked; regenerate it locally with `evaluation/judge/sync_presentation_papers.py` before rebuilding judge snippets from PDFs.
 
 ### 6. Presentation
 

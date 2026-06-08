@@ -60,10 +60,16 @@ By default setup refreshes only the shared `main-m1-memory-on` profile.
 Run with the same proxy environment used in the pre-experiments:
 
 ```bash
-export HTTPS_PROXY=http://127.0.0.1:7897
-export HTTP_PROXY=http://127.0.0.1:7897
-export NO_PROXY=arxiv.org,export.arxiv.org,localhost,127.0.0.1
+# Local proxy settings used on the author's machine during the completed runs.
+# 127.0.0.1:7897 was the local Clash HTTP/HTTPS proxy endpoint.
+export HTTPS_PROXY="http://127.0.0.1:7897"
+export HTTP_PROXY="http://127.0.0.1:7897"
 
+# Keep arXiv and local OpenClaw/MCP traffic out of the proxy.
+# Add api.deepseek.com locally only if your proxy causes DeepSeek CONNECT timeouts.
+export NO_PROXY="arxiv.org,export.arxiv.org,localhost,127.0.0.1"
+
+# The runner provides OPENCLAW_PROFILE, THINKING_LEVEL, SESSION_KEY, and PROMPT_FILE.
 export OPENCLAW_RUN_CMD='openclaw --profile "$OPENCLAW_PROFILE" agent --local --timeout 2400 --thinking "$THINKING_LEVEL" --session-key "$SESSION_KEY" --message "$(cat "$PROMPT_FILE")"'
 
 JOBS=1 SKIP_EXISTING=1 bash evaluation/main_experiments/scripts/run_main_memory_runs.sh
