@@ -1,10 +1,10 @@
 # Side Experiment: Action Memory
 
 This folder documents a small auxiliary experiment on an earlier action-memory design.
+It is a retrospective side-experiment report, not a formal reproducible main-experiment result package.
 
-The side experiment is not the formal main memory experiment. It uses:
+The side experiment is not the formal main memory experiment. The related toolchain is in `scripts/` and uses:
 
-- `scripts/action_memory.jsonl`
 - `scripts/retrieve.py`
 - BM25 / `summary_bm25` retrieval
 - fine-grained action records such as `fetch_paper` and `make_claim`
@@ -24,4 +24,4 @@ The formal main experiment instead uses:
 - three traceable improvement chains
 - limitations caused by BM25 lexical retrieval and `web_fetch` truncation
 
-Treat this as supporting evidence that structured error memory can be useful, not as a substitute for the formal M1 memory results.
+Treat this as supporting evidence that structured error memory can be useful, not as a substitute for the formal M1 memory results. The repository keeps the action-memory tools and working JSONL snapshots, but does not claim to include complete action-memory experiment logs.

@@ -3,6 +3,12 @@
 > 版本: v3 | 最后更新: 2026-06-05
 > 作者: 金咪（电子猫 🐱）
 
+## Repository note
+
+This directory is kept in the project repository as the toolchain for an auxiliary action-memory side experiment. It is not the formal main-memory implementation used by `runs/main_memory/M1_memory_on/`.
+
+The JSONL files in this directory are working snapshots/examples for the toolchain, not complete formal experiment logs. In `action_memory.jsonl`, `error_type` and `error_reason` are manual audit fields filled after human review; they are not generated automatically by the agent.
+
 ---
 
 ## 一、系统架构

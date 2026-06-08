@@ -1,0 +1,82 @@
+[
+  {
+    "case": "C1",
+    "run": "R1",
+    "prompt": "runs/pre_refchecker_repair/C1/R1/refchecker_repair/prompt.md",
+    "output": "runs/pre_refchecker_repair/C1/R1/refchecker_repair/output.raw.txt",
+    "prompt_chars": 3687,
+    "output_chars": 10445,
+    "markers": {
+      "ORIGINAL_REPORT": 1,
+      "REFCHECKER_REPAIR_LOG": 1,
+      "REPAIRED_REPORT": 1,
+      "RUN_SUMMARY": 1
+    },
+    "prompt_file": "C1_R1_prompt.md",
+    "output_file": "C1_R1_output.raw.txt"
+  },
+  {
+    "case": "C2",
+    "run": "R1",
+    "prompt": "runs/pre_refchecker_repair/C2/R1/refchecker_repair/prompt.md",
+    "output": "runs/pre_refchecker_repair/C2/R1/refchecker_repair/output.raw.txt",
+    "prompt_chars": 3938,
+    "output_chars": 9859,
+    "markers": {
+      "ORIGINAL_REPORT": 1,
+      "REFCHECKER_REPAIR_LOG": 1,
+      "REPAIRED_REPORT": 1,
+      "RUN_SUMMARY": 1
+    },
+    "prompt_file": "C2_R1_prompt.md",
+    "output_file": "C2_R1_output.raw.txt"
+  },
+  {
+    "case": "C3",
+    "run": "R1",
+    "prompt": "runs/pre_refchecker_repair/C3/R1/refchecker_repair/prompt.md",
+    "output": "runs/pre_refchecker_repair/C3/R1/refchecker_repair/output.raw.txt",
+    "prompt_chars": 3948,
+    "output_chars": 12098,
+    "markers": {
+      "ORIGINAL_REPORT": 1,
+      "REFCHECKER_REPAIR_LOG": 1,
+      "REPAIRED_REPORT": 1,
+      "RUN_SUMMARY": 1
+    },
+    "prompt_file": "C3_R1_prompt.md",
+    "output_file": "C3_R1_output.raw.txt"
+  },
+  {
+    "case": "C4",
+    "run": "R1",
+    "prompt": "runs/pre_refchecker_repair/C4/R1/refchecker_repair/prompt.md",
+    "output": "runs/pre_refchecker_repair/C4/R1/refchecker_repair/output.raw.txt",
+    "prompt_chars": 3803,
+    "output_chars": 9847,
+    "markers": {
+      "ORIGINAL_REPORT": 1,
+      "REFCHECKER_REPAIR_LOG": 1,
+      "REPAIRED_REPORT": 1,
+      "RUN_SUMMARY": 1
+    },
+    "prompt_file": "C4_R1_prompt.md",
+    "output_file": "C4_R1_output.raw.txt"
+  },
+  {
+    "case": "C5",
+    "run": "R2",
+    "prompt": "runs/pre_refchecker_repair/C5/R2/refchecker_repair/prompt.md",
+    "output": "runs/pre_refchecker_repair/C5/R2/refchecker_repair/output.raw.txt",
+    "prompt_chars": 3763,
+    "output_chars": 10430,
+    "markers": {
+      "ORIGINAL_REPORT": 1,
+      "REFCHECKER_REPAIR_LOG": 1,
+      "REPAIRED_REPORT": 1,
+      "RUN_SUMMARY": 1
+    },
+    "prompt_file": "C5_R2_prompt.md",
+    "output_file": "C5_R2_output.raw.txt"
+  }
+]

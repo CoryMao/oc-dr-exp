@@ -1,0 +1,72 @@
+错误样例 1：把局部 benchmark 结果泛化为“工具增强 agent 普遍显著优于 prompting”
+CLAIM:
+工具增强型 LLM agent 在仓库级软件工程任务上显著优于非交互式 LLM prompting，差距可达数倍至近一个数量级。
+CITATION:
+[A] §1::¶3 / [E] §5::T1
+
+SOURCE 1: A Self-Improving Coding Agent. (locator:1)
+A Self-Improving Coding Agent
+
+ Maxime Robeyns, Martin Szummer
+ University of Bristol iGent AI
+ maxime@igent.ai szummer@igent.ai
+
+arXiv:2504.15228v2 [cs.AI] 16 May 2025
+ Laurence aitchison
+ University of Bristol
+ laurence.aitchison@bristol.ac.uk
+
+ Abstract
+ Recent advancements in Large Language Models (LLMs) have spurred interest in
+ deploying LLM agents to undertake tasks in the world. LLMs are often deployed
+ in agent systems: code that orchestrates LLM calls and provides them with tools.
+ We demonstrate that an agent system, equipped with basic coding tools, can
+ autonomously edit itself, and thereby improve its performance on benchmark
+ tasks. We find performance gains from 17% to 53% on a random subset of SWE
+ Bench Verified, with additional performance gains on LiveCodeBench, as well as
+ synthetically generated agent benchmarks. Our work represents an advancement
+ in the automated and open-ended design of agentic systems, and demonstrates a
+ data-efficient, non gradient-based learning mechanism driven by LLM reflection
+ and code updates.
+
+ 1 Introduction
+ LLMs have recently made impressive advancements across a range of domains and tasks [2, 14, 29].
+ However, in order to put these LLMs to use in real world applications, LLMs must be wrapped in code
+ to orchestrate them and expose tools that allow the models to take actions. These action-taking LLMs
+ are referred to as agents, and the broader system an agent system.
+ These agent systems often show dramatic improvements in benchmark performance over “plain”
+ LL
+
+SOURCE 2: SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering. (locator:5)
+SWE-agent: Agent-Computer Interfaces Enable
+ Automated Software Engineering
+
+ John Yang∗ Carlos E. Jimenez∗ Alexander Wettig Kilian Lieret
+ Shunyu Yao Karthik Narasimhan Ofir Press
+
+arXiv:2405.15793v3 [cs.SE] 11 Nov 2024
+ Princeton Language and Intelligence, Princeton University
+
+ Abstract
+
+ Language model (LM) agents are increasingly being used to automate complicated
+ tasks in digital environments. Just as humans benefit from powerful software
+ applications, such as integrated development environments, for complex tasks like
+ software engineering, we posit that LM agents represent a new category of end
+ users with their own needs and abilities, and would benefit from specially-built
+ interfaces to the software they use. We investigate how interface design affects the
+ performance of language model agents. As a result of this exploration, we introduce
+ SWE-agent: a system that facilitates LM agents to autonomously use computers to
+ solve software engineering tasks. SWE-agent’s custom agent-computer interface
+ (ACI) significantly enhances an agent’s ability to create and edit code files, navigate
+ entire repositories, and execute tests and other programs. We evaluate SWE-agent
+ on SWE-bench and HumanEvalFix, achieving state-of-the-art performance on both
+ with a pass@1 rate of 12.5% and 87.7%, respectively, far exceeding the previous
+ state-of-the-art achieved with non-interactive LMs. Finally, we provide insight on
+ how the design of the ACI can impact agents’ behavior and performance.
+
+ 1 Introduction
+ Recent work has demonstrated the efficacy of LM agents for co
+
+ANALYSIS:
+Claim 将两个不同层级的证据合并成一个更强的总体结论：一方面，[A] 只证明一个自改进 coding agent 在 SWE-Bench Verified 随机子集上从 17% 提升到 53%，并未直接比较“工具增强 agent”这一类别与非交互式 prompting；另一方面，[E] 证明 SWE-agent 在 SWE-bench/HumanEvalFix 上优于既有非交互式 LM baselines，但其量级来自特定 benchmark 和系统设置。Claim 中“仓库级软件工程任务上显著优于”“差距可达数倍至近一个数量级”把局部结果推广为跨系统、跨任务的普遍结论，支持范围强于原文。

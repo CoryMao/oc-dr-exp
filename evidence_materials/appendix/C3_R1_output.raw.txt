@@ -1,0 +1,119 @@
+[agents/tool-policy] tool policy removed 5 tool(s) via tools.profile (coding): agents_list, gateway, message, nodes, tts
+Now I have all refchecker results and paper content. Let me compile the complete output.
+
+# ORIGINAL_REPORT
+
+## 第一部分：总体评估
+
+当前证据显示，AI 在蛋白质-配体结合亲和力预测方面取得了显著进展，但距离可靠替代湿实验筛选仍有实质性差距。六篇论文共同勾勒出一个核心矛盾：深度学习方法在标准基准测试上表现优异，但泛化到全新靶点时性能急剧衰减。Graber 等人 [A] 揭示 PDBbind 等常用数据集存在严重数据泄露，过往报告的 SOTA 性能被人为夸大；Kopko 等人 [E] 进一步证明，当前最优评分函数 GEMS 在 CASF 基准上的 Pearson r=0.815，但在严格的新靶点划分上平均仅 0.470。Osman 等人 [B] 从生成式模型角度展示了积极信号——生成的类 hit 分子中已有化合物在体外验证中显示 GSK-3β IC50=314 nM。但 Morehead 等人 [C] 的系统评估表明，即便是 AlphaFold 3 也无法可靠预测新颖蛋白-配体结合构象，且所有方法的性能均与其训练数据中结合构象的相似性显著相关。Liu 等人 [D] 综述指出训练数据规模不足、精度有限、且偏向成功结合样本，这些系统性缺陷阻碍了广义预测能力的提升。Wan 等人 [F] 对最新基础模型 Boltz-2 的评估发现其与物理基准 ESMACS 的全局相关性仅 r=0.24–0.45，且 top-100 排名化合物的预测与物理计算结果无显著相关性。总体共识是：AI 可作为湿实验的加速器和预筛工具，但尚不能替代实验测定。关键缺口包括：缺乏高质量、无泄露的训练数据；对新靶点的泛化能力不足；现有评估指标与生物活性之间的脱节；以及化学特异性建模的失效。
+
+## 第二部分：逐条结论
+
+- 常用结合亲和力基准数据集（如 PDBbind）存在严重的蛋白与配体层面数据泄露，导致许多深度学习模型在 CASF 等标准基准上的性能被人为高估。
+  出处：[A] §1::¶1; §4.1::¶1; §5::¶1 / [D] §2.2::¶末; §5::¶3 / [E] §1::¶3; §2::¶3
+
+- 在消除数据泄露的清洁训练-测试划分（CleanSplit）上，结构更简单的模型（如 GEMS）可超越更复杂的模型（如 GenScore），揭示过往 SOTA 报告中的进展可能主要来自过拟合记忆而非真正的泛化能力。
+  出处：[A] §4.1::¶2; §4.1::T1; §5::¶2 / [E] §2::¶3; §4::¶3
+
+- 当在严格的新靶点划分上评估时，当前最优评分函数的性能从 CASF 基准的 Pearson r≈0.8 急剧下降至约 0.4–0.6 的水平，表明对全新靶点的泛化远未解决。
+  出处：[E] §1::¶1; §4::¶2; §4::T2 / [A] §5::¶3
+
+- 深度学习共折叠方法在蛋白-配体对接上整体优于传统方法，但在处理新颖的蛋白-配体结合口袋时全部面临显著挑战，即便是最新的 AlphaFold 3 也无法为超过 50% 的 DockGen-E 复合物预测结构准确且化学有效的结合构象。
+  出处：[C] §3.1::¶1; §3.2::¶1; §4::¶1
+
+- DL 方法的对接性能与其训练数据中蛋白-配体结合构象的相似性显著相关，表明当前模型在很大程度上依赖记忆见过的结合模式，而非学习普适的物理化学原理。
+  出处：[C] §3.5::¶末; §3.5::Extended Data F4 / [E] §4::¶2
+
+- 在类 hit 分子生成任务上，自回归生成模型经过类 hit 数据微调后，可以生成化学有效、满足药物化学过滤标准且具有体外生物活性的化合物，其中一个 GSK-3β 抑制剂 IC50 达 314±15.3 nM。
+  出处：[B] §3.1::¶1; §3.1::T1; §3.3::¶1; §3.3::F2
+
+- 最新 AI 基础模型 Boltz-2 的结合亲和力预测与物理基准 ESMACS 之间仅存在弱至中等相关性，且对 top-100 排名化合物的预测完全失去区分能力，缺乏先导化合物识别所需的能量分辨率。
+  出处：[F] §2.1.2::¶3; §2.1.2::F4; §2.2.2::¶1; §2.2.2::F7
+
+- 当前生成模型和评分模型均面临化学特异性不足的困境：共折叠方法难以在结构精度与化学相互作用保真度之间取得平衡，而评分模型的预测值集中分布于极窄范围，无法有效区分真 hit 与 decoy。
+  出处：[C] §3.1::¶1; §3.2::¶2; §4::¶2 / [F] §2.1.2::¶2; §2.1.2::F4 / [B] §4::¶2
+
+## 第三部分：引用论文清单
+
+- [A] Graber, David; Stockinger, Peter et al. (2025). "GEMS — Enhancing Generalizable Binding Affinity Prediction by Removing Data Leakage and Integrating Language Model Embeddings into Graph Neural Networks." bioRxiv. doi:10.1101/2024.12.09.627482. 检索词: provided_pdf
+
+- [B] Osman, Nagham; Lembo, Vittorio; Bottegoni, Giovanni; Toni, Laura (2025). "From In Silico to In Vitro: Evaluating Molecule Generative Models for Hit Generation." AI for Science Workshop, NeurIPS 2025 / arXiv:2512.22031. 检索词: provided_pdf
+
+- [C] Morehead, Alex; Giri, Nabin; Liu, Jian; Neupane, Pawan; Cheng, Jianlin (2025). "Assessing the potential of deep learning for protein-ligand docking." arXiv:2405.14108. 检索词: provided_pdf
+
+- [D] Liu, Xuefeng; Jiang, Songhao; Duan, Xiaotian et al. (2024). "Binding Affinity Prediction: From Conventional to Machine Learning-Based Approaches." arXiv:2410.00709. 检索词: arXiv search `"binding affinity" "deep learning" prediction review protein-ligand` (2024), categories cs.LG
+
+- [E] Kopko, Jakub; Graber, David; Eyrilmez, Saltuk Mustafa; Mazurenko, Stanislav; Bednar, David; Sedlar, Jiri; Sivic, Josef (2025). "Generalization Beyond Benchmarks: Evaluating Learnable Protein-Ligand Scoring Functions on Unseen Targets." arXiv:2512.05386. 检索词: web search `"generalization" "benchmark" "scoring function" "protein-ligand" unseen target 2025`
+
+- [F] Wan, Shunzhou; Zhang, Xibei; Xue, Xiao; Coveney, Peter V. (2026). "On the Reliability of AI Methods in Drug Discovery: Evaluation of Boltz-2 for Structure and Binding Affinity Prediction." arXiv:2603.05532. 检索词: web search `"reliability" "AI" "binding affinity" "drug discovery" experimental validation 2025`
+
+# REFCHECKER_REPAIR_LOG
+
+```jsonl
+{"case_id":"C3","run_id":"R1","item_id":"ref_A","item_type":"reference_metadata","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"作者列表不完整：引用仅列2位作者（Graber, Stockinger），实际有6位（Graber, Stockinger, Meyer, Mishra, Horn, Buller）","repair_action":"correct_metadata"}
+{"case_id":"C3","run_id":"R1","item_id":"ref_B","item_type":"reference_metadata","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"元数据与 refchecker 匹配无误","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"ref_C","item_type":"reference_metadata","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"no","issue_type":"metadata_error","issue_summary":"年份错误：引用标注2025，实际论文首次发布于2024年（arXiv:2405.14108）","repair_action":"correct_metadata"}
+{"case_id":"C3","run_id":"R1","item_id":"ref_D","item_type":"reference_metadata","citation_tag":"D","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"metadata_error","issue_summary":"作者列表不完整：引用仅列3位作者（Liu, Jiang, Duan），实际有17位作者","repair_action":"correct_metadata"}
+{"case_id":"C3","run_id":"R1","item_id":"ref_E","item_type":"reference_metadata","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"元数据与 refchecker 匹配无误","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"ref_F","item_type":"reference_metadata","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"元数据与 refchecker 匹配无误","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"claim_01","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 关于 PDBbind 数据泄露由 [A] 正文 §1、§4.1、§5 明确讨论；[D] §2.2 讨论 PDBbind 泄露问题；[E] §1 和 §2 讨论数据集偏见与泄露，引用均支持","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"claim_02","item_type":"claim_citation_pair","citation_tag":"A","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 关于 GEMS 在 CleanSplit 上超越复杂模型由 [A] §4.1、§5 直接支持；[E] §2、§4 引用了 GEMS 的 CleanSplit 结果并确认该发现","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"claim_03","item_type":"claim_citation_pair","citation_tag":"E","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 关于新靶点性能从 r≈0.8 降至 ≈0.4–0.6 由 [E] §4::T2 直接支持（GEMS CASF r=0.815 vs OOD avg 0.470）；[A] §5 讨论泛化挑战","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"claim_04","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 关于 DL co-folding 优于传统方法但受限于新颖口袋由 [C] §3.1、§3.2、§4 直接支持，PoseBench 结果明确显示 AF3 在 DockGen-E 上 <50% 成功率","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"claim_05","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 关于 DL 性能与训练数据相似性显著相关由 [C] §3.5 Extended Data F4 直接支持（p<0.05）；[E] §4 讨论 OOD 性能下降支持这一观察","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"claim_06","item_type":"claim_citation_pair","citation_tag":"B","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 关于生成模型产生体外活性 hit 分子由 [B] §3.1 T1、§3.3 ¶1、§3.3 F2 直接支持，Compound 1 IC50=314±15.3 nM","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"claim_07","item_type":"claim_citation_pair","citation_tag":"F","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 关于 Boltz-2 弱相关及 top-100 无区分力由 [F] §2.1.2 ¶3、§2.2.2 ¶1、F4、F7 直接支持","repair_action":"none"}
+{"case_id":"C3","run_id":"R1","item_id":"claim_08","item_type":"claim_citation_pair","citation_tag":"C","tool_called_refchecker":"yes","refchecker_verified":"yes","issue_type":"none","issue_summary":"claim 关于化学特异性不足由 [C] §3.1、§3.2、§4 支持；[F] §2.1.2 讨论预测值窄分布；[B] §4 指出评估指标与生物活性脱节","repair_action":"none"}
+```
+
+# REPAIRED_REPORT
+
+## 第一部分：总体评估
+
+当前证据显示，AI 在蛋白质-配体结合亲和力预测方面取得了显著进展，但距离可靠替代湿实验筛选仍有实质性差距。六篇论文共同勾勒出一个核心矛盾：深度学习方法在标准基准测试上表现优异，但泛化到全新靶点时性能急剧衰减。Graber 等人 [A] 揭示 PDBbind 等常用数据集存在严重数据泄露，过往报告的 SOTA 性能被人为夸大；Kopko 等人 [E] 进一步证明，当前最优评分函数 GEMS 在 CASF 基准上的 Pearson r=0.815，但在严格的新靶点划分上平均仅 0.470。Osman 等人 [B] 从生成式模型角度展示了积极信号——生成的类 hit 分子中已有化合物在体外验证中显示 GSK-3β IC50=314 nM。但 Morehead 等人 [C] 的系统评估表明，即便是 AlphaFold 3 也无法可靠预测新颖蛋白-配体结合构象，且所有方法的性能均与其训练数据中结合构象的相似性显著相关。Liu 等人 [D] 综述指出训练数据规模不足、精度有限、且偏向成功结合样本，这些系统性缺陷阻碍了广义预测能力的提升。Wan 等人 [F] 对最新基础模型 Boltz-2 的评估发现其与物理基准 ESMACS 的全局相关性仅 r=0.24–0.45，且 top-100 排名化合物的预测与物理计算结果无显著相关性。总体共识是：AI 可在特定场景中辅助预筛，但受限于数据泄露、泛化不足和化学特异性建模的失效，尚不能可靠替代湿实验测定。
+
+## 第二部分：逐条结论
+
+- 常用结合亲和力基准数据集（如 PDBbind）存在严重的蛋白与配体层面数据泄露，导致许多深度学习模型在 CASF 等标准基准上的性能被人为高估。
+  出处：[A] §1::¶1; §4.1::¶1; §5::¶1 / [D] §2.2::¶末; §5::¶3 / [E] §1::¶3; §2::¶3
+
+- 在消除数据泄露的清洁训练-测试划分（CleanSplit）上，GEMS 模型可超越更复杂的模型（如 GenScore），提示过往 SOTA 报告中部分进展可能来自过拟合记忆而非真正的泛化能力。
+  出处：[A] §4.1::¶2; §4.1::T1; §5::¶2 / [E] §2::¶3; §4::¶3
+
+- 当在严格的新靶点划分上评估时，当前最优评分函数的性能从 CASF 基准的 Pearson r≈0.8 急剧下降至约 0.4–0.6 的水平，表明对全新靶点的泛化远未解决。
+  出处：[E] §1::¶1; §4::¶2; §4::T2 / [A] §5::¶3
+
+- 深度学习共折叠方法在蛋白-配体对接上整体优于传统方法，但在处理新颖的蛋白-配体结合口袋时全部面临显著挑战，即便是最新的 AlphaFold 3 也无法为超过 50% 的 DockGen-E 复合物预测结构准确且化学有效的结合构象。
+  出处：[C] §3.1::¶1; §3.2::¶1; §4::¶1
+
+- DL 方法的对接性能与其训练数据中蛋白-配体结合构象的相似性显著相关（p<0.05），表明当前模型在很大程度上依赖记忆见过的结合模式，而非学习普适的物理化学原理。
+  出处：[C] §3.5::¶末; §3.5::Extended Data F4 / [E] §4::¶2
+
+- 在类 hit 分子生成任务上，自回归生成模型经过类 hit 数据微调后，可以生成化学有效、满足药物化学过滤标准且具有体外生物活性的化合物，其中一个 GSK-3β 抑制剂 IC50 达 314±15.3 nM。
+  出处：[B] §3.1::¶1; §3.1::T1; §3.3::¶1; §3.3::F2
+
+- 最新 AI 基础模型 Boltz-2 的结合亲和力预测与物理基准 ESMACS 之间仅存在弱至中等相关性，且对 top-100 排名化合物的预测与物理计算结果无显著相关性，表明其缺乏先导化合物识别所需的能量分辨率。
+  出处：[F] §2.1.2::¶3; §2.1.2::F4; §2.2.2::¶1; §2.2.2::F7
+
+- 当前生成模型和评分模型均面临化学特异性不足的困境：共折叠方法难以在结构精度与化学相互作用保真度之间取得平衡，而评分模型的预测值集中分布于极窄范围，难以有效区分真 hit 与 decoy。
+  出处：[C] §3.1::¶1; §3.2::¶2; §4::¶2 / [F] §2.1.2::¶2; §2.1.2::F4 / [B] §4::¶2
+
+## 第三部分：引用论文清单
+
+- [A] Graber, David; Stockinger, Peter; Meyer, Fabian; Mishra, Siddhartha; Horn, Claus; Buller, R. (2025). "GEMS — Enhancing Generalizable Binding Affinity Prediction by Removing Data Leakage and Integrating Language Model Embeddings into Graph Neural Networks." bioRxiv. doi:10.1101/2024.12.09.627482. 检索词: provided_pdf
+
+- [B] Osman, Nagham; Lembo, Vittorio; Bottegoni, Giovanni; Toni, Laura (2025). "From In Silico to In Vitro: Evaluating Molecule Generative Models for Hit Generation." AI for Science Workshop, NeurIPS 2025 / arXiv:2512.22031. 检索词: provided_pdf
+
+- [C] Morehead, Alex; Giri, Nabin; Liu, Jian; Neupane, Pawan; Cheng, Jianlin (2024). "Assessing the potential of deep learning for protein-ligand docking." arXiv:2405.14108. 检索词: provided_pdf
+
+- [D] Liu, Xuefeng; Jiang, Songhao; Duan, Xiaotian; Vasan, Archit; Huang, Qinan; Liu, Chong; Li, Michelle M.; Ma, Heng; Brettin, Thomas; Ramanathan, Arvind; Xia, Fangfang; Wang, Mengdi; Pandey, Abhishek; Zitnik, Marinka; Foster, Ian T.; Xu, Jinbo; Stevens, Rick L. (2024). "Binding Affinity Prediction: From Conventional to Machine Learning-Based Approaches." arXiv:2410.00709. 检索词: arXiv search `"binding affinity" "deep learning" prediction review protein-ligand` (2024), categories cs.LG
+
+- [E] Kopko, Jakub; Graber, David; Eyrilmez, Saltuk Mustafa; Mazurenko, Stanislav; Bednar, David; Sedlar, Jiri; Sivic, Josef (2025). "Generalization Beyond Benchmarks: Evaluating Learnable Protein-Ligand Scoring Functions on Unseen Targets." arXiv:2512.05386. 检索词: web search `"generalization" "benchmark" "scoring function" "protein-ligand" unseen target 2025`
+
+- [F] Wan, Shunzhou; Zhang, Xibei; Xue, Xiao; Coveney, Peter V. (2026). "On the Reliability of AI Methods in Drug Discovery: Evaluation of Boltz-2 for Structure and Binding Affinity Prediction." arXiv:2603.05532. 检索词: web search `"reliability" "AI" "binding affinity" "drug discovery" experimental validation 2025`
+
+# RUN_SUMMARY
+
+```json
+{"case_id":"C3","run_id":"R1","tool_called_refchecker":"yes","num_references_checked":6,"num_claim_pairs_checked":8,"num_issues_found":3,"num_revisions_made":3}
+```

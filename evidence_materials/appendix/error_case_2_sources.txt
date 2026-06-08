@@ -1,0 +1,125 @@
+错误样例 2：给引用原文补入未直接给出的 Pearson r > 0.7 数值
+CLAIM:
+CLIP 视觉编码器是 MLLM 视觉缺陷的关键瓶颈 — CLIP 在方向、计数、视角等 7/9 种基础视觉模式上存在系统性失效，且这些缺陷显著传递至下游 MLLM（Pearson r > 0.7）。
+CITATION:
+[D] §3.1::¶末; §3.2::T1 / [D] §3.3::¶2
+
+SOURCE 1: Eyes Wide Shut? Exploring the Visual Shortcomings of Multimodal LLMs. (locator:3.1)
+100
+ Accuracy (%)
+ 3. Systematic Failures in CLIP
+Figure 4. Benchmark results of current SOTA MLLM models
+ In the previous section, we identify CLIP-blind pairs and
+and humans. We evaluate benchmark questions for current SOTA
+MLLM models and human performances through user studies. use them to find failures in MLLMs. Here, we delve deeper
+ into these pairs to investigate (i) systematic visual patterns
+
+ 4
+  Orientation and Direction Presence of Specific Features State and Condition Quantity and Count Positional and Relational Context
+
+ butterfly glasses on
+ a rabbit
+ tulips with wings 1 drink the right of
+ facing right
+ open the slipper
+
+ butterfly glasses on
+ a rabbit
+ no tulips with wings 2 drinks the left of
+ facing left
+ closed the slipper
+
+ Structural Characteristics Texts Viewpoint and Perspective Color and Appearance
+
+ flowers
+ some fruits light blue MMVP-VLM Benchmark
+ “11:54” seen from
+ cut in half sky
+ above Model chooses the correct
+ image based on the text
+ Model chooses the wrong
+ flowers
+ dark blue image based on the text
+ uncut fruits “11:59” seen from
+ sky
+ the side
+
+Figure 5. Examples from MMVP-VLM. MMVP-VLM consists of image pairs across nine visual patterns. The examples in the figure are
+from EVA01 ViT-g-14 model [54], one of the largest CLIP models that also fails to choose the right image given the text description.
+
+emerged from CLIP-blind pairs (Section 3.1), (ii) whether overly focus on high-level semantic understanding, over-
+these visual patterns pose challenges for CLIP-based mod- looking intricate details of the visual world. Full descrip-
+els with massive scaling up (Section 3.2), and (iii) the cor- tions of the visual patterns can be found in Appendix D.
+relation between failure patterns in CLIP models and those
+in MLLMs (Section 3.3). 3.2. The MMVP-VLM Benchmark
+ CLIP-based models have developed rapidly since the intro-
+3.1. Visual Patterns in CLIP-blind Pairs
+ duction in the first paper [43]. We want to test whether these
+Having identified the CLIP-blind pairs, we summarize sys- visual patterns still impose challenges to the more recent
+tematic visual patterns that the CLIP vision encoders might CLIP models [10, 54, 62, 66], which significantly scale up
+consistently misinterpret. It is too abstract to directly cap- in terms of training data and model size. In doing so, we in-
+ture systematic visual patterns in the CLIP-blind pairs. troduce a new benchmark: MMVP-VLM to systematically
+Therefore, we turn to the questions and options from the study if CLIP models handle this visual pattern well.
+MMVP benchmark. With these questions, we transform ab- We distill a subset of questions from the MMVP bench-
+stract visual patterns in images into clearer, language-based mark into simpler language descriptions and categorize
+desc
+
+SOURCE 2: Eyes Wide Shut? Exploring the Visual Shortcomings of Multimodal LLMs. (locator:3.3)
+sual patterns
+
+ 4
+  Orientation and Direction Presence of Specific Features State and Condition Quantity and Count Positional and Relational Context
+
+ butterfly glasses on
+ a rabbit
+ tulips with wings 1 drink the right of
+ facing right
+ open the slipper
+
+ butterfly glasses on
+ a rabbit
+ no tulips with wings 2 drinks the left of
+ facing left
+ closed the slipper
+
+ Structural Characteristics Texts Viewpoint and Perspective Color and Appearance
+
+ flowers
+ some fruits light blue MMVP-VLM Benchmark
+ “11:54” seen from
+ cut in half sky
+ above Model chooses the correct
+ image based on the text
+ Model chooses the wrong
+ flowers
+ dark blue image based on the text
+ uncut fruits “11:59” seen from
+ sky
+ the side
+
+Figure 5. Examples from MMVP-VLM. MMVP-VLM consists of image pairs across nine visual patterns. The examples in the figure are
+from EVA01 ViT-g-14 model [54], one of the largest CLIP models that also fails to choose the right image given the text description.
+
+emerged from CLIP-blind pairs (Section 3.1), (ii) whether overly focus on high-level semantic understanding, over-
+these visual patterns pose challenges for CLIP-based mod- looking intricate details of the visual world. Full descrip-
+els with massive scaling up (Section 3.2), and (iii) the cor- tions of the visual patterns can be found in Appendix D.
+relation between failure patterns in CLIP models and those
+in MLLMs (Section 3.3). 3.2. The MMVP-VLM Benchmark
+ CLIP-based models have developed rapidly since the intro-
+3.1. Visual Patterns in CLIP-blind Pairs
+ duction in the first paper [43]. We want to test whether these
+Having identified the CLIP-blind pairs, we summarize sys- visual patterns still impose challenges to the more recent
+tematic visual patterns that the CLIP vision encoders might CLIP models [10, 54, 62, 66], which significantly scale up
+consistently misinterpret. It is too abstract to directly cap- in terms of training data and model size. In doing so, we in-
+ture systematic visual patterns in the CLIP-blind pairs. troduce a new benchmark: MMVP-VLM to systematically
+Therefore, we turn to the questions and options from the study if CLIP models handle this visual pattern well.
+MMVP benchmark. With these questions, we transform ab- We distill a subset of questions from the MMVP bench-
+stract visual patterns in images into clearer, language-based mark into simpler language descriptions and categorize
+descriptors that are easier to categorize. them into visual patterns. To maintain a balanced number
+ In this work, we use GPT-4 [41] to categorize general of questions for each visual pattern, we add a few questions,
+patterns by prompting it with the following: if needed, to ensure that each visual pattern is represented
+ by 15 text-image pairs. Examples of pairs are shown in Fig-
+ User ure 5
+
+ANALYSIS:
+原文片段确实说明 CLIP-based models 在九类视觉模式上存在系统性失败，并提出要研究 CLIP failure pattern 与 MLLM failure pattern 的相关性；摘要片段也只说存在 “notable correlation”。但当前可见原文片段没有给出 Pearson r > 0.7，也没有把“关键瓶颈”表述成定量结论。Claim 将“相关性/模式传递”升级为带具体阈值的强定量结论，因此属于数值过精和证据不足。
