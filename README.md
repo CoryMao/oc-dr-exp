@@ -18,7 +18,7 @@
 | `runs/main_memory/M1_memory_on/` | 正式 memory-on 主实验 P1/P2 运行产物，包括 per-run 日志和共享 memory JSONL。 |
 | `scripts/` | action-memory 辅助实验工具链：append/retrieve/pre-action hook/case-runner 等工具。 |
 | `side_exp_md/` | action-memory 辅助实验复盘报告。 |
-| `presentation/` | 最终 Beamer slides、图表、讲稿和答辩 QA。 |
+| `run2_all_outputs/` | action-memory 辅助实验 compact 输出包：run1/run2 科研报告、memory JSONL 和 recall audit。 |
 | `docs/` | 实验设计说明和过程性 rationale。 |
 
 ## 环境要求
@@ -28,7 +28,6 @@
 - 已安装 OpenClaw。
 - Python 3.10+。
 - `bash`、`git`、`rg`。
-- 如需重新编译展示材料，需要 `xelatex` 和 `pdfinfo`。
 - OpenClaw 运行或 LLM judge 需要 DeepSeek-compatible API key。
 - 实验 profile 中需要配置 Brave search provider。
 
@@ -131,17 +130,7 @@ python3 evaluation/judge/aggregate_judgments.py --help
 
 仓库包含已生成的图表和 claim-citation input batches，但不包含 API keys，也不提交不完整或空的 judge output 文件。
 
-大型 pass-specific evidence cache `presentation/main_memory/` 不进入版本库。如需从 PDF 重新构造 judge snippets，可在本地用 `evaluation/judge/sync_presentation_papers.py` 重建。
-
-### 6. 展示材料
-
-```bash
-cd presentation
-xelatex -interaction=nonstopmode -halt-on-error openclaw_deepresearch_overview.tex
-xelatex -interaction=nonstopmode -halt-on-error openclaw_deepresearch_overview.tex
-```
-
-提交前请删除 LaTeX build artifacts。
+大型 pass-specific evidence cache 不进入版本库。如需从 PDF 重新构造 judge snippets，可在本地用 `evaluation/judge/sync_presentation_papers.py` 重建。
 
 ## 最终实验范围
 
@@ -154,12 +143,14 @@ xelatex -interaction=nonstopmode -halt-on-error openclaw_deepresearch_overview.t
 
 `scripts/` 包含较早期的 action-memory 工具链，用于辅助探索。它支持 append/retrieve workflow、pre-action retrieval hook、case-step runner，以及 BM25、`summary_bm25`、hybrid scoring、TF-IDF 等 lexical retrieval 方法。
 
-这套工具链与正式 main-memory MVP 分离。正式主实验使用 `evaluation/main_experiments/scripts/retrieve_memory_context.py`，并在 normalized `REFCHECKER_REPAIR_LOG` rows 上做检索。本仓库不声称包含完整 action-memory 实验日志；`side_exp_md/` 是辅助复盘报告，不是正式主结果的可复现包。
+这套工具链与正式 main-memory MVP 分离。正式主实验使用 `evaluation/main_experiments/scripts/retrieve_memory_context.py`，并在 normalized `REFCHECKER_REPAIR_LOG` rows 上做检索。`side_exp_md/` 是辅助复盘报告，不是正式主结果的可复现包。
 
 在 `scripts/action_memory.jsonl` 中，`error_type` 和 `error_reason` 是人工核查后手动填写的审计字段，不是 agent 自动生成的判断信号。
+
+`run2_all_outputs/` 保存了 action-memory side experiment 的 compact 输出包，包括 5 个主题的 run1/run2 研究报告、`action_memory/action_memory.jsonl` 和 recall audit 报告。这些材料可用于复核 side experiment 的叙述，但不与正式 `M1_memory_on` 结果混算。
 
 ## 复现说明
 
 - 每个 OpenClaw run directory 都保存 `run_manifest.json`、`prompt.md`、`output.raw.txt`、`stderr.log`、`run.log`，并在可用时保存 profile audit 文件。
-- 生成缓存、aborted runs、个人报告、本地 demo outputs 和大型本地 presentation paper copies 都会被忽略。
+- 生成缓存、aborted runs、个人报告、本地 demo outputs 和本地展示材料都会被忽略。
 - 本仓库不保存任何 API key。请通过环境变量提供凭据。

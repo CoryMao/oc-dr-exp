@@ -15,6 +15,9 @@ The formal main experiment instead uses:
 - `evaluation/main_experiments/scripts/retrieve_memory_context.py`
 - TF-IDF-like lexical scoring over normalized `REFCHECKER_REPAIR_LOG` rows
 
+Compact action-memory outputs for the side experiment are kept in `run2_all_outputs/`.
+That directory contains run1/run2 research notes, `action_memory/action_memory.jsonl`, and recall audit reports.
+
 ## Included Report
 
 `action_memory_effectiveness_report.md` summarizes:
@@ -24,4 +27,4 @@ The formal main experiment instead uses:
 - three traceable improvement chains
 - limitations caused by BM25 lexical retrieval and `web_fetch` truncation
 
-Treat this as supporting evidence that structured error memory can be useful, not as a substitute for the formal M1 memory results. The repository keeps the action-memory tools and working JSONL snapshots, but does not claim to include complete action-memory experiment logs.
+Treat this as supporting evidence that structured error memory can be useful, not as a substitute for the formal M1 memory results. The repository keeps the action-memory tools and a compact output package, but this side experiment is not mixed into the formal M1 memory error-rate statistics.

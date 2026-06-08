@@ -9,6 +9,8 @@ This directory is kept in the project repository as the toolchain for an auxilia
 
 The JSONL files in this directory are working snapshots/examples for the toolchain, not complete formal experiment logs. In `action_memory.jsonl`, `error_type` and `error_reason` are manual audit fields filled after human review; they are not generated automatically by the agent.
 
+The compact side-experiment outputs that should be read together with `side_exp_md/action_memory_effectiveness_report.md` are in `run2_all_outputs/`. Those artifacts still remain auxiliary evidence and are not part of the formal M1 memory result aggregation.
+
 ---
 
 ## 一、系统架构

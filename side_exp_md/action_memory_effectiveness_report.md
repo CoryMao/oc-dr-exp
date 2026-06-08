@@ -2,7 +2,7 @@
 
 > **评估范围**: run1（无冷启动经验的 baseline）vs run2（有 run1 完整记忆的复现）
 > **数据截至**: 2026-06-05 17:02 CST
-> **分析对象**: 78 条 claim、70 次检索、164 条 action memory 记录
+> **分析对象**: 78 条 claim、70 次检索、195 条 action memory 记录
 
 ---
 
@@ -13,7 +13,7 @@
 ```
                         ┌──────────────────────┐
                         │   action_memory.jsonl │  ← 全部经验记录
-                        │   (164 条 × 15 字段)  │
+                        │   (195 条 × 15 字段)  │
                         └──────────┬───────────┘
                                    │ 读取
                                    ▼
@@ -34,7 +34,7 @@
 
 | 组件 | 路径 | 功能 | 关键参数 |
 |------|------|------|---------|
-| **存储层** | `action_memory.jsonl` | JSONL 格式，每行一条完整 action 记录 | 15 字段/条，含 `citation_error`, `error_type`, `error_reason` |
+| **存储层** | `run2_all_outputs/action_memory/action_memory.jsonl` | JSONL 格式，每行一条完整 action 记录 | 含 `citation_error`, `error_type`, `error_reason` |
 | **检索引擎** | `retrieve.py` | BM25 + summary_bm25 双模式 | summary_bm25 默认，top_k 2~5 |
 | **审计框架** | `CITATION_AUDIT_PROMPT.md` | 5 类错误定义 + 优先级裁决规则 | Overclaim/Mis-citation/Unsupported/Contradiction/Correct |
 | **审计存储** | 内嵌于 action_memory | 每个 claim 的审核结果直接写回同一记录 | 3 字段：`citation_error`, `error_type`, `error_reason` |
@@ -248,9 +248,9 @@ Step 15: "口袋/拓扑级别分裂" → [F] abstract 只说 "dataset splits"，
 
 | 数据 | 路径 | 规模 |
 |------|------|------|
-| Action Memory | `action_memory/action_memory.jsonl` | 164 条 |
-| 检索日志 | `action_memory/retrieve_log.jsonl` | 70 次 |
-| 审计标准 | `action_memory/CITATION_AUDIT_PROMPT.md` | — |
+| Action Memory compact snapshot | `run2_all_outputs/action_memory/action_memory.jsonl` | 195 条 |
+| Recall audit reports | `run2_all_outputs/action_memory/recall_audit_run*.md` | 5 个文件 |
+| Run1/Run2 research notes | `run2_all_outputs/research_note_*_run*.md` | 10 个文件 |
 
 ## 附录 B：全部错误列表
 

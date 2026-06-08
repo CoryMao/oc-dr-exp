@@ -17,6 +17,7 @@ __pycache__/
 texput.log
 
 # Local or personal presentation artifacts
+presentation/
 personal-report.*
 costs.png
 run_log_screenshot.png
@@ -26,7 +27,6 @@ arxiv-figures/
 # Large files
 case paper/
 case paper.zip
-presentation/main_memory/
 
 # Non-final or local-only run snapshots
 runs/pre_arxiv/_aborted_*/
