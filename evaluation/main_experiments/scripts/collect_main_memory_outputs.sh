@@ -5,10 +5,11 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 RUN_ROOT="${MAIN_MEMORY_RUN_ROOT:-$ROOT_DIR/runs/main_memory}"
 OUT_CSV="${OUT_CSV:-$ROOT_DIR/evaluation/main_experiments/main_memory_outputs.csv}"
 TARGET_CONDITION="${MAIN_MEMORY_CONDITION:-memory_on}"
+MAX_PASS="${MAIN_MEMORY_MAX_PASS:-P2}"
 
 [[ -d "$RUN_ROOT" ]] || { echo "Run root does not exist: $RUN_ROOT" >&2; exit 1; }
 
-python3 - "$RUN_ROOT" "$OUT_CSV" "$TARGET_CONDITION" <<'PY'
+python3 - "$RUN_ROOT" "$OUT_CSV" "$TARGET_CONDITION" "$MAX_PASS" <<'PY'
 import csv
 import json
 import re
@@ -18,6 +19,15 @@ from pathlib import Path
 run_root = Path(sys.argv[1])
 out_csv = Path(sys.argv[2])
 target_condition = sys.argv[3]
+max_pass = sys.argv[4]
+
+def pass_number(pass_id: str) -> int:
+    try:
+        return int(pass_id.removeprefix("P"))
+    except ValueError:
+        return 0
+
+max_pass_num = pass_number(max_pass.upper()) if max_pass else 0
 
 def marker_ok(run_dir: Path) -> str:
     raw = run_dir / "output.raw.txt"
@@ -51,6 +61,8 @@ rows = []
 for manifest_path in sorted(run_root.rglob("run_manifest.json")):
     data = json.loads(manifest_path.read_text(encoding="utf-8"))
     if target_condition != "all" and data["condition"] != target_condition:
+        continue
+    if data["condition"] == "memory_on" and max_pass_num and pass_number(str(data.get("pass_id", ""))) > max_pass_num:
         continue
     run_dir = manifest_path.parent
     rows.append(

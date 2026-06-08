@@ -195,8 +195,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--max-pass",
-        default="",
-        help="Optional cutoff such as P2. Rows after this pass are excluded.",
+        default="P2",
+        help="Optional cutoff such as P2. Rows after this pass are excluded. Use an empty string to include all passes.",
     )
     args = parser.parse_args()
 

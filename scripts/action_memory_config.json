@@ -1,0 +1,44 @@
+{
+  "version": "v2",
+  "memory_file": "action_memory.jsonl",
+  "enable": true,
+  "default_top_k": 3,
+  "cold_start": {
+    "skip_retrieve_for_first_n_cases": 3,
+    "skip_retrieve_for_first_n_steps": 0
+  },
+  "retrieve_monitor": {
+    "log_enabled": true,
+    "log_file": "retrieve_log.jsonl",
+    "show_report_by_default": true,
+    "show_injection_context": true
+  },
+  "require_retrieve_before": [
+    "fetch_paper",
+    "search_papers",
+    "make_claim",
+    "cross_check",
+    "verify_citation",
+    "claim_generation",
+    "write_note"
+  ],
+  "require_append_after": [
+    "fetch_paper",
+    "search_papers",
+    "make_claim",
+    "extract_claim",
+    "cross_check",
+    "verify_citation"
+  ],
+  "injection": {
+    "max_experiences_to_inject": 2,
+    "inject_success_too": true,
+    "inject_failures_too": true
+  },
+  "recommended_method": "bm25",
+  "retrieve_methods": {
+    "bm25": "全文中英混合",
+    "summary_bm25": "仅英文字段，英文query推荐",
+    "hybrid": "全文+英文摘要加权合并"
+  }
+}

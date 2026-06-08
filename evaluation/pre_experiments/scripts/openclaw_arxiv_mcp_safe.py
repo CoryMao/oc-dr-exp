@@ -23,6 +23,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -297,8 +298,17 @@ def _patch_server() -> Any:
 
 
 def main() -> None:
-    logging.basicConfig(level=os.environ.get("ARXIV_MCP_LOG_LEVEL", "INFO"))
+    logging.basicConfig(
+        level=os.environ.get("ARXIV_MCP_LOG_LEVEL", "WARNING"),
+        stream=sys.stderr,
+        force=True,
+    )
     server_module = _patch_server()
+    logging.basicConfig(
+        level=os.environ.get("ARXIV_MCP_LOG_LEVEL", "WARNING"),
+        stream=sys.stderr,
+        force=True,
+    )
     asyncio.run(server_module.main())
 
 

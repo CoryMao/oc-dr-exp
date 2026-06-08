@@ -5,7 +5,7 @@ This folder contains the reproducible MVP setup for the formal OpenClaw memory e
 The experiment fixes planning to the OpenClaw default. For time budget reasons, the default runnable scope is now only:
 
 ```text
-M1_memory_on: (C1 -> C2 -> C3 -> C4 -> C5) x 3 sequential passes
+M1_memory_on: (C1 -> C2 -> C3 -> C4 -> C5) x 2 sequential passes
 ```
 
 The no-memory baseline is not rerun by default. Use the completed `runs/pre_refchecker_repair` outputs as the practical no-memory baseline, or set `INCLUDE_NO_MEMORY=1` / `MAIN_MEMORY_CONDITION=all` to regenerate the formal M0 directories later.
@@ -14,7 +14,7 @@ The full planned comparison remains:
 
 ```text
 M0_no_memory: 5 cases x 3 independent runs
-M1_memory_on: (C1 -> C2 -> C3 -> C4 -> C5) x 3 sequential passes
+M1_memory_on: (C1 -> C2 -> C3 -> C4 -> C5) x 2 sequential passes
 ```
 
 Both conditions use the same report-generation prompt shape from the refchecker repair pre-experiment:
@@ -84,6 +84,8 @@ Collect a lightweight output inventory:
 ```bash
 bash evaluation/main_experiments/scripts/collect_main_memory_outputs.sh
 ```
+
+The collector defaults to `MAIN_MEMORY_MAX_PASS=P2`, matching the final two-pass MVP scope.
 
 ## Run Roots
 

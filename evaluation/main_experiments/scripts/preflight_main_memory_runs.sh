@@ -18,10 +18,10 @@ m1_count="$(find "$RUN_ROOT/M1_memory_on" -name prompt.base.md 2>/dev/null | wc 
 m0_count="$(find "$RUN_ROOT/M0_no_memory" -name prompt.md 2>/dev/null | wc -l | tr -d ' ')"
 
 if [[ "$TARGET_CONDITION" == "memory_on" ]]; then
-  [[ "$m1_count" == "15" ]] || fail "Expected 15 M1 prompt bases, found $m1_count"
+  [[ "$m1_count" == "10" ]] || fail "Expected 10 M1 prompt bases, found $m1_count"
 elif [[ "$TARGET_CONDITION" == "all" ]]; then
   [[ "$m0_count" == "15" ]] || fail "Expected 15 M0 prompts, found $m0_count"
-  [[ "$m1_count" == "15" ]] || fail "Expected 15 M1 prompt bases, found $m1_count"
+  [[ "$m1_count" == "10" ]] || fail "Expected 10 M1 prompt bases, found $m1_count"
 else
   fail "Unsupported MAIN_MEMORY_CONDITION=$TARGET_CONDITION. Use memory_on or all."
 fi
@@ -68,7 +68,7 @@ for manifest_path in sorted(run_root.rglob("run_manifest.json")):
     else:
         errors.append(f"unknown condition in {manifest_path}: {condition}")
 
-expected_m1 = [(f"P{p}", f"C{c}") for p in range(1, 4) for c in range(1, 6)]
+expected_m1 = [(f"P{p}", f"C{c}") for p in range(1, 3) for c in range(1, 6)]
 actual_m1 = [(p, c) for p, c, _ in seen_m1]
 if actual_m1 != expected_m1:
     errors.append(f"M1 order mismatch: {actual_m1}")

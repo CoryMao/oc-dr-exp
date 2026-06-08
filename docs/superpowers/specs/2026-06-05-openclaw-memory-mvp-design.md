@@ -50,12 +50,10 @@ Each run uses an isolated OpenClaw profile, workspace, and session key. All memo
 ```text
 Pass 1: C1 -> C2 -> C3 -> C4 -> C5
 Pass 2: C1 -> C2 -> C3 -> C4 -> C5
-Pass 3: C1 -> C2 -> C3 -> C4 -> C5
-
-Total = 5 cases x 3 passes = 15 outputs
+Total = 5 cases x 2 passes = 10 outputs
 ```
 
-The memory state is shared across all 15 `M1` runs. Each case should still use a new session key, so improvement cannot be explained by direct chat-history continuation.
+The memory state is shared across all 10 `M1` runs. Each case should still use a new session key, so improvement cannot be explained by direct chat-history continuation.
 
 ## Memory Scope
 
@@ -205,6 +203,6 @@ Before full execution, a smoke test must show:
 The case order is fixed rather than counterbalanced. This makes the run easier to reproduce but means memory effects can be confounded with case order and case difficulty. The analysis should therefore report both:
 
 - within-pass trend across C1 -> C5
-- same-case trend across P1 -> P2 -> P3
+- same-case trend across P1 -> P2
 
 The memory intervention is a combined retrieval-plus-injection condition. If `M1` improves over `M0`, this design supports the usefulness of the MVP memory package, not a separate attribution to active retrieval versus passive memory exposure.

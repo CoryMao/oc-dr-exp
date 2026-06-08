@@ -1,0 +1,16 @@
+[
+  {
+    "case_id": "1",
+    "run_id": "1",
+    "claim": "工具增强型LLM agent在仓库级软件工程任务上的表现远超纯prompting方法，SWE-Bench Verified上的Pass@1可从17%提升至53%。",
+    "error_type": "Overclaim",
+    "repair_or_not": "no"
+  },
+  {
+    "case_id": "1",
+    "run_id": "1",
+    "claim": "工具增强型LLM agent在仓库级软件工程任务上的表现远超纯prompting方法，SWE-Bench Verified上的Pass@1可从17%提升至53%。",
+    "error_type": "Overclaim",
+    "repair_or_not": "yes"
+  }
+]

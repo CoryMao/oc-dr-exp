@@ -1,0 +1,11 @@
+{
+  "input_root": "presentation/main_memory",
+  "report_version": "repaired",
+  "case_id": "all",
+  "pass_id": "all",
+  "items": 117,
+  "verifiable_items": 117,
+  "unverifiable_items": 0,
+  "batch_size": 6,
+  "batch_count": 20
+}

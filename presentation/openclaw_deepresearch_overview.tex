@@ -384,46 +384,50 @@
 \end{frame}
 
 \begin{frame}{Memory 机制：跨 Case 经验迁移}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.52\textwidth}
-      \begin{tikzpicture}[node distance=0.4cm and 0.5cm,
-        box/.append style={minimum height=0.65cm,font=\footnotesize}]
-        \node[box, fill=accentgreen!8, draw=accentgreen, minimum width=2.2cm] (repair) {Case N 完成};
-        \node[box, fill=accentgreen!8, draw=accentgreen, below=of repair, minimum width=2.2cm] (extract) {抽取 repair log};
-        \node[data, minimum height=0.6cm, font=\footnotesize, below=of extract] (jsonl) {active\_memory.jsonl};
-        \node[box, fill=mainblue!8, draw=mainblue, below=of jsonl, minimum width=2.2cm] (retrieve) {词匹配检索 top-6};
-        \node[box, fill=accentred!8, draw=accentred, below=of retrieve, minimum width=2.2cm] (next) {Case N+1 运行};
+  \small
+  \begin{center}
+  \begin{tikzpicture}[node distance=0.42cm and 0.5cm,
+    box/.append style={minimum height=0.55cm, minimum width=1.72cm, font=\scriptsize},
+    data/.append style={minimum height=0.55cm, minimum width=1.45cm, font=\scriptsize}]
+    \node[box, fill=accentgreen!8, draw=accentgreen] (repair) {Case N\\完成};
+    \node[box, fill=accentgreen!8, draw=accentgreen, right=of repair] (extract) {抽取\\repair log};
+    \node[data, right=of extract] (jsonl) {active\\memory.jsonl};
+    \node[box, fill=mainblue!8, draw=mainblue, right=of jsonl] (retrieve) {检索\\top-6};
+    \node[box, fill=accentred!8, draw=accentred, right=of retrieve] (next) {Case N+1\\运行};
 
-        \draw[arrow] (repair) -- (extract);
-        \draw[arrow] (extract) -- (jsonl);
-        \draw[arrow] (jsonl) -- (retrieve);
-        \draw[arrow] (retrieve) -- (next);
-        \draw[arrow] (next.east) to[bend right=25] (repair.east);
-      \end{tikzpicture}
-    \end{column}
-    \begin{column}{0.45\textwidth}
+    \draw[arrow] (repair) -- (extract);
+    \draw[arrow] (extract) -- (jsonl);
+    \draw[arrow] (jsonl) -- (retrieve);
+    \draw[arrow] (retrieve) -- (next);
+  \end{tikzpicture}
+  \end{center}
+
+  \vspace{-0.2em}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}
       \begin{block}{写入（Write-back）}
+        \scriptsize
         \begin{itemize}
-          \setlength{\itemsep}{2pt}
-          \item 来源：\texttt{REFCHECKER\_REPAIR\_LOG} 的 JSONL 行
-          \item 包括 clean rows 与 error rows，按 \texttt{memory\_record\_id} 去重
+          \setlength{\itemsep}{1pt}
+          \item 来源：\texttt{REFCHECKER\_REPAIR\_LOG} JSONL 行
+          \item clean/error rows 都写入，按 \texttt{memory\_record\_id} 去重
           \item 规范化为摘要、关键词、错误类型、修复动作
-          \item \alert{不写入}：完整报告 / 人工标注
+          \item \alert{不写入}完整报告、人工标注、session history
         \end{itemize}
       \end{block}
-      \vspace{0.2em}
+    \end{column}
+    \begin{column}{0.49\textwidth}
       \begin{block}{检索 + 注入}
+        \scriptsize
         \begin{itemize}
-          \setlength{\itemsep}{2pt}
-          \item TF-IDF-like 词匹配检索 \textbf{top-6}
+          \setlength{\itemsep}{1pt}
+          \item 正式主实验：TF-IDF-like 词匹配检索 \textbf{top-6}
+          \item 不是 BM25；BM25 仅存在于早期 action-memory 草案
           \item 注入为 \texttt{MEMORY\_CONTEXT} procedural caution
           \item \alert{不作为科学证据，不可被引用}
+          \item 隔离：新 session key；仅 JSONL 传递；\texttt{JOBS=1}
         \end{itemize}
       \end{block}
-      \vspace{0.2em}
-      \begin{alertblock}{隔离控制}
-        每次 case 新 session key，仅通过 JSONL 传递，JOBS=1 顺序执行。
-      \end{alertblock}
     \end{column}
   \end{columns}
 \end{frame}
@@ -434,9 +438,10 @@
     \begin{column}{0.50\textwidth}
       \begin{block}{Run 前：retrieve}
         \begin{itemize}
-          \setlength{\itemsep}{2pt}
+          \setlength{\itemsep}{1pt}
           \item 读取共享文件：\texttt{active\_memory.jsonl}
           \item Query = 当前 \texttt{case\_id} + topic + citation/support/refchecker 等关键词
+          \item 打分：TF-IDF-like token scoring + issue/repair/case boost
           \item 默认 \texttt{top\_k=6}，context 上限 5000 chars
           \item 输出 \texttt{memory\_context.md}，再拼到 prompt 前面
         \end{itemize}
@@ -458,7 +463,7 @@
 
   \vspace{0.4em}
   \begin{alertblock}{分析注意}
-    \texttt{retrieve\_log.jsonl} 会保留 retry 和调试历史；正式分析应按最终 P1/P2 的 \texttt{run.log} / manifest 过滤。
+    \texttt{scripts/retrieve.py} 支持 BM25/hybrid，但正式主实验走 \texttt{retrieve\_memory\_context.py}；分析按最终 P1/P2 的 \texttt{run.log} / manifest 过滤。
   \end{alertblock}
 \end{frame}
 
@@ -794,6 +799,64 @@
     \item \textbf{C5 两 run 差异大，提示 memory 效果不稳定}\\
     \quad → Run1=0, Run2=3，可能与 C5 自身论文分布广、Agent 检索差异有关
   \end{enumerate}
+\end{frame}
+
+\begin{frame}{Side experiment：Action Memory 有效性小实验}
+  \scriptsize
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{设置}
+        \begin{itemize}
+          \setlength{\itemsep}{1pt}
+          \item run1：无记忆；run2：注入 run1 action memory
+          \item 78 claims；70 次检索；164 memory records
+          \item 检索：\texttt{retrieve.py}，BM25 / \texttt{summary\_bm25}
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{结果}
+        \begin{itemize}
+          \setlength{\itemsep}{1pt}
+          \item 错误 claim：11/39 $\rightarrow$ 2/39
+          \item 错误率：28.2\% $\rightarrow$ 5.1\%
+          \item 相对下降 \textbf{82\%}；Mis-citation / Unsupported 降为 0
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.15em}
+  \begin{alertblock}{解释与限制}
+    3 条可追踪因果链：run1 审计写入 error 字段 $\rightarrow$ run2 检索命中 \texttt{error:} 行 $\rightarrow$ Agent 改写 claim。\\
+    这是 side experiment，不与正式 M1 混算；它说明“错误记忆可被利用”，也暴露 BM25 词袋检索和 \texttt{web\_fetch} 截断上限。
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Side experiment：可追踪改善案例}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.15\textwidth}X X@{}}
+    \toprule
+    \textbf{案例} & \textbf{run1 错误} & \textbf{run2 改写} \\
+    \midrule
+    C1 Step 8 &
+    Overclaim：把 SICA / Trae 的 SWE-bench \textbf{Verified} 分数和原版 SWE-bench GPT-4 分数直接比较。 &
+    明确区分 Verified vs 原版 SWE-bench，并写出“不宜直接比较绝对值”。 \\
+    \addlinespace[0.25em]
+    C2 Step 15 &
+    Mis-citation：把“replace $\rightarrow$ 测试误差线性增长”的数学证明归因给 [D]。 &
+    改成：线性增长证明来自 Dohmatob et al. (2024a)，[D] 只提供因果框架，[F] 扩展 accumulate 场景。 \\
+    \addlinespace[0.25em]
+    C3 Step 9 &
+    Overclaim：把 AF3 在 novel binding sites 上的 \textit{challenged by} 写成“系统性失败”。 &
+    改成更弱表述：\textit{struggle} / “困难”，避免强度升级。 \\
+    \bottomrule
+  \end{tabularx}
+
+  \vspace{0.5em}
+  \begin{alertblock}{残余失败}
+    C3 run2 仍有 2 个 Overclaim：GEMS 名称、口袋/拓扑级别 split 只来自全文阅读记忆，不在 captured abstract 中；BM25 + JSONL 无法弥补 \texttt{web\_fetch} 截断。
+  \end{alertblock}
 \end{frame}
 
 \begin{frame}{初步经验}

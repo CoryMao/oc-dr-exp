@@ -1,0 +1,542 @@
+[
+  {
+    "arxiv_id": "2504.15228",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case1/papers/A Self-Improving Coding Agent.pdf",
+    "tag": "A",
+    "target": "presentation/main_memory/case1/papers/P1_[A]_2504.15228.pdf"
+  },
+  {
+    "arxiv_id": "2507.23370",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case1/papers/Trae Agent_An LLM-based Agent for Software Engineering with Test-time Scaling.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case1/papers/P1_[B]_2507.23370.pdf"
+  },
+  {
+    "arxiv_id": "2502.11705",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case1/papers/LLM Agents Making Agent Tools.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case1/papers/P1_[C]_2502.11705.pdf"
+  },
+  {
+    "arxiv_id": "2408.08435",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case1/papers/[D]_2408.08435.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case1/papers/P1_[D]_2408.08435.pdf"
+  },
+  {
+    "arxiv_id": "2405.15793",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case1/papers/[E]_2405.15793.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case1/papers/P1_[E]_2405.15793.pdf"
+  },
+  {
+    "arxiv_id": "2407.01489",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case1/papers/[F]_2407.01489.pdf",
+    "tag": "F",
+    "target": "presentation/main_memory/case1/papers/P1_[F]_2407.01489.pdf"
+  },
+  {
+    "arxiv_id": "2504.15228",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case1/papers/P1_[A]_2504.15228.pdf",
+    "tag": "A",
+    "target": "presentation/main_memory/case1/papers/P2_[A]_2504.15228.pdf"
+  },
+  {
+    "arxiv_id": "2507.23370",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case1/papers/P1_[B]_2507.23370.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case1/papers/P2_[B]_2507.23370.pdf"
+  },
+  {
+    "arxiv_id": "2502.11705",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case1/papers/P1_[C]_2502.11705.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case1/papers/P2_[C]_2502.11705.pdf"
+  },
+  {
+    "arxiv_id": "2408.08435",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case1/papers/P1_[D]_2408.08435.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case1/papers/P2_[D]_2408.08435.pdf"
+  },
+  {
+    "arxiv_id": "2407.01489",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case1/papers/P1_[F]_2407.01489.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case1/papers/P2_[E]_2407.01489.pdf"
+  },
+  {
+    "arxiv_id": "2405.15793",
+    "case_id": "C1",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case1/papers/P1_[E]_2405.15793.pdf",
+    "tag": "F",
+    "target": "presentation/main_memory/case1/papers/P2_[F]_2405.15793.pdf"
+  },
+  {
+    "arxiv_id": "2509.04796",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case2/papers/Knowledge Collapse in LLMs_When Fluency Survives but Facts Fail under Recursive Synthetic Training.pdf",
+    "tag": "A",
+    "target": "presentation/main_memory/case2/papers/P1_[A]_2509.04796.pdf"
+  },
+  {
+    "arxiv_id": "2502.08924",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case2/papers/Escaping Collapse_The Strength of Weak Data for Large Language Model Training.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case2/papers/P1_[B]_2502.08924.pdf"
+  },
+  {
+    "arxiv_id": "2505.08803",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case2/papers/Multi-modal Synthetic Data Training and Model Collapse.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case2/papers/P1_[C]_2505.08803.pdf"
+  },
+  {
+    "arxiv_id": "2305.17493",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case2/papers/[D]_2305.17493.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case2/papers/P1_[D]_2305.17493.pdf"
+  },
+  {
+    "arxiv_id": "2404.01413",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case2/papers/[E]_2404.01413.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case2/papers/P1_[E]_2404.01413.pdf"
+  },
+  {
+    "arxiv_id": "2410.04840",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case2/papers/[F]_2410.04840.pdf",
+    "tag": "F",
+    "target": "presentation/main_memory/case2/papers/P1_[F]_2410.04840.pdf"
+  },
+  {
+    "arxiv_id": "2509.04796",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case2/papers/P1_[A]_2509.04796.pdf",
+    "tag": "A",
+    "target": "presentation/main_memory/case2/papers/P2_[A]_2509.04796.pdf"
+  },
+  {
+    "arxiv_id": "2502.08924",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case2/papers/P1_[B]_2502.08924.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case2/papers/P2_[B]_2502.08924.pdf"
+  },
+  {
+    "arxiv_id": "2505.08803",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case2/papers/P1_[C]_2505.08803.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case2/papers/P2_[C]_2505.08803.pdf"
+  },
+  {
+    "arxiv_id": "2404.01413",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case2/papers/P1_[E]_2404.01413.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case2/papers/P2_[D]_2404.01413.pdf"
+  },
+  {
+    "arxiv_id": "2410.04840",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case2/papers/P1_[F]_2410.04840.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case2/papers/P2_[E]_2410.04840.pdf"
+  },
+  {
+    "arxiv_id": "2406.07515",
+    "case_id": "C2",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case2/papers/Multi-modal Synthetic Data Training and Model Collapse.pdf",
+    "tag": "F",
+    "target": "presentation/main_memory/case2/papers/P2_[F]_2406.07515.pdf"
+  },
+  {
+    "arxiv_id": "",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case3/papers/GEMS – Enhancing Generalizable Binding Affinity Prediction by Removing Data Leakage and Integrating Language Model Embeddings into Graph Neural Networks.pdf",
+    "tag": "A",
+    "target": "presentation/main_memory/case3/papers/P1_[A]_GEMS__Enhancing_Generalizable_Binding_Affinity_Prediction_by_Removing.pdf"
+  },
+  {
+    "arxiv_id": "2512.22031",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case3/papers/From In Silico to In Vitro_Evaluating Molecule Generative Models for Hit Generation.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case3/papers/P1_[B]_2512.22031.pdf"
+  },
+  {
+    "arxiv_id": "2405.14108",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case3/papers/Assessing the potential of deep learning for protein-ligand docking.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case3/papers/P1_[C]_2405.14108.pdf"
+  },
+  {
+    "arxiv_id": "2504.16261",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case3/papers/[D]_2504.16261.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case3/papers/P1_[D]_2504.16261.pdf"
+  },
+  {
+    "arxiv_id": "2410.00709",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case3/papers/[E]_2410.00709.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case3/papers/P1_[E]_2410.00709.pdf"
+  },
+  {
+    "arxiv_id": "2407.19073",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case3/papers/[F]_2407.19073.pdf",
+    "tag": "F",
+    "target": "presentation/main_memory/case3/papers/P1_[F]_2407.19073.pdf"
+  },
+  {
+    "arxiv_id": "",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case3/papers/GEMS – Enhancing Generalizable Binding Affinity Prediction by Removing Data Leakage and Integrating Language Model Embeddings into Graph Neural Networks.pdf",
+    "tag": "A",
+    "target": "presentation/main_memory/case3/papers/P2_[A]_GEMS__Enhancing_Generalizable_Binding_Affinity_Prediction_by_Removing.pdf"
+  },
+  {
+    "arxiv_id": "2512.22031",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case3/papers/P1_[B]_2512.22031.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case3/papers/P2_[B]_2512.22031.pdf"
+  },
+  {
+    "arxiv_id": "2405.14108",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case3/papers/P1_[C]_2405.14108.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case3/papers/P2_[C]_2405.14108.pdf"
+  },
+  {
+    "arxiv_id": "2504.16261",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case3/papers/P1_[D]_2504.16261.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case3/papers/P2_[D]_2504.16261.pdf"
+  },
+  {
+    "arxiv_id": "2308.09639",
+    "case_id": "C3",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case3/papers/GEMS – Enhancing Generalizable Binding Affinity Prediction by Removing Data Leakage and Integrating Language Model Embeddings into Graph Neural Networks.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case3/papers/P2_[E]_2308.09639.pdf"
+  },
+  {
+    "arxiv_id": "2512.05386",
+    "case_id": "C3",
+    "kind": "markdown",
+    "pass_id": "P2",
+    "source": "/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/arxiv_mcp_papers/2512.05386.md",
+    "tag": "F",
+    "target": "presentation/main_memory/case3/papers/P2_[F]_2512.05386.md"
+  },
+  {
+    "arxiv_id": "2505.20426",
+    "case_id": "C4",
+    "kind": "markdown",
+    "pass_id": "P1",
+    "source": "/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/arxiv_mcp_papers/2505.20426.md",
+    "tag": "A",
+    "target": "presentation/main_memory/case4/papers/P1_[A]_2505.20426.md"
+  },
+  {
+    "arxiv_id": "2511.03768",
+    "case_id": "C4",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case4/papers/What's in Common_Multimodal Models Hallucinate When Reasoning Across Scenes.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case4/papers/P1_[B]_2511.03768.pdf"
+  },
+  {
+    "arxiv_id": "2502.16435",
+    "case_id": "C4",
+    "kind": "markdown",
+    "pass_id": "P1",
+    "source": "/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/arxiv_mcp_papers/2502.16435.md",
+    "tag": "C",
+    "target": "presentation/main_memory/case4/papers/P1_[C]_2502.16435.md"
+  },
+  {
+    "arxiv_id": "2404.12390",
+    "case_id": "C4",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case4/papers/[D]_2404.12390.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case4/papers/P1_[D]_2404.12390.pdf"
+  },
+  {
+    "arxiv_id": "2401.06209",
+    "case_id": "C4",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case4/papers/[E]_2401.06209.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case4/papers/P1_[E]_2401.06209.pdf"
+  },
+  {
+    "arxiv_id": "2310.14566",
+    "case_id": "C4",
+    "kind": "markdown",
+    "pass_id": "P1",
+    "source": "/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/arxiv_mcp_papers/2310.14566.md",
+    "tag": "F",
+    "target": "presentation/main_memory/case4/papers/P1_[F]_2310.14566.md"
+  },
+  {
+    "arxiv_id": "2505.20426",
+    "case_id": "C4",
+    "kind": "markdown",
+    "pass_id": "P2",
+    "source": "/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/arxiv_mcp_papers/2505.20426.md",
+    "tag": "A",
+    "target": "presentation/main_memory/case4/papers/P2_[A]_2505.20426.md"
+  },
+  {
+    "arxiv_id": "2511.03768",
+    "case_id": "C4",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case4/papers/P1_[B]_2511.03768.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case4/papers/P2_[B]_2511.03768.pdf"
+  },
+  {
+    "arxiv_id": "2502.16435",
+    "case_id": "C4",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case4/papers/HumanCognitive Benchmarks Reveal Foundational.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case4/papers/P2_[C]_2502.16435.pdf"
+  },
+  {
+    "arxiv_id": "2401.06209",
+    "case_id": "C4",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case4/papers/P1_[E]_2401.06209.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case4/papers/P2_[D]_2401.06209.pdf"
+  },
+  {
+    "arxiv_id": "2404.12390",
+    "case_id": "C4",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case4/papers/P1_[D]_2404.12390.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case4/papers/P2_[E]_2404.12390.pdf"
+  },
+  {
+    "arxiv_id": "2407.06581",
+    "case_id": "C4",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case4/papers/[F]_2407.06581.pdf",
+    "tag": "F",
+    "target": "presentation/main_memory/case4/papers/P2_[F]_2407.06581.pdf"
+  },
+  {
+    "arxiv_id": "2507.23370",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "case paper/case1/Trae Agent_An LLM-based Agent for Software Engineering with Test-time Scaling.pdf",
+    "tag": "A",
+    "target": "presentation/main_memory/case5/papers/P1_[A]_2507.23370.pdf"
+  },
+  {
+    "arxiv_id": "2509.16941",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case5/papers/SWE-Bench Pro.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case5/papers/P1_[B]_2509.16941.pdf"
+  },
+  {
+    "arxiv_id": "2507.09089",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case5/papers/Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case5/papers/P1_[C]_2507.09089.pdf"
+  },
+  {
+    "arxiv_id": "2405.17739",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case5/papers/[D]_2405.17739.pdf",
+    "tag": "D",
+    "target": "presentation/main_memory/case5/papers/P1_[D]_2405.17739.pdf"
+  },
+  {
+    "arxiv_id": "2507.15003",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case5/papers/[E]_2507.15003.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case5/papers/P1_[E]_2507.15003.pdf"
+  },
+  {
+    "arxiv_id": "2507.03156",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P1",
+    "source": "presentation/main_memory/case5/papers/[F]_2507.03156.pdf",
+    "tag": "F",
+    "target": "presentation/main_memory/case5/papers/P1_[F]_2507.03156.pdf"
+  },
+  {
+    "arxiv_id": "2507.23370",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case5/papers/P1_[A]_2507.23370.pdf",
+    "tag": "A",
+    "target": "presentation/main_memory/case5/papers/P2_[A]_2507.23370.pdf"
+  },
+  {
+    "arxiv_id": "2509.16941",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case5/papers/P1_[B]_2509.16941.pdf",
+    "tag": "B",
+    "target": "presentation/main_memory/case5/papers/P2_[B]_2509.16941.pdf"
+  },
+  {
+    "arxiv_id": "2507.09089",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case5/papers/P1_[C]_2507.09089.pdf",
+    "tag": "C",
+    "target": "presentation/main_memory/case5/papers/P2_[C]_2507.09089.pdf"
+  },
+  {
+    "arxiv_id": "2410.12944",
+    "case_id": "C5",
+    "kind": "markdown",
+    "pass_id": "P2",
+    "source": "/Users/kaichengmao/.openclaw-main-m1-memory-on/workspace/arxiv_mcp_papers/2410.12944.md",
+    "tag": "D",
+    "target": "presentation/main_memory/case5/papers/P2_[D]_2410.12944.md"
+  },
+  {
+    "arxiv_id": "2509.19708",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case5/papers/Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity.pdf",
+    "tag": "E",
+    "target": "presentation/main_memory/case5/papers/P2_[E]_2509.19708.pdf"
+  },
+  {
+    "arxiv_id": "2507.15003",
+    "case_id": "C5",
+    "kind": "pdf",
+    "pass_id": "P2",
+    "source": "presentation/main_memory/case5/papers/P1_[E]_2507.15003.pdf",
+    "tag": "F",
+    "target": "presentation/main_memory/case5/papers/P2_[F]_2507.15003.pdf"
+  }
+]

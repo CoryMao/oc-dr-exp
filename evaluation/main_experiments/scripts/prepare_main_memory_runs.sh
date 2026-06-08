@@ -175,7 +175,7 @@ retrieve_log_file="$RUN_ROOT/M1_memory_on/_memory/retrieve_log.jsonl"
 shared_profile="main-m1-memory-on"
 shared_workspace="$HOME/.openclaw-$shared_profile/workspace"
 
-for pass_num in 1 2 3; do
+for pass_num in 1 2; do
   pass_id="P${pass_num}"
   for case_num in 1 2 3 4 5; do
     case_id="C${case_num}"

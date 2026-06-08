@@ -1,7 +1,40 @@
 .DS_Store
-runs/pre_arxiv/_aborted_*/
+__pycache__/
+.cache/
+.claude/
+
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.xdv
+*.synctex.gz
+texput.log
+
+# Local or personal presentation artifacts
+personal-report.*
+costs.png
+run_log_screenshot.png
+arxiv-figures/
+分析结果/
 
 # Large files
 case paper/
 case paper.zip
 presentation/main_memory/
+
+# Non-final or local-only run snapshots
+runs/pre_arxiv/_aborted_*/
+runs/main_memory/M0_no_memory/
+demo/outputs/
+demo/neurips_2025_hivemind-1-23.pdf
+
+# Reproducible caches and incomplete judge outputs
+citation_check/.cache/
+evaluation/judge/cache/
+evaluation/judge/outputs/**/deepseek_judge/
