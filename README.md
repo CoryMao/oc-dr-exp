@@ -1,4 +1,4 @@
-# OpenClaw DeepResearch 引用一致性评测
+# OpenClaw DeepResearch 引用一致性实验
 
 本仓库是一个可复现的实验交付包，用于测试 OpenClaw 搭建的科研 Agent 在生成科研报告时是否存在“引用与结论不一致”的问题。
 
